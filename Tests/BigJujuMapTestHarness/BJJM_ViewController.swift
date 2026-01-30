@@ -19,10 +19,128 @@
 
 import UIKit
 import BigJuJuMap
+import TabularData
+import CoreLocation
 
+/* ################################################################################################################################## */
+// MARK: - DataFrame Helpers
+/* ################################################################################################################################## */
+/**
+ 
+ */
+fileprivate extension DataFrame.Row {
+    /* ################################################################## */
+    /**
+     */
+    func string(_ inColumn: String) -> String? {
+        if let s = self[inColumn] as? String { return s }
+        return nil
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func int(_ inColumn: String) -> Int? {
+        if let i = self[inColumn] as? Int { return i }
+        if let s = self[inColumn] as? String { return Int(s.trimmingCharacters(in: .whitespacesAndNewlines)) }
+        if let d = self[inColumn] as? Double { return Int(d) }
+        return nil
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func double(_ inColumn: String) -> Double? {
+        if let d = self[inColumn] as? Double { return d }
+        if let i = self[inColumn] as? Int { return Double(i) }
+        if let s = self[inColumn] as? String {
+            return Double(s.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+        return nil
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: Main View Controller Class
+/* ################################################################################################################################## */
+/**
+ 
+ */
 class BJJM_ViewController: UIViewController {
+    /* ############################################################################################################################## */
+    // MARK: - Concrete Map Location Class
+    /* ############################################################################################################################## */
+    /**
+     
+     */
+    final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
+        /* ############################################################## */
+        /**
+         */
+        var id: AnyHashable
+
+        /* ############################################################## */
+        /**
+         */
+        let location: CLLocation
+
+        /* ############################################################## */
+        /**
+         */
+        let name: String
+
+        /* ############################################################## */
+        /**
+         */
+        let handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void)
+
+        /* ############################################################## */
+        /**
+         */
+        init(id inID: AnyHashable,
+             name inName: String,
+             latitude inLat: CLLocationDegrees,
+             longitude inLng: CLLocationDegrees,
+             handler inHandler: @escaping ((_ inItem: any BigJuJuMapLocationProtocol) -> Void) = { _ in }) {
+            self.id = inID
+            self.name = inName
+            self.location = CLLocation(latitude: inLat, longitude: inLng)
+            self.handler = inHandler
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak public var bjjmView: BigJuJuMapViewController?
+
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy has completed loading, but before it is laid out and displayed.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
+
+        guard let csvDataURL = Bundle.main.url(forResource: "default", withExtension: "csv"),
+              let dataFrame = try? DataFrame(contentsOfCSVFile: csvDataURL, options: csvOptions)
+        else { return }
+        
+        let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.compactMap { inRow in
+            guard let id = inRow.int("id"),
+                  let name = inRow.string("name"),
+                  let latitude = inRow.double("latitude"),
+                  let longitude = inRow.double("longitude")
+            else { return nil }
+
+            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
+                print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
+            }
+        }
+
+        #if DEBUG
+            print("Loaded \(locations.count) map locations.")
+        #endif
     }
 }
