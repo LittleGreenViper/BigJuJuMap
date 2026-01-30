@@ -18,6 +18,11 @@
  */
 
 import UIKit
+import BigJuJuMap
 
-class BigJuJuMapViewController: UIViewController {
+class BJJM_ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
 }

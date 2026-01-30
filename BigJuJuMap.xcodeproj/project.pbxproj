@@ -6,20 +6,67 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D451ABBD2F2D0FAA00116B91 /* BJJM_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451ABB32F2D0FAA00116B91 /* BJJM_AppDelegate.swift */; };
+		D451ABBE2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */; };
+		D451ABBF2F2D0FAA00116B91 /* BJJM_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451ABBB2F2D0FAA00116B91 /* BJJM_ViewController.swift */; };
+		D451ABC02F2D0FAA00116B91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB42F2D0FAA00116B91 /* Assets.xcassets */; };
+		D451ABC22F2D0FAA00116B91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB72F2D0FAA00116B91 /* LaunchScreen.storyboard */; };
+		D451ABC32F2D0FAA00116B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB92F2D0FAA00116B91 /* Main.storyboard */; };
+		D451ABEB2F2D118A00116B91 /* BigJuJuMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; };
+		D451ABEC2F2D118A00116B91 /* BigJuJuMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D451ABF02F2D119600116B91 /* BigJuJuMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */; };
+		D451ABF12F2D119E00116B91 /* BigJuJuMap.docc in Sources */ = {isa = PBXBuildFile; fileRef = D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D451ABE92F2D118A00116B91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D43A138C2F2A3F35001FD7C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D451ABE42F2D118A00116B91;
+			remoteInfo = BigJuJuMap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D451ABD02F2D10CB00116B91 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D451ABEC2F2D118A00116B91 /* BigJuJuMap.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		D43A13952F2A3F35001FD7C6 /* BigJuJuMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigJuJuMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BigJuJuMap.docc; sourceTree = "<group>"; };
+		D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigJuJuMap.swift; sourceTree = "<group>"; };
+		D451AB9E2F2D0FA100116B91 /* BigJujuMapTestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigJujuMapTestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D451ABB32F2D0FAA00116B91 /* BJJM_AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_AppDelegate.swift; sourceTree = "<group>"; };
+		D451ABB42F2D0FAA00116B91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D451ABB52F2D0FAA00116B91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D451ABB62F2D0FAA00116B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D451ABB82F2D0FAA00116B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_SceneDelegate.swift; sourceTree = "<group>"; };
+		D451ABBB2F2D0FAA00116B91 /* BJJM_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_ViewController.swift; sourceTree = "<group>"; };
+		D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigJuJuMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		D43A13972F2A3F35001FD7C6 /* BigJuJuMap */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BigJuJuMap;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
-		D43A13922F2A3F35001FD7C6 /* Frameworks */ = {
+		D451AB9B2F2D0FA100116B91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D451ABEB2F2D118A00116B91 /* BigJuJuMap.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D451ABE22F2D118A00116B91 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -32,7 +79,9 @@
 		D43A138B2F2A3F35001FD7C6 = {
 			isa = PBXGroup;
 			children = (
+				D451AB982F2D0F5800116B91 /* Tests */,
 				D43A13A12F2A3F52001FD7C6 /* Sources */,
+				D451ABC62F2D104000116B91 /* Frameworks */,
 				D43A13962F2A3F35001FD7C6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +89,8 @@
 		D43A13962F2A3F35001FD7C6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D43A13952F2A3F35001FD7C6 /* BigJuJuMap.framework */,
+				D451AB9E2F2D0FA100116B91 /* BigJujuMapTestHarness.app */,
+				D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,15 +98,69 @@
 		D43A13A12F2A3F52001FD7C6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D43A13972F2A3F35001FD7C6 /* BigJuJuMap */,
+				D451AB952F2D0F4400116B91 /* BigJuJuMap */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D451AB952F2D0F4400116B91 /* BigJuJuMap */ = {
+			isa = PBXGroup;
+			children = (
+				D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */,
+				D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */,
+			);
+			path = BigJuJuMap;
+			sourceTree = "<group>";
+		};
+		D451AB982F2D0F5800116B91 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D451ABBC2F2D0FAA00116B91 /* BigJujuMapTestHarness */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		D451ABBC2F2D0FAA00116B91 /* BigJujuMapTestHarness */ = {
+			isa = PBXGroup;
+			children = (
+				D451ABB32F2D0FAA00116B91 /* BJJM_AppDelegate.swift */,
+				D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */,
+				D451ABBB2F2D0FAA00116B91 /* BJJM_ViewController.swift */,
+				D451ABC52F2D101800116B91 /* Resources */,
+				D451ABC42F2D100C00116B91 /* Meta */,
+			);
+			path = BigJujuMapTestHarness;
+			sourceTree = "<group>";
+		};
+		D451ABC42F2D100C00116B91 /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D451ABB52F2D0FAA00116B91 /* Info.plist */,
+			);
+			path = Meta;
+			sourceTree = "<group>";
+		};
+		D451ABC52F2D101800116B91 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D451ABB42F2D0FAA00116B91 /* Assets.xcassets */,
+				D451ABB72F2D0FAA00116B91 /* LaunchScreen.storyboard */,
+				D451ABB92F2D0FAA00116B91 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D451ABC62F2D104000116B91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D43A13902F2A3F35001FD7C6 /* Headers */ = {
+		D451ABE02F2D118A00116B91 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -66,27 +170,45 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D43A13942F2A3F35001FD7C6 /* BigJuJuMap */ = {
+		D451AB9D2F2D0FA100116B91 /* BigJujuMapTestHarness */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D43A139E2F2A3F35001FD7C6 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */;
+			buildConfigurationList = D451ABB02F2D0FA100116B91 /* Build configuration list for PBXNativeTarget "BigJujuMapTestHarness" */;
 			buildPhases = (
-				D43A13902F2A3F35001FD7C6 /* Headers */,
-				D43A13912F2A3F35001FD7C6 /* Sources */,
-				D43A13922F2A3F35001FD7C6 /* Frameworks */,
-				D43A13932F2A3F35001FD7C6 /* Resources */,
+				D451AB9A2F2D0FA100116B91 /* Sources */,
+				D451AB9B2F2D0FA100116B91 /* Frameworks */,
+				D451AB9C2F2D0FA100116B91 /* Resources */,
+				D451ABD02F2D10CB00116B91 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D451ABEA2F2D118A00116B91 /* PBXTargetDependency */,
+			);
+			name = BigJujuMapTestHarness;
+			packageProductDependencies = (
+			);
+			productName = BigJujuMapTestHarness;
+			productReference = D451AB9E2F2D0FA100116B91 /* BigJujuMapTestHarness.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D451ABE42F2D118A00116B91 /* BigJuJuMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D451ABED2F2D118A00116B91 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */;
+			buildPhases = (
+				D451ABE02F2D118A00116B91 /* Headers */,
+				D451ABE12F2D118A00116B91 /* Sources */,
+				D451ABE22F2D118A00116B91 /* Frameworks */,
+				D451ABE32F2D118A00116B91 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				D43A13972F2A3F35001FD7C6 /* BigJuJuMap */,
-			);
 			name = BigJuJuMap;
 			packageProductDependencies = (
 			);
 			productName = BigJuJuMap;
-			productReference = D43A13952F2A3F35001FD7C6 /* BigJuJuMap.framework */;
+			productReference = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +221,10 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
-					D43A13942F2A3F35001FD7C6 = {
+					D451AB9D2F2D0FA100116B91 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					D451ABE42F2D118A00116B91 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -118,13 +243,24 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D43A13942F2A3F35001FD7C6 /* BigJuJuMap */,
+				D451AB9D2F2D0FA100116B91 /* BigJujuMapTestHarness */,
+				D451ABE42F2D118A00116B91 /* BigJuJuMap */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D43A13932F2A3F35001FD7C6 /* Resources */ = {
+		D451AB9C2F2D0FA100116B91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D451ABC02F2D0FAA00116B91 /* Assets.xcassets in Resources */,
+				D451ABC22F2D0FAA00116B91 /* LaunchScreen.storyboard in Resources */,
+				D451ABC32F2D0FAA00116B91 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D451ABE32F2D118A00116B91 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,14 +270,53 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D43A13912F2A3F35001FD7C6 /* Sources */ = {
+		D451AB9A2F2D0FA100116B91 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D451ABBD2F2D0FAA00116B91 /* BJJM_AppDelegate.swift in Sources */,
+				D451ABBE2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift in Sources */,
+				D451ABBF2F2D0FAA00116B91 /* BJJM_ViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D451ABE12F2D118A00116B91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D451ABF12F2D119E00116B91 /* BigJuJuMap.docc in Sources */,
+				D451ABF02F2D119600116B91 /* BigJuJuMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D451ABEA2F2D118A00116B91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D451ABE42F2D118A00116B91 /* BigJuJuMap */;
+			targetProxy = D451ABE92F2D118A00116B91 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D451ABB72F2D0FAA00116B91 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D451ABB62F2D0FAA00116B91 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D451ABB92F2D0FAA00116B91 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D451ABB82F2D0FAA00116B91 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D43A139C2F2A3F35001FD7C6 /* Debug */ = {
@@ -271,7 +446,71 @@
 			};
 			name = Release;
 		};
-		D43A139F2F2A3F35001FD7C6 /* Debug */ = {
+		D451ABB12F2D0FA100116B91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tests/BigJujuMapTestHarness/Meta/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litlegreenviper.BigJujuMapTestHarness;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D451ABB22F2D0FA100116B91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tests/BigJujuMapTestHarness/Meta/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litlegreenviper.BigJujuMapTestHarness;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D451ABEE2F2D118A00116B91 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -307,7 +546,7 @@
 			};
 			name = Debug;
 		};
-		D43A13A02F2A3F35001FD7C6 /* Release */ = {
+		D451ABEF2F2D118A00116B91 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -355,11 +594,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D43A139E2F2A3F35001FD7C6 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */ = {
+		D451ABB02F2D0FA100116B91 /* Build configuration list for PBXNativeTarget "BigJujuMapTestHarness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D43A139F2F2A3F35001FD7C6 /* Debug */,
-				D43A13A02F2A3F35001FD7C6 /* Release */,
+				D451ABB12F2D0FA100116B91 /* Debug */,
+				D451ABB22F2D0FA100116B91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D451ABED2F2D118A00116B91 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D451ABEE2F2D118A00116B91 /* Debug */,
+				D451ABEF2F2D118A00116B91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
