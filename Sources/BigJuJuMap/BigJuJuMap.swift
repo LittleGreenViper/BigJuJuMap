@@ -163,6 +163,7 @@ open class BigJuJuMapViewController: UIViewController {
     // MARK: Special Default Marker Enum
     /* ############################################################################################################################## */
     /**
+     This allows us to return a resized market image.
      */
     private enum _BJJMAssets {
         /* ################################################################## */
@@ -189,16 +190,20 @@ open class BigJuJuMapViewController: UIViewController {
     open class LocationAnnotation: NSObject, MKAnnotation {
         /* ############################################################## */
         /**
+         The coordinate for this annotation.
          */
         public var coordinate: CLLocationCoordinate2D { self.data.coordinate }
         
         /* ############################################################## */
         /**
+         Any data associated with the annotation (may be aggregate, with multiple data items).
          */
         public var data: [any BigJuJuMapLocationProtocol]
         
         /* ############################################################## */
         /**
+         Basic initializer
+         - parameter inData: All data to be associated with the annotation
          */
         public init(_ inData: [any BigJuJuMapLocationProtocol]) {
             self.data = inData
@@ -206,6 +211,8 @@ open class BigJuJuMapViewController: UIViewController {
         
         /* ############################################################## */
         /**
+         Allows a single data item.
+         - parameter inData: A single data item.
          */
         public convenience init(_ inData: any BigJuJuMapLocationProtocol) {
             self.init([inData])
@@ -221,18 +228,106 @@ open class BigJuJuMapViewController: UIViewController {
     open class AnnotationView: MKAnnotationView {
         /* ############################################################## */
         /**
+         Find the largest font size that fits the rect (simple binary search).
+         
+         - parameter inText: The text to be drawn.
+         - parameter inRect: The rectangle in which this is to be drawn.
+         - parameter inMaxFontSize: The maximum font size.
+         - parameter inMinFontSize: The minimum font size.
+         - parameter inWeight: The text weight.
+         - returns: The maximum font size that fits.
+         */
+        private static func _bestFittingFontSize(for inText: String,
+                                                 in inRect: CGRect,
+                                                 maxFontSize inMaxFontSize: CGFloat,
+                                                 minFontSize inMinFontSize: CGFloat,
+                                                 weight inWeight: UIFont.Weight) -> CGFloat {
+            guard inRect.width > 1, inRect.height > 1 else { return inMinFontSize }
+
+            func fits(_ size: CGFloat) -> Bool {
+                let font = UIFont.systemFont(ofSize: size, weight: inWeight)
+                let measured = (inText as NSString).size(withAttributes: [.font: font])
+                return measured.width <= inRect.width && measured.height <= inRect.height
+            }
+
+            var low = inMinFontSize
+            var high = inMaxFontSize
+            var best = inMinFontSize
+
+            for _ in 0..<18 {
+                let mid = (low + high) * 0.5
+                if fits(mid) {
+                    best = mid
+                    low = mid
+                } else {
+                    high = mid
+                }
+            }
+
+            return best.rounded(.down)
+        }
+
+        /* ############################################################## */
+        /**
+         Invert the resolved label color for the current trait collection.
+         
+         - parameter inTraits: The trait collection to invert.
+         - returns: The color to use.
+         */
+        private static func _inverseLabelColor(for inTraits: UITraitCollection) -> UIColor {
+            let resolved = UIColor.label.resolvedColor(with: inTraits)
+
+            var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 1
+            if resolved.getRed(&r, green: &g, blue: &b, alpha: &a) {
+                return UIColor(red: 1 - r, green: 1 - g, blue: 1 - b, alpha: a)
+            }
+
+            // fallback for non-RGB colorspaces
+            var w: CGFloat = 0
+            if resolved.getWhite(&w, alpha: &a) {
+                return UIColor(white: 1 - w, alpha: a)
+            }
+
+            return .white
+        }
+
+        /* ############################################################## */
+        /**
+         This displays a text item, with the number of aggregate data points.
+         */
+        private let _countTextLayer: CATextLayer = {
+            let t = CATextLayer()
+            t.zPosition = 10_000
+            t.isHidden = true
+            t.alignmentMode = .center
+            t.truncationMode = .none
+            t.isWrapped = false
+            return t
+        }()
+
+        /* ############################################################## */
+        /**
+         The controller that "owns" the map.
          */
         public var myController: BigJuJuMapViewController?
         
         /* ############################################################## */
         /**
+         The annotation attached to this view.
          */
         public var myAnnotation: LocationAnnotation? { self.annotation as? LocationAnnotation }
         
         /* ############################################################## */
         /**
+         Basic initializer.
+         - parameter inAnnotation: The annotation attached to this view.
+         - parameter inReuseIdentifier: The reuse ID (optional,. default is nil).
+         - parameter inController: The controller that "owns" the map.
          */
-        public init(annotation inAnnotation: LocationAnnotation, reuseIdentifier inReuseIdentifier: String? = nil, controller inController: BigJuJuMapViewController? = nil) {
+        public init(annotation inAnnotation: LocationAnnotation,
+                    reuseIdentifier inReuseIdentifier: String? = nil,
+                    controller inController: BigJuJuMapViewController? = nil
+        ) {
             super.init(annotation: inAnnotation, reuseIdentifier: inReuseIdentifier)
             self.myController = inController
             let image = self.myAnnotation?.data.count == 1 ? inController?.singleMarkerImage : inController?.multiMarkerImage
@@ -240,13 +335,64 @@ open class BigJuJuMapViewController: UIViewController {
                 print("Marker View Created for \(inAnnotation.data.count) locations")
             #endif
             self.image = image
+            layer.addSublayer(self._countTextLayer)
         }
         
         /* ############################################################## */
         /**
+         This adds our number display layer.
          */
-        required public init?(coder inDecoder: NSCoder) {
-            super.init(coder: inDecoder)
+        public required init?(coder inCoder: NSCoder) {
+            super.init(coder: inCoder)
+            layer.addSublayer(self._countTextLayer)
+        }
+        
+        /* ############################################################## */
+        /**
+         Called to lay out the views. We use this to populate aggregate markers.
+         */
+        public override func layoutSubviews() {
+            super.layoutSubviews()
+
+            self._countTextLayer.contentsScale =
+                window?.windowScene?.screen.scale
+                ?? traitCollection.displayScale
+
+            let count = self.myAnnotation?.data.count ?? 0
+            let show = (self.myController?.displayNumbers ?? false) && count > 1
+
+            self._countTextLayer.isHidden = !show
+            guard show else { return }
+
+            let rect = bounds
+            let drawBox = CGRect(
+                x: 2,
+                y: 4,
+                width: rect.width - 4,
+                height: rect.height * 0.5
+            )
+
+            let text = "\(count)"
+            self._countTextLayer.string = text
+
+            self._countTextLayer.foregroundColor = Self._inverseLabelColor(for: traitCollection).cgColor
+
+            let maxFontSize = max(6, drawBox.height)
+
+            let fitted = Self._bestFittingFontSize(
+                for: text,
+                in: drawBox,
+                maxFontSize: maxFontSize,
+                minFontSize: 6,
+                weight: .bold
+            )
+
+            let font = UIFont.systemFont(ofSize: fitted, weight: .bold)
+            self._countTextLayer.font = font
+            self._countTextLayer.fontSize = fitted
+
+            let yOffset = max(0, (drawBox.height - font.lineHeight) * 0.5)
+            self._countTextLayer.frame = drawBox.offsetBy(dx: 0, dy: yOffset)
         }
         
         /* ############################################################## */
@@ -256,7 +402,7 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter rect: The rectangle in which this is to be drawn.
          */
         open override func draw(_ rect: CGRect) {
-            self.image?.draw(in: rect)
+            image?.draw(in: rect)
         }
     }
     
@@ -295,6 +441,13 @@ open class BigJuJuMapViewController: UIViewController {
      */
     @IBInspectable
     public var multiMarkerImage: UIImage? = _BJJMAssets.genericMarker
+    
+    /* ################################################################## */
+    /**
+     If true, multiple (aggregate) markers will display the number of elements aggregated.
+     */
+    @IBInspectable
+    public var displayNumbers:Bool = true
 }
 
 /* ################################################################################################################################## */
@@ -333,33 +486,73 @@ extension BigJuJuMapViewController {
      - returns: A new set of annotations, including any clusters.
      */
     private func _clusterAnnotations(_ inAnnotations: [LocationAnnotation]) -> [LocationAnnotation] {
-        let mapRect = mapView.visibleMapRect
-        let mapBounds = mapView.bounds
-        let centerLat = mapView.centerCoordinate.latitude
-
-        guard !mapRect.isEmpty, !mapBounds.isEmpty else { return [] }
-
-        let thresholdDistanceInMeters =
-            (_BJJMAssets._sMarkerWidthInDisplayUnits / 2)
-            * ((MKMetersPerMapPointAtLatitude(centerLat) * mapRect.size.width) / mapBounds.size.width)
-
-        guard thresholdDistanceInMeters > 0 else { return [] }
-
-        return inAnnotations.reduce(into: [LocationAnnotation]()) { result, next in
-            let nextLocation = CLLocation(latitude: next.coordinate.latitude, longitude: next.coordinate.longitude)
-
-            if let idx = result.firstIndex(where: {
-                thresholdDistanceInMeters >= CLLocation(latitude: $0.coordinate.latitude,
-                                                       longitude: $0.coordinate.longitude)
-                    .distance(from: nextLocation)
-            }) {
-                if result[idx].data.count < Self._maximumNumberOfItemsToDisplay {
-                    result[idx].data.append(contentsOf: next.data)
+        guard !inAnnotations.isEmpty,
+              !mapView.bounds.isEmpty,
+              8 < _BJJMAssets._sMarkerWidthInDisplayUnits
+        else { return [] }
+        
+        // Cluster size in screen points.
+        let cellSize = _BJJMAssets._sMarkerWidthInDisplayUnits
+        
+        struct CellKey: Hashable {
+            let x: Int
+            let y: Int
+        }
+        
+        func cellKey(for point: CGPoint) -> CellKey {
+            CellKey(
+                x: Int(floor(point.x / cellSize)),
+                y: Int(floor(point.y / cellSize))
+            )
+        }
+        
+        // We store the cluster annotation and an approximate screen-center for neighbor checks.
+        var clusters: [CellKey: LocationAnnotation] = [:]
+        var centers: [CellKey: CGPoint] = [:]
+        
+        for annotation in inAnnotations {
+            let point = mapView.convert(annotation.coordinate, toPointTo: mapView)
+            let baseKey = cellKey(for: point)
+            
+            // Try to find an existing cluster in this cell, or adjacent cells, that are within one marker-width on screen.
+            var matchKey: CellKey? = nil
+            
+            // Yeah, that looks like a GOTO... (Makes sure that break takes us all the way out).
+            outer: for deltaX in -1...1 {
+                for deltaY in -1...1 {
+                    let key = CellKey(x: baseKey.x + deltaX, y: baseKey.y + deltaY)
+                    if let center = centers[key] {
+                        let delta = hypot(center.x - point.x, center.y - point.y)
+                        if delta <= cellSize {
+                            matchKey = key
+                            break outer
+                        }
+                    }
                 }
+            }
+            
+            let useKey = matchKey ?? baseKey
+            
+            if let existing = clusters[useKey] {
+                // Merge: keep the existing annotation object, just append data.
+                existing.data.append(contentsOf: annotation.data)
+                
+                // Update stored screen center (simple running average by item-count).
+                let oldCenter = centers[useKey] ?? point
+                let oldCount = max(1, existing.data.count - annotation.data.count)
+                let newCount = existing.data.count
+                let t = CGFloat(oldCount) / CGFloat(newCount)
+                centers[useKey] = CGPoint(
+                    x: oldCenter.x * t + point.x * (1 - t),
+                    y: oldCenter.y * t + point.y * (1 - t)
+                )
             } else {
-                result.append(next)
+                clusters[useKey] = annotation
+                centers[useKey] = point
             }
         }
+        
+        return Array(clusters.values)
     }
 }
 
@@ -395,7 +588,15 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     /**
      */
     @MainActor
-    public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView, fullyRendered inFullyRendered: Bool) {
+    public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView, fullyRendered: Bool) {
+        self._recalculateAnnotations()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @MainActor
+    public func mapView(_ inMapView: MKMapView, regionDidChangeAnimated: Bool) {
         self._recalculateAnnotations()
     }
 }
