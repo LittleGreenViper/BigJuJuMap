@@ -24,7 +24,7 @@ import MapKit
 // MARK: - Private Class, Used to Pin the Bundle -
 /* ################################################################################################################################## */
 /**
- This is an empty class
+ This is an empty class. We use it to pin the bundle for the framework.
  */
 private final class _BJJMBundleToken: NSObject { }
 
@@ -45,8 +45,9 @@ private extension Bundle {
 private extension UIImage {
     /* ################################################################## */
     /**
+     This rescales a UIImage, to fit a given width, preserving the aspect.
      */
-    func scaledToWidth(_ inTargetWidth: CGFloat) -> UIImage {
+    func _scaledToWidth(_ inTargetWidth: CGFloat) -> UIImage {
         guard inTargetWidth > 0,
               size.width > 0,
               size.height > 0
@@ -69,7 +70,7 @@ private extension UIImage {
 // MARK: Map Location Template Protocol
 /* ################################################################################################################################## */
 /**
- 
+ This is used to designate a location, with an attached data entity, and a handler callback.
  */
 public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable {
     /* ################################################################## */
@@ -165,20 +166,26 @@ open class BigJuJuMapViewController: UIViewController {
     /**
      This allows us to return a resized market image.
      */
-    private enum _BJJMAssets {
-        /* ################################################################## */
-        /**
-         Marker Width, in Display Units
-         */
-        static let _sMarkerWidthInDisplayUnits = CGFloat(24)
+    private struct _BJJMAssets {
+        static let _sMarkerWidthInDisplayUnits: CGFloat = 32  // (yours)
 
-        /* ################################################################## */
+        /* ############################################################## */
         /**
-         The generic marker.
+         Returns the *unresolved* asset image (keeps imageAsset variants).
          */
-        static let genericMarker: UIImage = {
-            return UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil)?.scaledToWidth(Self._sMarkerWidthInDisplayUnits) ?? UIImage()
-        }()
+        static func _genericMarkerBase() -> UIImage? {
+            UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil)
+        }
+
+        /* ############################################################## */
+        /**
+         Returns a rendered marker image for the given traits (resolved + scaled).
+         */
+        static func _genericMarkerRendered(compatibleWith inTraits: UITraitCollection) -> UIImage {
+            let base = _genericMarkerBase() ?? UIImage()
+            let resolved = base.imageAsset?.image(with: inTraits) ?? base
+            return resolved._scaledToWidth(_sMarkerWidthInDisplayUnits)
+        }
     }
     
     /* ############################################################################################################################## */
@@ -241,11 +248,15 @@ open class BigJuJuMapViewController: UIViewController {
                                                  in inRect: CGRect,
                                                  maxFontSize inMaxFontSize: CGFloat,
                                                  minFontSize inMinFontSize: CGFloat,
-                                                 weight inWeight: UIFont.Weight) -> CGFloat {
+                                                 weight inWeight: UIFont.Weight
+        ) -> CGFloat {
             guard inRect.width > 1, inRect.height > 1 else { return inMinFontSize }
 
-            func fits(_ size: CGFloat) -> Bool {
-                let font = UIFont.systemFont(ofSize: size, weight: inWeight)
+            /* ########################################################## */
+            /**
+             */
+            func _fits(_ inSize: CGFloat) -> Bool {
+                let font = UIFont.systemFont(ofSize: inSize, weight: inWeight)
                 let measured = (inText as NSString).size(withAttributes: [.font: font])
                 return measured.width <= inRect.width && measured.height <= inRect.height
             }
@@ -254,9 +265,9 @@ open class BigJuJuMapViewController: UIViewController {
             var high = inMaxFontSize
             var best = inMinFontSize
 
-            for _ in 0..<18 {
+            for _ in 0..<18 {   // Eighteen tries, before we give up.
                 let mid = (low + high) * 0.5
-                if fits(mid) {
+                if _fits(mid) {
                     best = mid
                     low = mid
                 } else {
@@ -265,30 +276,6 @@ open class BigJuJuMapViewController: UIViewController {
             }
 
             return best.rounded(.down)
-        }
-
-        /* ############################################################## */
-        /**
-         Invert the resolved label color for the current trait collection.
-         
-         - parameter inTraits: The trait collection to invert.
-         - returns: The color to use.
-         */
-        private static func _inverseLabelColor(for inTraits: UITraitCollection) -> UIColor {
-            let resolved = UIColor.label.resolvedColor(with: inTraits)
-
-            var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 1
-            if resolved.getRed(&r, green: &g, blue: &b, alpha: &a) {
-                return UIColor(red: 1 - r, green: 1 - g, blue: 1 - b, alpha: a)
-            }
-
-            // fallback for non-RGB colorspaces
-            var w: CGFloat = 0
-            if resolved.getWhite(&w, alpha: &a) {
-                return UIColor(white: 1 - w, alpha: a)
-            }
-
-            return .white
         }
 
         /* ############################################################## */
@@ -330,11 +317,15 @@ open class BigJuJuMapViewController: UIViewController {
         ) {
             super.init(annotation: inAnnotation, reuseIdentifier: inReuseIdentifier)
             self.myController = inController
-            let image = self.myAnnotation?.data.count == 1 ? inController?.singleMarkerImage : inController?.multiMarkerImage
-            #if DEBUG
-                print("Marker View Created for \(inAnnotation.data.count) locations")
-            #endif
-            self.image = image
+            let isSingle = (self.myAnnotation?.data.count ?? 0) == 1
+            let base = isSingle ? inController?.singleMarkerImage : inController?.multiMarkerImage
+
+            if let controller = inController {
+                self.image = controller._markerImage(from: base, compatibleWith: controller.traitCollection)
+            } else {
+                self.image = base
+            }
+
             layer.addSublayer(self._countTextLayer)
         }
         
@@ -375,7 +366,7 @@ open class BigJuJuMapViewController: UIViewController {
             let text = "\(count)"
             self._countTextLayer.string = text
 
-            self._countTextLayer.foregroundColor = Self._inverseLabelColor(for: traitCollection).cgColor
+            self._countTextLayer.foregroundColor = UIColor.systemBackground.cgColor
 
             let maxFontSize = max(6, drawBox.height)
 
@@ -433,15 +424,15 @@ open class BigJuJuMapViewController: UIViewController {
      The image to be used for markers, representing single locations.
      */
     @IBInspectable
-    public var singleMarkerImage: UIImage? = _BJJMAssets.genericMarker
-    
+    public var singleMarkerImage: UIImage? = _BJJMAssets._genericMarkerBase()
+
     /* ################################################################## */
     /**
      The image to be used for markers, representing aggregated locations.
      */
     @IBInspectable
-    public var multiMarkerImage: UIImage? = _BJJMAssets.genericMarker
-    
+    public var multiMarkerImage: UIImage? = _BJJMAssets._genericMarkerBase()
+
     /* ################################################################## */
     /**
      If true, multiple (aggregate) markers will display the number of elements aggregated.
@@ -472,6 +463,20 @@ extension BigJuJuMapViewController {
 extension BigJuJuMapViewController {
     /* ################################################################## */
     /**
+     This returns a marker image that will change when the markers are recalculated.
+     - parameter inBase: The image that we resize (the original asset).
+     - parameter inTraits: The traits style (light or dark) that we want.
+     - returns: A scaled, appropriate marker image.
+     */
+    private func _markerImage(from inBase: UIImage?, compatibleWith inTraits: UITraitCollection) -> UIImage {
+        let base = inBase ?? _BJJMAssets._genericMarkerBase() ?? UIImage()
+        let resolved = base.imageAsset?.image(with: inTraits) ?? base
+        return resolved._scaledToWidth(_BJJMAssets._sMarkerWidthInDisplayUnits)
+    }
+
+    /* ################################################################## */
+    /**
+     This forces the annotations to be recalculated, and set to the map.
      */
     private func _recalculateAnnotations() {
         self.mapView.removeAnnotations(self.mapView.annotations)
@@ -481,11 +486,46 @@ extension BigJuJuMapViewController {
     /* ################################################################## */
     /**
      This creates clusters (multi) annotations, where markers would be close together.
+     The Apple clustering algorithm kinda sucks, so we'll do it, ourselves.
      
      - parameter inAnnotations: The annotations to test.
      - returns: A new set of annotations, including any clusters.
      */
     private func _clusterAnnotations(_ inAnnotations: [LocationAnnotation]) -> [LocationAnnotation] {
+        /* ############################################################## */
+        // MARK: One Cell Location (Used as a Key)
+        /* ############################################################## */
+        /**
+         We use this to approximate locations.
+         */
+        struct _CellKey: Hashable {
+            /* ########################################################## */
+            /**
+             The hashable integer interpretation of the point X-axis
+             */
+            let x: Int
+
+            /* ########################################################## */
+            /**
+             The hashable integer interpretation of the point Y-axis
+             */
+            let y: Int
+        }
+        
+        /* ############################################################## */
+        // MARK: Generate a Cell Key From a Coordinate
+        /* ############################################################## */
+        /**
+         - parameter inPoint: The floating-point coords we'll use.
+         - returns: A new CellKey struct, made from the given point.
+         */
+        func _cellKey(for inPoint: CGPoint) -> _CellKey {
+            _CellKey(
+                x: Int(floor(inPoint.x / cellSize)),
+                y: Int(floor(inPoint.y / cellSize))
+            )
+        }
+        
         guard !inAnnotations.isEmpty,
               !mapView.bounds.isEmpty,
               8 < _BJJMAssets._sMarkerWidthInDisplayUnits
@@ -494,33 +534,21 @@ extension BigJuJuMapViewController {
         // Cluster size in screen points.
         let cellSize = _BJJMAssets._sMarkerWidthInDisplayUnits
         
-        struct CellKey: Hashable {
-            let x: Int
-            let y: Int
-        }
-        
-        func cellKey(for point: CGPoint) -> CellKey {
-            CellKey(
-                x: Int(floor(point.x / cellSize)),
-                y: Int(floor(point.y / cellSize))
-            )
-        }
-        
         // We store the cluster annotation and an approximate screen-center for neighbor checks.
-        var clusters: [CellKey: LocationAnnotation] = [:]
-        var centers: [CellKey: CGPoint] = [:]
+        var clusters: [_CellKey: LocationAnnotation] = [:]
+        var centers: [_CellKey: CGPoint] = [:]
         
         for annotation in inAnnotations {
-            let point = mapView.convert(annotation.coordinate, toPointTo: mapView)
-            let baseKey = cellKey(for: point)
+            let point = self.mapView.convert(annotation.coordinate, toPointTo: self.mapView)
+            let baseKey = _cellKey(for: point)
             
             // Try to find an existing cluster in this cell, or adjacent cells, that are within one marker-width on screen.
-            var matchKey: CellKey? = nil
+            var matchKey: _CellKey? = nil
             
             // Yeah, that looks like a GOTO... (Makes sure that break takes us all the way out).
             outer: for deltaX in -1...1 {
                 for deltaY in -1...1 {
-                    let key = CellKey(x: baseKey.x + deltaX, y: baseKey.y + deltaY)
+                    let key = _CellKey(x: baseKey.x + deltaX, y: baseKey.y + deltaY)
                     if let center = centers[key] {
                         let delta = hypot(center.x - point.x, center.y - point.y)
                         if delta <= cellSize {
@@ -568,6 +596,32 @@ extension BigJuJuMapViewController {
         super.viewDidLoad()
         self.view = MKMapView()
         self.mapView.delegate = self
+        
+        if #available(iOS 17.0, *) {
+            registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+                self._recalculateAnnotations()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This will force a recalculation, when the trait style changes.
+     
+     - parameter inPreviousTraitCollection: The prior trait style.
+     */
+    @available(iOS, deprecated: 17.0)
+    public override func traitCollectionDidChange(_ inPreviousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(inPreviousTraitCollection)
+
+        guard
+            let inPreviousTraitCollection,
+            traitCollection.hasDifferentColorAppearance(comparedTo: inPreviousTraitCollection)
+        else {
+            return
+        }
+
+        _recalculateAnnotations()
     }
 }
 
@@ -577,6 +631,11 @@ extension BigJuJuMapViewController {
 extension BigJuJuMapViewController: MKMapViewDelegate {
     /* ################################################################## */
     /**
+     Returns the appropriate marker view for an annotation.
+     
+     - parameter inMapView: The map view the annotation is attached to.
+     - parameter inAnnotation: The annotation for the marker.
+     - returns: A new annotation view instance.
      */
     @MainActor
     public func mapView(_ inMapView: MKMapView, viewFor inAnnotation: any MKAnnotation) -> MKAnnotationView? {
@@ -586,6 +645,10 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     
     /* ################################################################## */
     /**
+     Called when the map has finished rendering all its tiles. We use it to force the annotations to be recalculated.
+     
+     - parameter inMapView: The map view being rendered.
+     - parameter fullyRendered: Ignored.
      */
     @MainActor
     public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView, fullyRendered: Bool) {
@@ -594,6 +657,10 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     
     /* ################################################################## */
     /**
+     Called when the map has changed its region. We use it to force the annotations to be recalculated.
+
+     - parameter inMapView: The map view being rendered.
+     - parameter regionDidChangeAnimated: Ignored.
      */
     @MainActor
     public func mapView(_ inMapView: MKMapView, regionDidChangeAnimated: Bool) {
