@@ -161,13 +161,17 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 @IBDesignable
 open class BigJuJuMapViewController: UIViewController {
     /* ############################################################################################################################## */
-    // MARK: Special Default Marker Enum
+    // MARK: Special Default Marker Struct
     /* ############################################################################################################################## */
     /**
-     This allows us to return a resized market image.
+     This allows us to return a resized marker image. This is a static struct.
      */
     private struct _BJJMAssets {
-        static let _sMarkerWidthInDisplayUnits: CGFloat = 32  // (yours)
+        /* ############################################################## */
+        /**
+         The width, in display units, of our markers.
+         */
+        static let _sMarkerWidthInDisplayUnits: CGFloat = 24
 
         /* ############################################################## */
         /**
@@ -182,9 +186,9 @@ open class BigJuJuMapViewController: UIViewController {
          Returns a rendered marker image for the given traits (resolved + scaled).
          */
         static func _genericMarkerRendered(compatibleWith inTraits: UITraitCollection) -> UIImage {
-            let base = _genericMarkerBase() ?? UIImage()
+            let base = Self._genericMarkerBase() ?? UIImage()
             let resolved = base.imageAsset?.image(with: inTraits) ?? base
-            return resolved._scaledToWidth(_sMarkerWidthInDisplayUnits)
+            return resolved._scaledToWidth(Self._sMarkerWidthInDisplayUnits)
         }
     }
     
@@ -392,7 +396,7 @@ open class BigJuJuMapViewController: UIViewController {
          
          - parameter rect: The rectangle in which this is to be drawn.
          */
-        open override func draw(_ rect: CGRect) {
+        public override func draw(_ rect: CGRect) {
             image?.draw(in: rect)
         }
     }
@@ -413,25 +417,17 @@ open class BigJuJuMapViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     The main view of this controller is a map. This simply casts that.
-     
-     > NOTE: This does an implicit unwrap, because we are in deep poo, if it fails.
-     */
-    public var mapView: MKMapView { self.view as! MKMapView }
-    
-    /* ################################################################## */
-    /**
      The image to be used for markers, representing single locations.
      */
     @IBInspectable
-    public var singleMarkerImage: UIImage? = _BJJMAssets._genericMarkerBase()
+    public var singleMarkerImage: UIImage?
 
     /* ################################################################## */
     /**
      The image to be used for markers, representing aggregated locations.
      */
     @IBInspectable
-    public var multiMarkerImage: UIImage? = _BJJMAssets._genericMarkerBase()
+    public var multiMarkerImage: UIImage?
 
     /* ################################################################## */
     /**
@@ -444,17 +440,27 @@ open class BigJuJuMapViewController: UIViewController {
 /* ################################################################################################################################## */
 // MARK: Private Computed Properties
 /* ################################################################################################################################## */
-extension BigJuJuMapViewController {
+private extension BigJuJuMapViewController {
     /* ################################################################## */
     /**
      This creates annotations for the meeting search results.
      
      - returns: An array of annotations (may be empty).
      */
-    var _myAnnotations: [LocationAnnotation] {
-        let rawAnnotations = self.mapData.map { LocationAnnotation($0) }
-        return self._clusterAnnotations(rawAnnotations)
-    }
+    var _myAnnotations: [LocationAnnotation] { self._clusterAnnotations(self.mapData.map { LocationAnnotation($0) }) }
+}
+
+/* ################################################################################################################################## */
+// MARK: Public Computed Properties
+/* ################################################################################################################################## */
+public extension BigJuJuMapViewController {
+    /* ################################################################## */
+    /**
+     The main view of this controller is a map. This simply casts that.
+     
+     > NOTE: This does an implicit unwrap, because we are in deep poo, if it fails.
+     */
+    var mapView: MKMapView { self.view as! MKMapView }
 }
 
 /* ################################################################################################################################## */
@@ -596,7 +602,7 @@ extension BigJuJuMapViewController {
         super.viewDidLoad()
         self.view = MKMapView()
         self.mapView.delegate = self
-        
+
         if #available(iOS 17.0, *) {
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
                 self._recalculateAnnotations()
@@ -614,14 +620,11 @@ extension BigJuJuMapViewController {
     public override func traitCollectionDidChange(_ inPreviousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(inPreviousTraitCollection)
 
-        guard
-            let inPreviousTraitCollection,
-            traitCollection.hasDifferentColorAppearance(comparedTo: inPreviousTraitCollection)
-        else {
-            return
-        }
+        guard let inPreviousTraitCollection,
+              traitCollection.hasDifferentColorAppearance(comparedTo: inPreviousTraitCollection)
+        else { return }
 
-        _recalculateAnnotations()
+        self._recalculateAnnotations()
     }
 }
 
