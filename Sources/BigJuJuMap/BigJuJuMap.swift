@@ -95,9 +95,9 @@ public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable {
     /**
      This is a handler that is provided by the implementation.
      
-     - parameter item: The instance of this protocol, associated with the handler.
+     - parameter inItem: The instance of this protocol, associated with the handler.
      */
-    var handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void) { get }
+    var handler: ((_ inItem: any BigJuJuMapLocationProtocol) -> Void) { get }
     
     /* ################################################################## */
     /**
@@ -177,19 +177,7 @@ open class BigJuJuMapViewController: UIViewController {
         /**
          Returns the *unresolved* asset image (keeps imageAsset variants).
          */
-        static func _genericMarkerBase() -> UIImage? {
-            UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil)
-        }
-
-        /* ############################################################## */
-        /**
-         Returns a rendered marker image for the given traits (resolved + scaled).
-         */
-        static func _genericMarkerRendered(compatibleWith inTraits: UITraitCollection) -> UIImage {
-            let base = Self._genericMarkerBase() ?? UIImage()
-            let resolved = base.imageAsset?.image(with: inTraits) ?? base
-            return resolved._scaledToWidth(Self._sMarkerWidthInDisplayUnits)
-        }
+        static var _genericMarkerBase: UIImage { UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil) ?? UIImage() }
     }
     
     /* ############################################################################################################################## */
@@ -475,7 +463,7 @@ extension BigJuJuMapViewController {
      - returns: A scaled, appropriate marker image.
      */
     private func _markerImage(from inBase: UIImage?, compatibleWith inTraits: UITraitCollection) -> UIImage {
-        let base = inBase ?? _BJJMAssets._genericMarkerBase() ?? UIImage()
+        let base = inBase ?? _BJJMAssets._genericMarkerBase
         let resolved = base.imageAsset?.image(with: inTraits) ?? base
         return resolved._scaledToWidth(_BJJMAssets._sMarkerWidthInDisplayUnits)
     }
