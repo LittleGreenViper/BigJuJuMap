@@ -21,6 +21,51 @@ import UIKit
 import MapKit
 
 /* ################################################################################################################################## */
+// MARK: - Private Class, Used to Pin the Bundle -
+/* ################################################################################################################################## */
+/**
+ This is an empty class
+ */
+private final class _BJJMBundleToken: NSObject { }
+
+/* ################################################################################################################################## */
+// MARK: - Private Bundle Extension, to Get the Framework Bundle -
+/* ################################################################################################################################## */
+private extension Bundle {
+    /* ################################################################## */
+    /**
+     The bundle that contains BigJuJuMap.framework resources (Media.xcassets, etc.)
+     */
+    static let _bigJuJuMap: Bundle = Bundle(for: _BJJMBundleToken.self)
+}
+
+/* ################################################################################################################################## */
+// MARK: - Private UIImage Extension, to Add Simple Resizing Function -
+/* ################################################################################################################################## */
+private extension UIImage {
+    /* ################################################################## */
+    /**
+     */
+    func scaledToWidth(_ inTargetWidth: CGFloat) -> UIImage {
+        guard inTargetWidth > 0,
+              size.width > 0,
+              size.height > 0
+        else { return self }
+
+        let scaleFactor = inTargetWidth / size.width
+        let targetSize = CGSize(width: inTargetWidth, height: size.height * scaleFactor)
+
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = self.scale   // preserves retina scale
+        format.opaque = false
+
+        return UIGraphicsImageRenderer(size: targetSize, format: format).image { _ in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+}
+
+/* ################################################################################################################################## */
 // MARK: Map Location Template Protocol
 /* ################################################################################################################################## */
 /**
@@ -115,6 +160,27 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 @IBDesignable
 open class BigJuJuMapViewController: UIViewController {
     /* ############################################################################################################################## */
+    // MARK: Special Default Marker Enum
+    /* ############################################################################################################################## */
+    /**
+     */
+    private enum _BJJMAssets {
+        /* ################################################################## */
+        /**
+         Marker Width, in Display Units
+         */
+        static let _sMarkerWidthInDisplayUnits = CGFloat(24)
+
+        /* ################################################################## */
+        /**
+         The generic marker.
+         */
+        static let genericMarker: UIImage = {
+            return UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil)?.scaledToWidth(Self._sMarkerWidthInDisplayUnits) ?? UIImage()
+        }()
+    }
+    
+    /* ############################################################################################################################## */
     // MARK: Custom Annotation Class
     /* ############################################################################################################################## */
     /**
@@ -145,14 +211,68 @@ open class BigJuJuMapViewController: UIViewController {
             self.init([inData])
         }
     }
+
+    /* ############################################################################################################################## */
+    // MARK: Custom Annotation View Class
+    /* ############################################################################################################################## */
+    /**
+     This is used to display a map marker.
+     */
+    open class AnnotationView: MKAnnotationView {
+        /* ############################################################## */
+        /**
+         */
+        public var myController: BigJuJuMapViewController?
+        
+        /* ############################################################## */
+        /**
+         */
+        public var myAnnotation: LocationAnnotation? { self.annotation as? LocationAnnotation }
+        
+        /* ############################################################## */
+        /**
+         */
+        public init(annotation inAnnotation: LocationAnnotation, reuseIdentifier inReuseIdentifier: String? = nil, controller inController: BigJuJuMapViewController? = nil) {
+            super.init(annotation: inAnnotation, reuseIdentifier: inReuseIdentifier)
+            self.myController = inController
+            let image = self.myAnnotation?.data.count == 1 ? inController?.singleMarkerImage : inController?.multiMarkerImage
+            #if DEBUG
+                print("Marker View Created for \(inAnnotation.data.count) locations")
+            #endif
+            self.image = image
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+        required public init?(coder inDecoder: NSCoder) {
+            super.init(coder: inDecoder)
+        }
+        
+        /* ############################################################## */
+        /**
+         Draws the image for the marker.
+         
+         - parameter rect: The rectangle in which this is to be drawn.
+         */
+        open override func draw(_ rect: CGRect) {
+            self.image?.draw(in: rect)
+        }
+    }
     
+    /* ################################################################## */
+    /**
+     The maximum number of rows we can display in a popover.
+     */
+    private static let _maximumNumberOfItemsToDisplay = 1000
+
     /* ################################################################## */
     /**
      The data for the map to display.
      
      Each item will be displayed in a marker. Markers may be aggregated.
      */
-    public var mapData: [any BigJuJuMapLocationProtocol] = []
+    public var mapData: [any BigJuJuMapLocationProtocol] = [] { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
     
     /* ################################################################## */
     /**
@@ -165,20 +285,82 @@ open class BigJuJuMapViewController: UIViewController {
     /* ################################################################## */
     /**
      The image to be used for markers, representing single locations.
-     
-     Default is a supplied resource image, named `"BJJM_Marker_Single"`
      */
     @IBInspectable
-    public var singleMarkerImage: UIImage? = UIImage(named: "BJJM_Marker_Single")
+    public var singleMarkerImage: UIImage? = _BJJMAssets.genericMarker
     
     /* ################################################################## */
     /**
      The image to be used for markers, representing aggregated locations.
-     
-     Default is a supplied resource image, named `"BJJM_Marker_Multi"`
      */
     @IBInspectable
-    public var multiMarkerImage: UIImage? = UIImage(named: "BJJM_Marker_Multi")
+    public var multiMarkerImage: UIImage? = _BJJMAssets.genericMarker
+}
+
+/* ################################################################################################################################## */
+// MARK: Private Computed Properties
+/* ################################################################################################################################## */
+extension BigJuJuMapViewController {
+    /* ################################################################## */
+    /**
+     This creates annotations for the meeting search results.
+     
+     - returns: An array of annotations (may be empty).
+     */
+    var _myAnnotations: [LocationAnnotation] {
+        let rawAnnotations = self.mapData.map { LocationAnnotation($0) }
+        return self._clusterAnnotations(rawAnnotations)
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: Private Instance Methods
+/* ################################################################################################################################## */
+extension BigJuJuMapViewController {
+    /* ################################################################## */
+    /**
+     */
+    private func _recalculateAnnotations() {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.mapView.addAnnotations(self._myAnnotations)
+    }
+    
+    /* ################################################################## */
+    /**
+     This creates clusters (multi) annotations, where markers would be close together.
+     
+     - parameter inAnnotations: The annotations to test.
+     - returns: A new set of annotations, including any clusters.
+     */
+    private func _clusterAnnotations(_ inAnnotations: [LocationAnnotation]) -> [LocationAnnotation] {
+        let mapRect = mapView.visibleMapRect
+        let mapBounds = mapView.bounds
+        let centerLat = mapView.centerCoordinate.latitude
+
+        guard !mapRect.isEmpty, !mapBounds.isEmpty else { return [] }
+
+        let thresholdDistanceInMeters =
+            (_BJJMAssets._sMarkerWidthInDisplayUnits / 2)
+            * ((MKMetersPerMapPointAtLatitude(centerLat) * mapRect.size.width) / mapBounds.size.width)
+
+        guard thresholdDistanceInMeters > 0 else { return [] }
+
+        return inAnnotations.reduce(into: [LocationAnnotation]()) { result, next in
+            let nextLocation = CLLocation(latitude: next.coordinate.latitude, longitude: next.coordinate.longitude)
+
+            if let idx = result.firstIndex(where: {
+                thresholdDistanceInMeters >= CLLocation(latitude: $0.coordinate.latitude,
+                                                       longitude: $0.coordinate.longitude)
+                    .distance(from: nextLocation)
+            }) {
+                if result[idx].data.count < Self._maximumNumberOfItemsToDisplay {
+                    result[idx].data.append(contentsOf: next.data)
+                }
+            } else {
+                result.append(next)
+            }
+        }
+    }
 }
 
 /* ################################################################################################################################## */
@@ -192,5 +374,28 @@ extension BigJuJuMapViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.view = MKMapView()
+        self.mapView.delegate = self
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: MKMapViewDelegate Conformance
+/* ################################################################################################################################## */
+extension BigJuJuMapViewController: MKMapViewDelegate {
+    /* ################################################################## */
+    /**
+     */
+    @MainActor
+    public func mapView(_ inMapView: MKMapView, viewFor inAnnotation: any MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = inAnnotation as? LocationAnnotation else { return nil }
+        return AnnotationView(annotation: annotation, controller: self)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @MainActor
+    public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView, fullyRendered inFullyRendered: Bool) {
+        self._recalculateAnnotations()
     }
 }

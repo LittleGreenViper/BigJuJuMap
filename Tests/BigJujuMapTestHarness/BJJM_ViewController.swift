@@ -111,15 +111,13 @@ class BJJM_ViewController: UIViewController {
     
     /* ################################################################## */
     /**
+     This just allows us to access the BigJuJuMap instance, so we can directly initialize it.
+     
+     - parameter inSegue: The segue being executed.
+     - parameter sender: Ignored.
      */
-    @IBOutlet weak public var bjjmView: BigJuJuMapViewController?
-
-    /* ################################################################## */
-    /**
-     Called when the view hierarchy has completed loading, but before it is laid out and displayed.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = inSegue.destination as? BigJuJuMapViewController else { return }
         
         let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
 
@@ -142,5 +140,7 @@ class BJJM_ViewController: UIViewController {
         #if DEBUG
             print("Loaded \(locations.count) map locations.")
         #endif
+
+        destination.mapData = locations
     }
 }

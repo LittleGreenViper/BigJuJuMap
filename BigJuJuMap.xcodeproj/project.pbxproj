@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D41D83382F2EB7F800880103 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41D83372F2EB7F800880103 /* Media.xcassets */; };
 		D42A111C2F2D5465000C9277 /* default.csv in Resources */ = {isa = PBXBuildFile; fileRef = D42A111B2F2D5465000C9277 /* default.csv */; };
 		D451ABBD2F2D0FAA00116B91 /* BJJM_AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451ABB32F2D0FAA00116B91 /* BJJM_AppDelegate.swift */; };
 		D451ABBE2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D41D83372F2EB7F800880103 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D42A111B2F2D5465000C9277 /* default.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.csv; sourceTree = "<group>"; };
 		D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BigJuJuMap.docc; sourceTree = "<group>"; };
 		D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigJuJuMap.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D41D83362F2EB7D900880103 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D41D83372F2EB7F800880103 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D43A138B2F2A3F35001FD7C6 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		D451AB952F2D0F4400116B91 /* BigJuJuMap */ = {
 			isa = PBXGroup;
 			children = (
+				D41D83362F2EB7D900880103 /* Resources */,
 				D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */,
 				D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */,
 			);
@@ -268,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D41D83382F2EB7F800880103 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +469,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tests/BigJujuMapTestHarness/Meta/Info.plist;
@@ -489,6 +502,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tests/BigJujuMapTestHarness/Meta/Info.plist;
