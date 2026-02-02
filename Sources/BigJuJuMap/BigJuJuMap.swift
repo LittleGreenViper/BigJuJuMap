@@ -198,7 +198,7 @@ open class BigJuJuMapViewController: UIViewController {
          Any data associated with the annotation (may be aggregate, with multiple data items).
          */
         public var data: [any BigJuJuMapLocationProtocol]
-        
+
         /* ############################################################## */
         /**
          Basic initializer
@@ -217,7 +217,7 @@ open class BigJuJuMapViewController: UIViewController {
             self.init([inData])
         }
     }
-
+    
     /* ############################################################################################################################## */
     // MARK: Custom Annotation View Class
     /* ############################################################################################################################## */
@@ -225,6 +225,77 @@ open class BigJuJuMapViewController: UIViewController {
      This is used to display a map marker.
      */
     open class AnnotationView: MKAnnotationView {
+        /* ############################################################################################################################## */
+        // MARK: Custom Callout Class
+        /* ############################################################################################################################## */
+        /**
+         */
+        private class _MarkerCalloutContentView: UIView {
+            /* ############################################################## */
+            /**
+             */
+            private weak var _myAnnotation: LocationAnnotation?
+
+            /* ############################################################## */
+            /**
+             */
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+            }
+
+            /* ############################################################## */
+            /**
+             */
+            required init?(coder inCoder: NSCoder) {
+                super.init(coder: inCoder)
+            }
+
+            /* ############################################################## */
+            /**
+             */
+            func configure(with inAnnotation: LocationAnnotation) {
+                self._myAnnotation = inAnnotation
+                
+                let placeholder = UILabel()
+                
+                placeholder.textAlignment = .center
+                placeholder.text = "\(inAnnotation.data.count) Locations"
+                
+                self.addSubview(placeholder)
+                
+                placeholder.translatesAutoresizingMaskIntoConstraints = false
+                
+                NSLayoutConstraint.activate([
+                    placeholder.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                    placeholder.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                    placeholder.topAnchor.constraint(equalTo: self.topAnchor),
+                    placeholder.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                ])
+            }
+        }
+
+        /* ############################################################## */
+        /**
+         */
+        public static let reuseID = "BJJM_AnnotationView"
+
+        /* ############################################################## */
+        /**
+         Keep one instance and update it when annotation changes.
+         */
+        private let _calloutContentView = _MarkerCalloutContentView()
+
+        /* ############################################################## */
+        /**
+         */
+        open override var annotation: MKAnnotation? {
+            didSet {
+                if let myAnnotation {
+                    self._calloutContentView.configure(with: myAnnotation)
+                }
+            }
+        }
+        
         /* ############################################################## */
         /**
          Find the largest font size that fits the rect (simple binary search).
@@ -275,13 +346,13 @@ open class BigJuJuMapViewController: UIViewController {
          This displays a text item, with the number of aggregate data points.
          */
         private let _countTextLayer: CATextLayer = {
-            let t = CATextLayer()
-            t.zPosition = 10_000
-            t.isHidden = true
-            t.alignmentMode = .center
-            t.truncationMode = .none
-            t.isWrapped = false
-            return t
+            let textLayer = CATextLayer()
+            textLayer.zPosition = 10_000
+            textLayer.isHidden = true
+            textLayer.alignmentMode = .center
+            textLayer.truncationMode = .none
+            textLayer.isWrapped = false
+            return textLayer
         }()
 
         /* ############################################################## */
@@ -298,13 +369,20 @@ open class BigJuJuMapViewController: UIViewController {
         
         /* ############################################################## */
         /**
+         */
+        public override func point(inside inPoint: CGPoint, with: UIEvent?) -> Bool {
+            self.bounds.insetBy(dx: -10, dy: -10).contains(inPoint)
+        }
+
+        /* ############################################################## */
+        /**
          Basic initializer.
          - parameter inAnnotation: The annotation attached to this view.
          - parameter inReuseIdentifier: The reuse ID (optional,. default is nil).
          - parameter inController: The controller that "owns" the map.
          */
         public init(annotation inAnnotation: LocationAnnotation,
-                    reuseIdentifier inReuseIdentifier: String? = nil,
+                    reuseIdentifier inReuseIdentifier: String? = AnnotationView.reuseID,
                     controller inController: BigJuJuMapViewController? = nil
         ) {
             super.init(annotation: inAnnotation, reuseIdentifier: inReuseIdentifier)
@@ -318,7 +396,11 @@ open class BigJuJuMapViewController: UIViewController {
                 self.image = base
             }
 
-            layer.addSublayer(self._countTextLayer)
+            self.layer.addSublayer(self._countTextLayer)
+            self.isEnabled = true
+            self.isUserInteractionEnabled = true
+            self.canShowCallout = true
+            self.detailCalloutAccessoryView = self._calloutContentView
         }
         
         /* ############################################################## */
@@ -327,7 +409,11 @@ open class BigJuJuMapViewController: UIViewController {
          */
         public required init?(coder inCoder: NSCoder) {
             super.init(coder: inCoder)
-            layer.addSublayer(self._countTextLayer)
+            self.layer.addSublayer(self._countTextLayer)
+            self.isEnabled = true
+            self.isUserInteractionEnabled = true
+            self.canShowCallout = true
+            self.detailCalloutAccessoryView = self._calloutContentView
         }
         
         /* ############################################################## */
@@ -382,10 +468,10 @@ open class BigJuJuMapViewController: UIViewController {
         /**
          Draws the image for the marker.
          
-         - parameter rect: The rectangle in which this is to be drawn.
+         - parameter inRect: The rectangle in which this is to be drawn.
          */
-        public override func draw(_ rect: CGRect) {
-            image?.draw(in: rect)
+        public override func draw(_ inRect: CGRect) {
+            self.image?.draw(in: inRect)
         }
     }
     
@@ -419,10 +505,10 @@ open class BigJuJuMapViewController: UIViewController {
 
     /* ################################################################## */
     /**
-     If true, multiple (aggregate) markers will display the number of elements aggregated.
+     If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
      */
     @IBInspectable
-    public var displayNumbers:Bool = true
+    public var displayNumbers = true
 }
 
 /* ################################################################################################################################## */
@@ -532,8 +618,8 @@ extension BigJuJuMapViewController {
         var clusters: [_CellKey: LocationAnnotation] = [:]
         var centers: [_CellKey: CGPoint] = [:]
         
-        for annotation in inAnnotations {
-            let point = self.mapView.convert(annotation.coordinate, toPointTo: self.mapView)
+        inAnnotations.forEach { inAnnotation in
+            let point = self.mapView.convert(inAnnotation.coordinate, toPointTo: self.mapView)
             let baseKey = _cellKey(for: point)
             
             // Try to find an existing cluster in this cell, or adjacent cells, that are within one marker-width on screen.
@@ -557,19 +643,19 @@ extension BigJuJuMapViewController {
             
             if let existing = clusters[useKey] {
                 // Merge: keep the existing annotation object, just append data.
-                existing.data.append(contentsOf: annotation.data)
+                existing.data.append(contentsOf: inAnnotation.data)
                 
                 // Update stored screen center (simple running average by item-count).
                 let oldCenter = centers[useKey] ?? point
-                let oldCount = max(1, existing.data.count - annotation.data.count)
+                let oldCount = max(1, existing.data.count - inAnnotation.data.count)
                 let newCount = existing.data.count
-                let t = CGFloat(oldCount) / CGFloat(newCount)
+                let total = CGFloat(oldCount) / CGFloat(newCount)
                 centers[useKey] = CGPoint(
-                    x: oldCenter.x * t + point.x * (1 - t),
-                    y: oldCenter.y * t + point.y * (1 - t)
+                    x: oldCenter.x * total + point.x * (1 - total),
+                    y: oldCenter.y * total + point.y * (1 - total)
                 )
             } else {
-                clusters[useKey] = annotation
+                clusters[useKey] = inAnnotation
                 centers[useKey] = point
             }
         }
@@ -656,5 +742,19 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     @MainActor
     public func mapView(_ inMapView: MKMapView, regionDidChangeAnimated: Bool) {
         self._recalculateAnnotations()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a marker is selected.
+
+     - parameter inMapView: The map view (ignored)
+     - parameter inAnnotation: The annotation we're getting the marker for.
+     */
+    @MainActor
+    public func mapView(_ inMapView: MKMapView, didSelect inAnnotation: MKAnnotation) {
+        if inAnnotation.isKind(of: MKUserLocation.self) {
+            inMapView.deselectAnnotation(inAnnotation, animated: false)
+        }
     }
 }
