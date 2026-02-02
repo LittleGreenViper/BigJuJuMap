@@ -49,12 +49,12 @@ private extension UIImage {
      */
     func _scaledToWidth(_ inTargetWidth: CGFloat) -> UIImage {
         guard inTargetWidth > 0,
-              size.width > 0,
-              size.height > 0
+              self.size.width > 0,
+              self.size.height > 0
         else { return self }
 
-        let scaleFactor = inTargetWidth / size.width
-        let targetSize = CGSize(width: inTargetWidth, height: size.height * scaleFactor)
+        let scaleFactor = inTargetWidth / self.size.width
+        let targetSize = CGSize(width: inTargetWidth, height: self.size.height * scaleFactor)
 
         let format = UIGraphicsImageRendererFormat()
         format.scale = self.scale   // preserves retina scale
@@ -147,6 +147,81 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 }
 
 /* ################################################################################################################################## */
+// MARK: - Private MKMapView Subclass for Deterministic Annotation Hit-Testing -
+/* ################################################################################################################################## */
+/**
+ 
+ */
+private final class _BJJMMapView: MKMapView {
+    /* ################################################################## */
+    /**
+     Recursively collect all MKAnnotationView instances in the view hierarchy.
+     */
+    private func _allAnnotationViews(in inView: UIView) -> [MKAnnotationView] {
+        var ret: [MKAnnotationView] = []
+        
+        if let av = inView as? MKAnnotationView {
+            ret.append(av)
+        }
+        
+        for sub in inView.subviews {
+            ret.append(contentsOf: _allAnnotationViews(in: sub))
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     Overrides hit-testing so that, when multiple annotation views overlap,
+     we deterministically pick the annotation whose *tip* (bottom-center) is closest to the tap.
+     */
+    override func hitTest(_ inPoint: CGPoint, with inEvent: UIEvent?) -> UIView? {
+        // First: let the system find its preferred target (works for non-overlapping cases, controls, etc.).
+        let systemHit = super.hitTest(inPoint, with: inEvent)
+        
+        // If the system already hit an annotation view (or something inside it), honor that.
+        if let hit = systemHit {
+            if hit is MKAnnotationView { return hit }
+            if let superAV = hit.superview as? MKAnnotationView { return superAV }
+        }
+        
+        // Otherwise, do our own pick among *all* annotation views that contain the tap.
+        let annotationViews = _allAnnotationViews(in: self)
+            .filter { !$0.isHidden && $0.alpha > 0.01 && $0.isUserInteractionEnabled }
+        
+        var bestView: MKAnnotationView?
+        var bestDistanceSq: CGFloat = .greatestFiniteMagnitude
+        
+        for av in annotationViews {
+            let local = av.convert(inPoint, from: self)
+            
+            // Respect each view’s custom hit shape/area (your AnnotationView overrides point(inside:)).
+            guard av.point(inside: local, with: inEvent) else { continue }
+            
+            // Marker “tip” is bottom-center in the view’s local coordinates.
+            let tip = CGPoint(x: av.bounds.midX, y: av.bounds.maxY)
+            let dx = local.x - tip.x
+            let dy = local.y - tip.y
+            let distSq = dx * dx + dy * dy
+            
+            if distSq < bestDistanceSq {
+                bestDistanceSq = distSq
+                bestView = av
+            }
+        }
+        
+        // If we found an annotation view under the tap, return it so MapKit selects the right one.
+        if let bestView {
+            return bestView
+        }
+        
+        // Fall back to whatever UIKit found.
+        return systemHit
+    }
+}
+
+/* ################################################################################################################################## */
 // MARK: Big Map View Controller Class
 /* ################################################################################################################################## */
 /**
@@ -218,6 +293,275 @@ open class BigJuJuMapViewController: UIViewController {
         }
     }
     
+    /* ################################################################################################################################## */
+    // MARK: - Private Popover View (Custom Callout)
+    /* ################################################################################################################################## */
+    /**
+     */
+    private final class _BJJMMarkerPopoverView: UIView, UITableViewDataSource {
+        /* ############################################################################################################################## */
+        //
+        /* ############################################################################################################################## */
+        /**
+         */
+        private final class _Cell: UITableViewCell {
+            /* ########################################################## */
+            /**
+             */
+            static let rowHeight: CGFloat = 28
+
+            /* ########################################################## */
+            /**
+             */
+            private let button: UIButton = {
+                let button = UIButton(type: .system)
+                button.contentHorizontalAlignment = .leading
+                button.titleLabel?.numberOfLines = 1
+                button.titleLabel?.lineBreakMode = .byTruncatingTail
+                button.titleLabel?.adjustsFontForContentSizeCategory = true
+                button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+                return button
+            }()
+
+            /* ########################################################## */
+            /**
+             */
+            private var handler: (() -> Void)?
+
+            /* ########################################################## */
+            /**
+             */
+            @objc private func _tapped() { self.handler?() }
+
+            /* ########################################################## */
+            /**
+             */
+            override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+                super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+                self.backgroundColor = .clear
+                self.contentView.backgroundColor = .clear
+                self.isOpaque = false
+                self.selectionStyle = .none
+
+                self.contentView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+                    top: 4,
+                    leading: 10,
+                    bottom: 4,
+                    trailing: 10
+                )
+
+                self.contentView.addSubview(self.button)
+                self.button.translatesAutoresizingMaskIntoConstraints = false
+
+                let guide = self.contentView.layoutMarginsGuide
+                NSLayoutConstraint.activate([
+                    self.button.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+                    self.button.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+                    self.button.topAnchor.constraint(equalTo: guide.topAnchor),
+                    self.button.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+                ])
+
+                self.button.addTarget(self, action: #selector(_tapped), for: .touchUpInside)
+            }
+
+            /* ########################################################## */
+            /**
+             */
+            required init?(coder: NSCoder) { nil }
+
+            /* ########################################################## */
+            /**
+             */
+            func configure(title inTitle: String, handler inHandler: @escaping () -> Void) {
+                self.button.setTitle(inTitle, for: .normal)
+                self.handler = inHandler
+            }
+        }
+        
+        /* ################################################################## */
+        /**
+         */
+        private static let _arrowHeight: CGFloat = 10
+        
+        /* ################################################################## */
+        /**
+         */
+        private static let _arrowWidth: CGFloat = 18
+        
+        /* ################################################################## */
+        /**
+         */
+        private let backgroundView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .systemBackground
+            view.layer.cornerRadius = 10
+            view.layer.cornerCurve = .continuous
+            view.clipsToBounds = true
+            return view
+        }()
+        
+        /* ################################################################## */
+        /**
+         */
+        private let contentInsetView = UIView()
+        
+        /* ################################################################## */
+        /**
+         */
+        private let tableView: UITableView = {
+            let tableView = UITableView(frame: .zero, style: .plain)
+            tableView.backgroundColor = .clear
+            tableView.backgroundView = nil
+            tableView.isOpaque = false
+            tableView.separatorStyle = .none
+            tableView.showsVerticalScrollIndicator = true
+            tableView.showsHorizontalScrollIndicator = false
+            tableView.alwaysBounceHorizontal = false
+            tableView.bounces = true
+            tableView.rowHeight = _Cell.rowHeight
+            tableView.estimatedRowHeight = _Cell.rowHeight
+            tableView.isScrollEnabled = true
+            tableView.contentInset = .zero
+            tableView.scrollIndicatorInsets = .zero
+            if #available(iOS 11.0, *) {
+                tableView.contentInsetAdjustmentBehavior = .never
+            }
+            return tableView
+        }()
+
+        /* ################################################################## */
+        /**
+         */
+        private var items: [any BigJuJuMapLocationProtocol] = []
+
+        /* ################################################################## */
+        /**
+         */
+        private var onSelectItem: ((any BigJuJuMapLocationProtocol) -> Void)?
+
+        /* ################################################################## */
+        /**
+         */
+        init() {
+            super.init(frame: .zero)
+
+            self.backgroundColor = .clear
+            self.isOpaque = false
+
+            addSubview(self.backgroundView)
+            self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                self.backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                self.backgroundView.topAnchor.constraint(equalTo: topAnchor),
+                self.backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+
+            self.backgroundView.addSubview(self.contentInsetView)
+            self.contentInsetView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.contentInsetView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor, constant: 8),
+                self.contentInsetView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: -8),
+                self.contentInsetView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor, constant: 8),
+                self.contentInsetView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor, constant: -8)
+            ])
+
+            self.contentInsetView.addSubview(self.tableView)
+            self.tableView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.tableView.leadingAnchor.constraint(equalTo: self.contentInsetView.leadingAnchor),
+                self.tableView.trailingAnchor.constraint(equalTo: self.contentInsetView.trailingAnchor),
+                self.tableView.topAnchor.constraint(equalTo: self.contentInsetView.topAnchor),
+                self.tableView.bottomAnchor.constraint(equalTo: self.contentInsetView.bottomAnchor)
+            ])
+
+            self.tableView.dataSource = self
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        required init?(coder: NSCoder) { nil }
+
+        /* ################################################################## */
+        /**
+         */
+        func configure(items inItems: [any BigJuJuMapLocationProtocol],
+                       onSelect inOnSelect: @escaping (any BigJuJuMapLocationProtocol) -> Void) {
+            self.items = inItems
+            self.onSelectItem = inOnSelect
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { self.items.count }
+
+        /* ################################################################## */
+        /**
+         */
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = _Cell(style: .default, reuseIdentifier: nil)
+            let item = self.items[indexPath.row]
+            cell.configure(title: item.name) { [weak self] in
+                self?.onSelectItem?(item)
+            }
+            return cell
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        func desiredWidth(maxWidth: CGFloat) -> CGFloat {
+            // Best effort width: measure longest name
+            let font = UIFont.preferredFont(forTextStyle: .callout)
+            let padding: CGFloat = 20 // content insets inside the cell button
+            let extra: CGFloat = 20   // popover breathing room
+
+            var longest: CGFloat = 120
+            self.items.forEach { inItem in
+                let w = (inItem.name as NSString).size(withAttributes: [.font: font]).width
+                longest = max(longest, w)
+            }
+
+            return min(maxWidth, longest + padding + extra)
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        private static let _outerPadding: CGFloat = 8   // must match the contentInsetView constraints
+
+        /* ################################################################## */
+        /**
+         Full “chrome” height added outside the table rows (top + bottom padding).
+         */
+        private static var _verticalChrome: CGFloat { Self._outerPadding * 2 }
+
+        /* ################################################################## */
+        /**
+         The ideal full height of the popover, including chrome.
+         */
+        var idealHeight: CGFloat {
+            (CGFloat(self.items.count) * _Cell.rowHeight) + Self._verticalChrome
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        func desiredHeight(maxHeight: CGFloat) -> CGFloat {
+            let full = self.idealHeight
+
+            // Ensure a sane minimum so a single row is never clipped.
+            let minimum = _Cell.rowHeight + Self._verticalChrome
+
+            return min(maxHeight, max(minimum, full))
+        }
+    }
+
     /* ############################################################################################################################## */
     // MARK: Custom Annotation View Class
     /* ############################################################################################################################## */
@@ -225,128 +569,10 @@ open class BigJuJuMapViewController: UIViewController {
      This is used to display a map marker.
      */
     open class AnnotationView: MKAnnotationView {
-        /* ############################################################################################################################## */
-        // MARK: Custom Callout Class
-        /* ############################################################################################################################## */
-        /**
-         */
-        private class _MarkerCalloutContentView: UIView, UITableViewDelegate {
-            private class _MarkerCalloutCell: UITableViewCell {
-                /* ########################################################## */
-                /**
-                 */
-                private weak var _myDataPoint: (any BigJuJuMapLocationProtocol)?
-                
-                /* ########################################################## */
-                /**
-                 */
-                private var _myButton: UIButton?
-                
-                /* ########################################################## */
-                /**
-                 */
-                override func awakeFromNib() {
-                    super.awakeFromNib()
-                    if nil == self._myButton {
-                        let button = UIButton(type: .system)
-                        if let label = button.titleLabel {
-                            label.numberOfLines = 1
-                            label.minimumScaleFactor = 0.5
-                            label.adjustsFontSizeToFitWidth = true
-                        }
-                        
-                        self.addSubview(button)
-                        button.translatesAutoresizingMaskIntoConstraints = false
-                        NSLayoutConstraint.activate([
-                            button.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                            button.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                            button.topAnchor.constraint(equalTo: self.topAnchor),
-                            button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-                        ])
-                        self._myButton = button
-                    }
-                    
-                    if let name = _myDataPoint?.name {
-                        self._myButton?.setTitle(name, for: .normal)
-                    }
-                }
-                
-                /* ########################################################## */
-                /**
-                 */
-                override func prepareForReuse() {
-                    super.prepareForReuse()
-                    
-                    if let name = _myDataPoint?.name {
-                        self._myButton?.setTitle(name, for: .normal)
-                    }
-                }
-            }
-            
-            /* ############################################################## */
-            /**
-             */
-            private weak var _myAnnotation: LocationAnnotation?
-
-            /* ############################################################## */
-            /**
-             */
-            override init(frame: CGRect) {
-                super.init(frame: frame)
-            }
-
-            /* ############################################################## */
-            /**
-             */
-            required init?(coder inCoder: NSCoder) {
-                super.init(coder: inCoder)
-            }
-
-            /* ############################################################## */
-            /**
-             */
-            func configure(with inAnnotation: LocationAnnotation) {
-                self._myAnnotation = inAnnotation
-                
-                let placeholder = UILabel()
-                
-                placeholder.textAlignment = .center
-                placeholder.text = "\(inAnnotation.data.count) Locations"
-                
-                self.addSubview(placeholder)
-                
-                placeholder.translatesAutoresizingMaskIntoConstraints = false
-                
-                NSLayoutConstraint.activate([
-                    placeholder.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                    placeholder.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                    placeholder.topAnchor.constraint(equalTo: self.topAnchor),
-                    placeholder.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-                ])
-            }
-        }
-
         /* ############################################################## */
         /**
          */
         public static let reuseID = "BJJM_AnnotationView"
-
-        /* ############################################################## */
-        /**
-         Keep one instance and update it when annotation changes.
-         */
-        private let _calloutContentView = _MarkerCalloutContentView()
-
-        /* ############################################################## */
-        /**
-         */
-        open override var annotation: MKAnnotation? {
-            didSet {
-                if let myAnnotation {
-                    self._calloutContentView.configure(with: myAnnotation)
-                }
-            }
-        }
         
         /* ############################################################## */
         /**
@@ -423,7 +649,8 @@ open class BigJuJuMapViewController: UIViewController {
         /**
          */
         public override func point(inside inPoint: CGPoint, with: UIEvent?) -> Bool {
-            self.bounds.insetBy(dx: -10, dy: -10).contains(inPoint)
+            let expanded = bounds.insetBy(dx: -4, dy: -6)
+            return expanded.contains(inPoint)
         }
 
         /* ############################################################## */
@@ -451,8 +678,7 @@ open class BigJuJuMapViewController: UIViewController {
             self.layer.addSublayer(self._countTextLayer)
             self.isEnabled = true
             self.isUserInteractionEnabled = true
-            self.canShowCallout = true
-            self.detailCalloutAccessoryView = self._calloutContentView
+            self.canShowCallout = false
         }
         
         /* ############################################################## */
@@ -465,7 +691,6 @@ open class BigJuJuMapViewController: UIViewController {
             self.isEnabled = true
             self.isUserInteractionEnabled = true
             self.canShowCallout = true
-            self.detailCalloutAccessoryView = self._calloutContentView
         }
         
         /* ############################################################## */
@@ -496,8 +721,8 @@ open class BigJuJuMapViewController: UIViewController {
             let text = "\(count)"
             self._countTextLayer.string = text
 
-            self._countTextLayer.foregroundColor = UIColor.systemBackground.cgColor
-
+            self._countTextLayer.foregroundColor = UIColor.systemBackground.resolvedColor(with: self.traitCollection).cgColor
+            
             let maxFontSize = max(6, drawBox.height)
 
             let fitted = Self._bestFittingFontSize(
@@ -525,7 +750,42 @@ open class BigJuJuMapViewController: UIViewController {
         public override func draw(_ inRect: CGRect) {
             self.image?.draw(in: inRect)
         }
+        
+        /* ############################################################## */
+        /**
+         */
+        public override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+
+            guard self.bounds.height > 0 else { return }
+
+            // Center horizontally, bottom vertically
+            self.centerOffset = CGPoint(
+                x: 0,
+                y: -self.bounds.height / 2
+            )
+        }
     }
+    
+    /* ############################################################## */
+    /**
+     */
+    private var _activePopover: _BJJMMarkerPopoverView?
+
+    /* ############################################################## */
+    /**
+     */
+    private weak var _activeAnnotation: LocationAnnotation?
+
+    /* ############################################################## */
+    /**
+     */
+    private weak var _activeAnnotationView: MKAnnotationView?
+
+    /* ############################################################## */
+    /**
+     */
+    private var _dismissTapGR: UITapGestureRecognizer?
     
     /* ################################################################## */
     /**
@@ -593,6 +853,129 @@ public extension BigJuJuMapViewController {
 // MARK: Private Instance Methods
 /* ################################################################################################################################## */
 extension BigJuJuMapViewController {
+    /* ############################################################## */
+    /**
+     */
+    @MainActor
+    private func _dismissPopover() {
+        self._activePopover?.removeFromSuperview()
+        self._activePopover = nil
+        self._activeAnnotation = nil
+        self._activeAnnotationView = nil
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    @MainActor
+    private func _installDismissTapIfNeeded() {
+        guard self._dismissTapGR == nil else { return }
+
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(_didTapMapToDismiss))
+        gestureRecognizer.cancelsTouchesInView = false
+        gestureRecognizer.delegate = self
+        self.mapView.addGestureRecognizer(gestureRecognizer)
+        self._dismissTapGR = gestureRecognizer
+    }
+    
+    /* ############################################################## */
+    /**
+     */
+    @objc @MainActor
+    private func _didTapMapToDismiss() {
+        self._dismissPopover()
+    }
+
+    /* ############################################################## */
+    /**
+     */
+    @MainActor
+    private func _positionPopover(_ inPopover: _BJJMMarkerPopoverView, for inView: MKAnnotationView) {
+        let safe = self.mapView.safeAreaInsets
+        let padding: CGFloat = 10
+
+        // Available width
+        let maxWidth = self.mapView.bounds.width - (safe.left + safe.right) - 2 * padding
+        let width = inPopover.desiredWidth(maxWidth: maxWidth)
+
+        // Available height (prefer above the marker if possible)
+        let markerFrame = inView.frame
+
+        let availableAbove = markerFrame.minY - safe.top - padding
+        let availableBelow = self.mapView.bounds.height - safe.bottom - markerFrame.maxY - padding
+
+        // How tall would the whole list be?
+        let idealListHeight = inPopover.idealHeight
+        
+        // Choose above if it fits better; else below.
+        let showAbove = availableAbove >= min(idealListHeight, 200) || availableAbove >= availableBelow
+        let maxHeight = max(60, showAbove ? availableAbove : availableBelow)
+        let height = inPopover.desiredHeight(maxHeight: min(maxHeight, self.mapView.bounds.height * 0.5))
+
+        // Center horizontally on marker, clamp to safe bounds
+        var x = markerFrame.midX - (width * 0.5)
+        x = max(padding + safe.left, min(x, self.mapView.bounds.width - safe.right - padding - width))
+
+        let y: CGFloat
+        if showAbove {
+            y = markerFrame.minY - padding - height
+        } else {
+            y = markerFrame.maxY + padding
+        }
+
+        inPopover.frame = CGRect(x: x, y: y, width: width, height: height)
+    }
+
+    /* ################################################################## */
+    /**
+     Returns the opposite of the current UI style.
+     */
+    private func _reversedStyle(for inStyle: UIUserInterfaceStyle) -> UIUserInterfaceStyle {
+        switch inStyle {
+        case .dark:
+            return .light
+        case .light:
+            return .dark
+        default:
+            return .unspecified
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Apply the correct marker image to the given annotation view, optionally forcing
+     the marker to resolve in the *opposite* trait mode.
+     */
+    @MainActor
+    private func _applyMarkerAppearance(to inView: MKAnnotationView, reversed: Bool) {
+        guard let annotation = inView.annotation as? LocationAnnotation else { return }
+
+        let count = annotation.data.count
+        let base = (count == 1) ? self.singleMarkerImage : self.multiMarkerImage
+
+        if reversed {
+            let reversedStyle = _reversedStyle(for: self.traitCollection.userInterfaceStyle)
+
+            // Force the view itself to render in reversed style.
+            inView.overrideUserInterfaceStyle = reversedStyle
+
+            // Build traits that include the reversed userInterfaceStyle, so the image asset resolves correctly.
+            let reversedTraits = UITraitCollection(traitsFrom: [
+                self.traitCollection,
+                UITraitCollection(userInterfaceStyle: reversedStyle)
+            ])
+
+            inView.image = self._markerImage(from: base, compatibleWith: reversedTraits)
+        } else {
+            // Back to normal.
+            inView.overrideUserInterfaceStyle = .unspecified
+            inView.image = self._markerImage(from: base, compatibleWith: self.traitCollection)
+        }
+
+        // If it’s your custom view, relayout so the count layer refreshes.
+        (inView as? AnnotationView)?.setNeedsLayout()
+    }
+    
     /* ################################################################## */
     /**
      This returns a marker image that will change when the markers are recalculated.
@@ -659,7 +1042,7 @@ extension BigJuJuMapViewController {
         }
         
         guard !inAnnotations.isEmpty,
-              !mapView.bounds.isEmpty,
+              !self.mapView.bounds.isEmpty,
               8 < _BJJMAssets._sMarkerWidthInDisplayUnits
         else { return [] }
         
@@ -726,11 +1109,11 @@ extension BigJuJuMapViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = MKMapView()
+        self.view = _BJJMMapView()
         self.mapView.delegate = self
 
         if #available(iOS 17.0, *) {
-            registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
                 self._recalculateAnnotations()
             }
         }
@@ -747,7 +1130,7 @@ extension BigJuJuMapViewController {
         super.traitCollectionDidChange(inPreviousTraitCollection)
 
         guard let inPreviousTraitCollection,
-              traitCollection.hasDifferentColorAppearance(comparedTo: inPreviousTraitCollection)
+              self.traitCollection.hasDifferentColorAppearance(comparedTo: inPreviousTraitCollection)
         else { return }
 
         self._recalculateAnnotations()
@@ -776,7 +1159,7 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     /**
      Called when the map has finished rendering all its tiles. We use it to force the annotations to be recalculated.
      
-     - parameter inMapView: The map view being rendered.
+     - parameter inMapView: The map view being rendered (ignored).
      - parameter fullyRendered: Ignored.
      */
     @MainActor
@@ -787,26 +1170,95 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     /* ################################################################## */
     /**
      Called when the map has changed its region. We use it to force the annotations to be recalculated.
-
-     - parameter inMapView: The map view being rendered.
+     
+     - parameter inMapView: The map view being rendered (ignored).
      - parameter regionDidChangeAnimated: Ignored.
      */
     @MainActor
     public func mapView(_ inMapView: MKMapView, regionDidChangeAnimated: Bool) {
-        self._recalculateAnnotations()
+        if let popover = self._activePopover,
+           let view = self._activeAnnotationView {
+            self._positionPopover(popover, for: view)
+        }
+        
+        if self._activePopover == nil {
+            self._recalculateAnnotations()
+        }
     }
     
     /* ################################################################## */
     /**
      This is called when a marker is selected.
-
-     - parameter inMapView: The map view (ignored)
-     - parameter inAnnotation: The annotation we're getting the marker for.
+     
+     - parameter inMapView: The map view
+     - parameter inView: The marker we're selecting.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, didSelect inAnnotation: MKAnnotation) {
-        if inAnnotation.isKind(of: MKUserLocation.self) {
-            inMapView.deselectAnnotation(inAnnotation, animated: false)
+    public func mapView(_ inMapView: MKMapView, didSelect inView: MKAnnotationView) {
+        guard let annotation = inView.annotation as? LocationAnnotation else { return }
+        
+        // Don’t show for user location
+        if annotation.isKind(of: MKUserLocation.self) {
+            inMapView.deselectAnnotation(annotation, animated: false)
+            return
         }
+        
+        self._applyMarkerAppearance(to: inView, reversed: true)
+        
+        self._dismissPopover()
+        self._installDismissTapIfNeeded()
+        
+        self._activeAnnotation = annotation
+        self._activeAnnotationView = inView
+        
+        let popover = _BJJMMarkerPopoverView()
+        self._activePopover = popover
+        
+        popover.configure(items: annotation.data) { [weak self] item in
+            guard let self else { return }
+            self._dismissPopover()
+            inMapView.deselectAnnotation(annotation, animated: true)
+            item.callHandler()
+        }
+        
+        inMapView.addSubview(popover)
+        self._positionPopover(popover, for: inView)
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a marker is deselected.
+     
+     - parameter inMapView: The map view
+     - parameter inView: The marker we're deselecting.
+     */
+    @MainActor
+    public func mapView(_ inMapView: MKMapView, didDeselect inView: MKAnnotationView) {
+        if inView === self._activeAnnotationView {
+            self._dismissPopover()
+        }
+        
+        self._applyMarkerAppearance(to: inView, reversed: false)
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: UIGestureRecognizerDelegate Conformance
+/* ################################################################################################################################## */
+extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
+    /* ################################################################## */
+    /**
+     Called to determine whether or not to consume a touch event.
+     
+     - parameter inGestureRecognizer: The gesture recognizer(ignored)
+     - parameter inTouch: The touch event
+     - returns: True, if the touch event is valid.
+     */
+    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer, shouldReceive inTouch: UITouch) -> Bool {
+        guard let popover = self._activePopover,
+           inTouch.view?.isDescendant(of: popover) == true
+        else { return true }
+        
+        return false
     }
 }
