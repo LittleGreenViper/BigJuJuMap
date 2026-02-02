@@ -147,15 +147,35 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 }
 
 /* ################################################################################################################################## */
+// MARK: UIView Extension for Finding Superview
+/* ################################################################################################################################## */
+private extension UIView {
+    /* ################################################################## */
+    /**
+     */
+    func superview<T: UIView>(of type: T.Type) -> T? {
+        var v = self.superview
+        while let current = v {
+            if let match = current as? T { return match }
+            v = current.superview
+        }
+        return nil
+    }
+}
+
+/* ################################################################################################################################## */
 // MARK: - Private MKMapView Subclass for Deterministic Annotation Hit-Testing -
 /* ################################################################################################################################## */
 /**
- 
+ This allows us to pick the marker best suited for a hit-test, when they are piled together.
  */
-private final class _BJJMMapView: MKMapView {
+private final class _BJJMMapView: MKMapView, UIGestureRecognizerDelegate {
     /* ################################################################## */
     /**
      Recursively collect all MKAnnotationView instances in the view hierarchy.
+     
+     - parameter inView: The view conmtaining annotations.
+     - returns: A list of annotations for the view.
      */
     private func _allAnnotationViews(in inView: UIView) -> [MKAnnotationView] {
         var ret: [MKAnnotationView] = []
@@ -173,20 +193,79 @@ private final class _BJJMMapView: MKMapView {
     
     /* ################################################################## */
     /**
+     */
+    private func _deepestControl(in inRootView: UIView, at inPointInRoot: CGPoint, with inEvent: UIEvent?) -> UIControl? {
+        // Walk front-to-back (reverse order) like hit-testing does.
+        for sub in inRootView.subviews.reversed() where !sub.isHidden && sub.alpha > 0.01 && sub.isUserInteractionEnabled {
+            let p = sub.convert(inPointInRoot, from: inRootView)
+            guard sub.bounds.contains(p) else { continue }
+
+            if let control = sub as? UIControl { return control }
+            if let found = _deepestControl(in: sub, at: p, with: inEvent) { return found }
+        }
+        return nil
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        // Ensure map gestures defer to controls inside the callout/table.
+        self.gestureRecognizers?.forEach { $0.delegate = self }
+    }
+    
+    /* ################################################################## */
+    /**
      Overrides hit-testing so that, when multiple annotation views overlap,
      we deterministically pick the annotation whose *tip* (bottom-center) is closest to the tap.
+     
+     - parameter inPoint: The point being tested.
+     - parameter inEvent: The event providing the hit.
+     - returns: The view that is being selected.
      */
-    override func hitTest(_ inPoint: CGPoint, with inEvent: UIEvent?) -> UIView? {
-        // First: let the system find its preferred target (works for non-overlapping cases, controls, etc.).
-        let systemHit = super.hitTest(inPoint, with: inEvent)
-        
-        // If the system already hit an annotation view (or something inside it), honor that.
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        func ancestor<T: UIView>(of view: UIView, as type: T.Type) -> T? {
+            var v: UIView? = view
+            while let current = v {
+                if let match = current as? T { return match }
+                v = current.superview
+            }
+            return nil
+        }
+
+        let systemHit = super.hitTest(point, with: event)
+
         if let hit = systemHit {
-            if hit is MKAnnotationView { return hit }
-            if let superAV = hit.superview as? MKAnnotationView { return superAV }
+            // If the tap is anywhere inside a table/callout subtree, try to pull out the actual UIControl.
+            // (UITableViewCellContentView often gets returned even when the button is visually there.)
+            let local = hit.convert(point, from: self)
+            if let control = _deepestControl(in: hit, at: local, with: event) {
+                return control
+            }
+
+            // If it’s inside a UITableView, at least honor that subtree.
+            if ancestor(of: hit, as: UITableView.self) != nil { return hit }
+
+            // If it’s inside an annotation view/callout, return the annotation view (marker taps).
+            if let av = ancestor(of: hit, as: MKAnnotationView.self) { return av }
+
+            if hit !== self { return hit }
+        }
+
+        // 2) If we hit *anything* inside an annotation view (including your custom callout),
+        //    return the annotation view so MapKit selection works for marker taps.
+        if let hit = systemHit,
+           let av = ancestor(of: hit, as: MKAnnotationView.self) {
+            return av
         }
         
-        // Otherwise, do our own pick among *all* annotation views that contain the tap.
+        // 3) If UIKit hit some other subview (not the map itself), honor it.
+        if let hit = systemHit, hit !== self {
+            return hit
+        }
+        
+        // 4) Otherwise, do your “best marker under finger” selection (for piled markers).
         let annotationViews = _allAnnotationViews(in: self)
             .filter { !$0.isHidden && $0.alpha > 0.01 && $0.isUserInteractionEnabled }
         
@@ -194,12 +273,9 @@ private final class _BJJMMapView: MKMapView {
         var bestDistanceSq: CGFloat = .greatestFiniteMagnitude
         
         for av in annotationViews {
-            let local = av.convert(inPoint, from: self)
+            let local = av.convert(point, from: self)
+            guard av.point(inside: local, with: event) else { continue }
             
-            // Respect each view’s custom hit shape/area (your AnnotationView overrides point(inside:)).
-            guard av.point(inside: local, with: inEvent) else { continue }
-            
-            // Marker “tip” is bottom-center in the view’s local coordinates.
             let tip = CGPoint(x: av.bounds.midX, y: av.bounds.maxY)
             let dx = local.x - tip.x
             let dy = local.y - tip.y
@@ -211,13 +287,7 @@ private final class _BJJMMapView: MKMapView {
             }
         }
         
-        // If we found an annotation view under the tap, return it so MapKit selects the right one.
-        if let bestView {
-            return bestView
-        }
-        
-        // Fall back to whatever UIKit found.
-        return systemHit
+        return bestView
     }
 }
 
@@ -294,24 +364,27 @@ open class BigJuJuMapViewController: UIViewController {
     }
     
     /* ################################################################################################################################## */
-    // MARK: - Private Popover View (Custom Callout)
+    // MARK: Private Popover View (Custom Callout)
     /* ################################################################################################################################## */
     /**
      */
-    private final class _BJJMMarkerPopoverView: UIView, UITableViewDataSource {
+    private class _BJJMMarkerPopoverView: UIView, UITableViewDataSource, UITableViewDelegate {
         /* ############################################################################################################################## */
-        //
+        // MARK: A Single Cell (Row) in the Table
         /* ############################################################################################################################## */
         /**
+         This simply allows us to have custom properties in our cells.
          */
         private final class _Cell: UITableViewCell {
             /* ########################################################## */
             /**
+             The height, in display units, of one row of the table.
              */
             static let rowHeight: CGFloat = 28
 
             /* ########################################################## */
             /**
+             Each row is actually a button, selecting the handler for the data entity attached to the row.
              */
             private let button: UIButton = {
                 let button = UIButton(type: .system)
@@ -322,7 +395,7 @@ open class BigJuJuMapViewController: UIViewController {
                 button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
                 return button
             }()
-
+            
             /* ########################################################## */
             /**
              */
@@ -331,7 +404,7 @@ open class BigJuJuMapViewController: UIViewController {
             /* ########################################################## */
             /**
              */
-            @objc private func _tapped() { self.handler?() }
+            var locationData: (any BigJuJuMapLocationProtocol)? { didSet { self.button.setTitle(self.locationData?.name ?? "ERROR", for: .normal) } }
 
             /* ########################################################## */
             /**
@@ -344,51 +417,24 @@ open class BigJuJuMapViewController: UIViewController {
                 self.isOpaque = false
                 self.selectionStyle = .none
 
-                self.contentView.directionalLayoutMargins = NSDirectionalEdgeInsets(
-                    top: 4,
-                    leading: 10,
-                    bottom: 4,
-                    trailing: 10
-                )
-
                 self.contentView.addSubview(self.button)
+                self.button.isUserInteractionEnabled = false
                 self.button.translatesAutoresizingMaskIntoConstraints = false
 
-                let guide = self.contentView.layoutMarginsGuide
                 NSLayoutConstraint.activate([
-                    self.button.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-                    self.button.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-                    self.button.topAnchor.constraint(equalTo: guide.topAnchor),
-                    self.button.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+                    self.button.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+                    self.button.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+                    self.button.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 4),
+                    self.button.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -4)
                 ])
-
-                self.button.addTarget(self, action: #selector(_tapped), for: .touchUpInside)
             }
 
             /* ########################################################## */
             /**
              */
             required init?(coder: NSCoder) { nil }
-
-            /* ########################################################## */
-            /**
-             */
-            func configure(title inTitle: String, handler inHandler: @escaping () -> Void) {
-                self.button.setTitle(inTitle, for: .normal)
-                self.handler = inHandler
-            }
         }
-        
-        /* ################################################################## */
-        /**
-         */
-        private static let _arrowHeight: CGFloat = 10
-        
-        /* ################################################################## */
-        /**
-         */
-        private static let _arrowWidth: CGFloat = 18
-        
+
         /* ################################################################## */
         /**
          */
@@ -443,6 +489,17 @@ open class BigJuJuMapViewController: UIViewController {
         /* ################################################################## */
         /**
          */
+        override var intrinsicContentSize: CGSize {
+            // Never force layout here. UIKit may ask before we’re in a window.
+            let insets: CGFloat = 16
+            let height = self.tableView.contentSize.height + insets
+            let width  = self.tableView.contentSize.width  + insets
+            return CGSize(width: max(120, width), height: max(44, height))
+        }
+
+        /* ################################################################## */
+        /**
+         */
         init() {
             super.init(frame: .zero)
 
@@ -477,6 +534,8 @@ open class BigJuJuMapViewController: UIViewController {
             ])
 
             self.tableView.dataSource = self
+            self.tableView.delegate = self
+            self.tableView.allowsSelection = true
         }
 
         /* ################################################################## */
@@ -492,7 +551,16 @@ open class BigJuJuMapViewController: UIViewController {
             self.items = inItems
             self.onSelectItem = inOnSelect
             self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
+        }
+
+        /* ########################################################## */
+        /**
+         */
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            guard indexPath.row < self.items.count else { return }
+            let item = self.items[indexPath.row]
+            self.onSelectItem?(item)
         }
 
         /* ################################################################## */
@@ -506,9 +574,8 @@ open class BigJuJuMapViewController: UIViewController {
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = _Cell(style: .default, reuseIdentifier: nil)
             let item = self.items[indexPath.row]
-            cell.configure(title: item.name) { [weak self] in
-                self?.onSelectItem?(item)
-            }
+            cell.locationData = item
+            cell.selectionStyle = .none
             return cell
         }
 
@@ -1221,8 +1288,13 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
             item.callHandler()
         }
         
-        inMapView.addSubview(popover)
         self._positionPopover(popover, for: inView)
+        popover.setNeedsLayout()
+        inMapView.addSubview(popover)
+        
+        DispatchQueue.main.async { [weak popover] in
+            popover?.layoutIfNeeded()
+        }
     }
     
     /* ################################################################## */
@@ -1256,7 +1328,7 @@ extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
      */
     public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer, shouldReceive inTouch: UITouch) -> Bool {
         guard let popover = self._activePopover,
-           inTouch.view?.isDescendant(of: popover) == true
+              inTouch.view?.isDescendant(of: popover) == true
         else { return true }
         
         return false
