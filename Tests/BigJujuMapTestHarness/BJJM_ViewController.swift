@@ -21,6 +21,7 @@ import UIKit
 import BigJuJuMap
 import TabularData
 import CoreLocation
+import RVS_Generic_Swift_Toolbox
 
 /* ################################################################################################################################## */
 // MARK: - DataFrame Helpers
@@ -71,31 +72,41 @@ class BJJM_ViewController: UIViewController {
     // MARK: - Concrete Map Location Class
     /* ############################################################################################################################## */
     /**
-     
+        This class implements the data item protocol.
      */
     final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
         /* ############################################################## */
         /**
+         Makes it identifiable.
          */
         var id: AnyHashable
 
         /* ############################################################## */
         /**
+         Has a basic location
          */
         let location: CLLocation
 
         /* ############################################################## */
         /**
+         Has a name
          */
         let name: String
 
         /* ############################################################## */
         /**
+         This is called when the location is chosen on the map.
          */
         let handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void)
 
         /* ############################################################## */
         /**
+         Basic initializer
+         - parameter inID: The hashable identifier
+         - parameter inName: The string to be applied.
+         - parameter inLat: The latitude
+         - parameter inLng: The longitude
+         - parameter handler: The handler closure.
          */
         init(id inID: AnyHashable,
              name inName: String,
@@ -111,18 +122,44 @@ class BJJM_ViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     This just allows us to access the BigJuJuMap instance, so we can directly initialize it.
-     
-     - parameter inSegue: The segue being executed.
-     - parameter sender: Ignored.
      */
-    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = inSegue.destination as? BigJuJuMapViewController else { return }
-        
+    private weak var _myMapController: BigJuJuMapViewController?
+    
+    /* ################################################################## */
+    /**
+     The switch that selects our map data.
+     */
+    @IBOutlet weak var selectorSwitch: UISegmentedControl?
+    
+    /* ################################################################## */
+    /**
+     The switch that selects our map data was changed.
+     */
+    @IBAction func selectedData(_ inSwitch: UISegmentedControl) {
+        self._updateLocations()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private var _locationData: DataFrame? {
+        let selectedIndex = self.selectorSwitch?.selectedSegmentIndex ?? 0
+        let fileName = self.selectorSwitch?.titleForSegment(at: selectedIndex) ?? "SLUG-USA".localizedVariant
         let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
 
-        guard let csvDataURL = Bundle.main.url(forResource: "default", withExtension: "csv"),
+        guard let csvDataURL = Bundle.main.url(forResource: fileName, withExtension: "csv"),
               let dataFrame = try? DataFrame(contentsOfCSVFile: csvDataURL, options: csvOptions)
+        else { return nil }
+
+        return dataFrame
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _updateLocations() {
+        guard let dataFrame = self._locationData,
+              let myController = self._myMapController
         else { return }
         
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.compactMap { inRow in
@@ -141,6 +178,33 @@ class BJJM_ViewController: UIViewController {
             print("Loaded \(locations.count) map locations.")
         #endif
 
-        destination.mapData = locations
+        myController.mapData = locations
+        myController.region = locations.containingCoordinateRegion
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        guard let selectorSwitch else { return }
+        
+        for index in 0..<selectorSwitch.numberOfSegments {
+            selectorSwitch.setTitle(selectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+        }
+        
+        self._updateLocations()
+    }
+    
+    /* ################################################################## */
+    /**
+     This just allows us to access the BigJuJuMap instance, so we can directly initialize it.
+     
+     - parameter inSegue: The segue being executed.
+     - parameter sender: Ignored.
+     */
+    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+        self._myMapController = inSegue.destination as? BigJuJuMapViewController
     }
 }

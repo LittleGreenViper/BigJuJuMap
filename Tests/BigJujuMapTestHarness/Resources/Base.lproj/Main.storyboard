@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,21 +18,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYb-NI-XxN">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="753"/>
                                 <connections>
                                     <segue destination="H3I-4K-Mpq" kind="embed" id="9GW-vT-KpS"/>
                                 </connections>
                             </containerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IPy-1O-yBj">
+                                <rect key="frame" x="16" y="753" width="361" height="32"/>
+                                <segments>
+                                    <segment title="SLUG-USA"/>
+                                    <segment title="SLUG-OMAHA"/>
+                                    <segment title="SLUG-PHILADELPHIA"/>
+                                </segments>
+                                <connections>
+                                    <action selector="selectedData:" destination="BYZ-38-t0r" eventType="valueChanged" id="MC2-aR-xOL"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IPy-1O-yBj" secondAttribute="trailing" constant="16" id="2fC-NM-Fdl"/>
                             <constraint firstAttribute="trailing" secondItem="eYb-NI-XxN" secondAttribute="trailing" id="8E9-8u-Tl0"/>
-                            <constraint firstAttribute="bottom" secondItem="eYb-NI-XxN" secondAttribute="bottom" id="Ykv-xg-r4a"/>
+                            <constraint firstItem="IPy-1O-yBj" firstAttribute="top" secondItem="eYb-NI-XxN" secondAttribute="bottom" id="FsY-r6-Ly8"/>
+                            <constraint firstItem="IPy-1O-yBj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JZk-OA-luH"/>
+                            <constraint firstItem="IPy-1O-yBj" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="d1x-5q-tvB"/>
                             <constraint firstItem="eYb-NI-XxN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="i1m-Wx-JRG"/>
                             <constraint firstItem="eYb-NI-XxN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="win-Ds-KA2"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="selectorSwitch" destination="IPy-1O-yBj" id="FsK-zo-KAb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,7 +60,7 @@
             <objects>
                 <viewController id="H3I-4K-Mpq" customClass="BigJuJuMapViewController" customModule="BigJuJuMap" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nNK-sm-M62">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="745"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="u0x-7X-aTz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

@@ -124,6 +124,56 @@ public extension BigJuJuMapLocationProtocol {
 public extension Collection where Element == any BigJuJuMapLocationProtocol {
     /* ################################################################## */
     /**
+     This is just a way of saying "Bogus, dude."
+     */
+    static var invalidContainingRegion: MKCoordinateRegion {
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: .nan, longitude: .nan),
+            span: MKCoordinateSpan(latitudeDelta: .nan, longitudeDelta: .nan)
+        )
+    }
+
+    /* ################################################################## */
+    /**
+     Returns an MKCoordinateRegion that contains all points in the collection (with padding).
+     If the collection is empty, returns `invalidContainingRegion`.
+     */
+    var containingCoordinateRegion: MKCoordinateRegion {
+        guard !self.isEmpty else { return Self.invalidContainingRegion }
+
+        var minLat =  90.0
+        var maxLat = -90.0
+        var minLon =  180.0
+        var maxLon = -180.0
+
+        self.forEach {
+            let coordinate = $0.location.coordinate
+            minLat = Swift.min(minLat, coordinate.latitude)
+            maxLat = Swift.max(maxLat, coordinate.latitude)
+            minLon = Swift.min(minLon, coordinate.longitude)
+            maxLon = Swift.max(maxLon, coordinate.longitude)
+        }
+
+        let center = CLLocationCoordinate2D(
+            latitude: (minLat + maxLat) * 0.5,
+            longitude: (minLon + maxLon) * 0.5
+        )
+
+        // Add padding and ensure a minimum usable span
+        let latDelta = Swift.max(0.002, (maxLat - minLat) * 1.10)
+        let lonDelta = Swift.max(0.002, (maxLon - minLon) * 1.10)
+
+        return MKCoordinateRegion(
+            center: center,
+            span: MKCoordinateSpan(
+                latitudeDelta: latDelta,
+                longitudeDelta: lonDelta
+            )
+        )
+    }
+    
+    /* ################################################################## */
+    /**
      Returns the arithmetic mean (center) of the coordinates.
      */
     var coordinate: CLLocationCoordinate2D {
@@ -971,6 +1021,15 @@ public extension BigJuJuMapViewController {
      > NOTE: This does an implicit unwrap, because we are in deep poo, if it fails.
      */
     var mapView: MKMapView { self.view as! MKMapView }
+    
+    /* ################################################################## */
+    /**
+     This allows direct access to the displayed map region.
+     */
+    var region: MKCoordinateRegion {
+        get { self.mapView.region }
+        set { self.mapView.setRegion(newValue, animated: true) }
+    }
 }
 
 /* ################################################################################################################################## */
@@ -1122,8 +1181,16 @@ extension BigJuJuMapViewController {
      This forces the annotations to be recalculated, and set to the map.
      */
     private func _recalculateAnnotations() {
+        // Negative inset expands the rect (buffer in map points).
+        let buffer: Double = 2_000 // tune for your app
+        let visibleRect = self.mapView.visibleMapRect.insetBy(dx: -buffer, dy: -buffer)
+
+        let visibleAnnotations = self._myAnnotations.filter {
+            visibleRect.contains(MKMapPoint($0.coordinate))
+        }
+
         self.mapView.removeAnnotations(self.mapView.annotations)
-        self.mapView.addAnnotations(self._myAnnotations)
+        self.mapView.addAnnotations(visibleAnnotations)
     }
     
     /* ################################################################## */
