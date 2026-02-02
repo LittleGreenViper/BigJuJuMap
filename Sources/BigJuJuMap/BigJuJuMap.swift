@@ -230,7 +230,59 @@ open class BigJuJuMapViewController: UIViewController {
         /* ############################################################################################################################## */
         /**
          */
-        private class _MarkerCalloutContentView: UIView {
+        private class _MarkerCalloutContentView: UIView, UITableViewDelegate {
+            private class _MarkerCalloutCell: UITableViewCell {
+                /* ########################################################## */
+                /**
+                 */
+                private weak var _myDataPoint: (any BigJuJuMapLocationProtocol)?
+                
+                /* ########################################################## */
+                /**
+                 */
+                private var _myButton: UIButton?
+                
+                /* ########################################################## */
+                /**
+                 */
+                override func awakeFromNib() {
+                    super.awakeFromNib()
+                    if nil == self._myButton {
+                        let button = UIButton(type: .system)
+                        if let label = button.titleLabel {
+                            label.numberOfLines = 1
+                            label.minimumScaleFactor = 0.5
+                            label.adjustsFontSizeToFitWidth = true
+                        }
+                        
+                        self.addSubview(button)
+                        button.translatesAutoresizingMaskIntoConstraints = false
+                        NSLayoutConstraint.activate([
+                            button.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                            button.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                            button.topAnchor.constraint(equalTo: self.topAnchor),
+                            button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                        ])
+                        self._myButton = button
+                    }
+                    
+                    if let name = _myDataPoint?.name {
+                        self._myButton?.setTitle(name, for: .normal)
+                    }
+                }
+                
+                /* ########################################################## */
+                /**
+                 */
+                override func prepareForReuse() {
+                    super.prepareForReuse()
+                    
+                    if let name = _myDataPoint?.name {
+                        self._myButton?.setTitle(name, for: .normal)
+                    }
+                }
+            }
+            
             /* ############################################################## */
             /**
              */
