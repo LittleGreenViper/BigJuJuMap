@@ -307,35 +307,60 @@ open class BigJuJuMapViewController: UIViewController {
      This is used to denote a single annotation item
      */
     open class LocationAnnotation: NSObject, MKAnnotation {
-        /* ############################################################## */
+        /* ########################################################## */
         /**
-         The coordinate for this annotation.
          */
-        public var coordinate: CLLocationCoordinate2D { self.data.coordinate }
-        
-        /* ############################################################## */
+        public private(set) var coordinate: CLLocationCoordinate2D
+
+        /* ########################################################## */
         /**
-         Any data associated with the annotation (may be aggregate, with multiple data items).
          */
         public var data: [any BigJuJuMapLocationProtocol]
 
-        /* ############################################################## */
+        /* ########################################################## */
         /**
-         Basic initializer
-         - parameter inData: All data to be associated with the annotation
+         */
+        private var _latSum: Double
+
+        /* ########################################################## */
+        /**
+         */
+        private var _lonSum: Double
+
+        /* ########################################################## */
+        /**
+         */
+        fileprivate func _mergeIn(_ other: LocationAnnotation) {
+            self.data.append(contentsOf: other.data)
+            self._latSum += other._latSum
+            self._lonSum += other._lonSum
+            let c = Double(max(1, self.data.count))
+            self.coordinate = CLLocationCoordinate2D(latitude: _latSum / c, longitude: _lonSum / c)
+        }
+
+        /* ########################################################## */
+        /**
          */
         public init(_ inData: [any BigJuJuMapLocationProtocol]) {
             self.data = inData
+
+            var lat = 0.0
+            var lon = 0.0
+            for item in inData {
+                lat += item.location.coordinate.latitude
+                lon += item.location.coordinate.longitude
+            }
+            self._latSum = lat
+            self._lonSum = lon
+
+            let c = max(1, inData.count)
+            self.coordinate = CLLocationCoordinate2D(latitude: lat / Double(c), longitude: lon / Double(c))
         }
-        
-        /* ############################################################## */
+
+        /* ########################################################## */
         /**
-         Allows a single data item.
-         - parameter inData: A single data item.
          */
-        public convenience init(_ inData: any BigJuJuMapLocationProtocol) {
-            self.init([inData])
-        }
+        public convenience init(_ inData: any BigJuJuMapLocationProtocol) { self.init([inData]) }
     }
     
     /* ################################################################################################################################## */
@@ -1181,7 +1206,7 @@ extension BigJuJuMapViewController {
             
             if let existing = clusters[useKey] {
                 // Merge: keep the existing annotation object, just append data.
-                existing.data.append(contentsOf: inAnnotation.data)
+                existing._mergeIn(inAnnotation)
                 
                 // Update stored screen center (simple running average by item-count).
                 let oldCenter = centers[useKey] ?? point
