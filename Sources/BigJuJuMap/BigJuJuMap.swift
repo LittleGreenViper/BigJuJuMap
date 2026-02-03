@@ -900,7 +900,7 @@ open class BigJuJuMapViewController: UIViewController {
                 x: 2,
                 y: 4,
                 width: rect.width - 4,
-                height: rect.height * 0.5
+                height: rect.height * 0.45
             )
 
             let text = "\(count)"
@@ -1198,7 +1198,7 @@ extension BigJuJuMapViewController {
      This creates clusters (multi) annotations, where markers would be close together.
      The Apple clustering algorithm kinda sucks, so we'll do it, ourselves.
      
-     - parameter inAnnotations: The annotations to test.
+     - parameter inAnnotations: The annotations to clump.
      - returns: A new set of annotations, including any clusters.
      */
     private func _clusterAnnotations(_ inAnnotations: [LocationAnnotation]) -> [LocationAnnotation] {

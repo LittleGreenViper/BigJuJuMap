@@ -24,7 +24,7 @@ import CoreLocation
 import RVS_Generic_Swift_Toolbox
 
 /* ################################################################################################################################## */
-// MARK: - DataFrame Helpers
+// MARK: - DataFrame Helpers -
 /* ################################################################################################################################## */
 /**
  
@@ -62,17 +62,39 @@ fileprivate extension DataFrame.Row {
 }
 
 /* ################################################################################################################################## */
-// MARK: Main View Controller Class
+// MARK: - Main View Controller Class -
 /* ################################################################################################################################## */
 /**
  
  */
 class BJJM_ViewController: UIViewController {
     /* ############################################################################################################################## */
-    // MARK: - Concrete Map Location Class
+    // MARK: Marker Type Selection Enum
     /* ############################################################################################################################## */
     /**
-        This class implements the data item protocol.
+     */
+    private enum _MarkerType: Int {
+        /* ############################################################## */
+        /**
+         */
+        case builtIn
+
+        /* ############################################################## */
+        /**
+         */
+        case customEnumerated
+
+        /* ############################################################## */
+        /**
+         */
+        case customNonEnumerated
+    }
+    
+    /* ############################################################################################################################## */
+    // MARK: Concrete Map Location Class
+    /* ############################################################################################################################## */
+    /**
+     This class implements the data item protocol.
      */
     final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
         /* ############################################################## */
@@ -80,25 +102,25 @@ class BJJM_ViewController: UIViewController {
          Makes it identifiable.
          */
         var id: AnyHashable
-
+        
         /* ############################################################## */
         /**
          Has a basic location
          */
         let location: CLLocation
-
+        
         /* ############################################################## */
         /**
          Has a name
          */
         let name: String
-
+        
         /* ############################################################## */
         /**
          This is called when the location is chosen on the map.
          */
         let handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void)
-
+        
         /* ############################################################## */
         /**
          Basic initializer
@@ -129,22 +151,24 @@ class BJJM_ViewController: UIViewController {
     /**
      The switch that selects our map data.
      */
-    @IBOutlet weak var selectorSwitch: UISegmentedControl?
+    @IBOutlet weak var dataSelectorSwitch: UISegmentedControl?
     
     /* ################################################################## */
     /**
-     The switch that selects our map data was changed.
      */
-    @IBAction func selectedData(_ inSwitch: UISegmentedControl) {
-        self._updateLocations()
-    }
-    
+    @IBOutlet weak var markerSelectorSwitch: UISegmentedControl?
+}
+
+/* ################################################################################################################################## */
+// MARK: Private Computed Properties
+/* ################################################################################################################################## */
+extension BJJM_ViewController {
     /* ################################################################## */
     /**
      */
     private var _locationData: DataFrame? {
-        let selectedIndex = self.selectorSwitch?.selectedSegmentIndex ?? 0
-        let fileName = self.selectorSwitch?.titleForSegment(at: selectedIndex) ?? "SLUG-USA".localizedVariant
+        let selectedIndex = self.dataSelectorSwitch?.selectedSegmentIndex ?? 0
+        let fileName = self.dataSelectorSwitch?.titleForSegment(at: selectedIndex) ?? "SLUG-USA".localizedVariant
         let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
 
         guard let csvDataURL = Bundle.main.url(forResource: fileName, withExtension: "csv"),
@@ -153,7 +177,12 @@ class BJJM_ViewController: UIViewController {
 
         return dataFrame
     }
-    
+}
+
+/* ################################################################################################################################## */
+// MARK: Private Instance Methods
+/* ################################################################################################################################## */
+extension BJJM_ViewController {
     /* ################################################################## */
     /**
      */
@@ -178,22 +207,71 @@ class BJJM_ViewController: UIViewController {
             print("Loaded \(locations.count) map locations.")
         #endif
 
+        switch markerSelectorSwitch?.selectedSegmentIndex {
+        case _MarkerType.customEnumerated.rawValue:
+            myController.singleMarkerImage = UIImage(named: "CustomGeneric")
+            myController.multiMarkerImage = UIImage(named: "CustomGeneric")
+            myController.displayNumbers = true
+
+        case _MarkerType.customNonEnumerated.rawValue:
+            myController.singleMarkerImage = UIImage(named: "CustomSingle")
+            myController.multiMarkerImage = UIImage(named: "CustomMulti")
+            myController.displayNumbers = false
+
+        default:
+            myController.singleMarkerImage = nil
+            myController.multiMarkerImage = nil
+            myController.displayNumbers = true
+        }
         myController.mapData = locations
         myController.region = locations.containingCoordinateRegion
     }
+}
 
+/* ################################################################################################################################## */
+// MARK: Callbacks
+/* ################################################################################################################################## */
+extension BJJM_ViewController {
+    /* ################################################################## */
+    /**
+     The switch that selects our map data was changed.
+     */
+    @IBAction func selectorSwitchHit() {
+        self._updateLocations()
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: Base Class Overrides
+/* ################################################################################################################################## */
+extension BJJM_ViewController {
     /* ################################################################## */
     /**
      */
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        guard let selectorSwitch else { return }
-        
-        for index in 0..<selectorSwitch.numberOfSegments {
-            selectorSwitch.setTitle(selectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+        /* ############################################################## */
+        /**
+         */
+        func _recursiveImageTweaker(root inView: UIView) {
+            if let imageView = inView as? UIImageView {
+                imageView.contentMode = .scaleAspectFit
+            }
+            
+            inView.subviews.forEach { _recursiveImageTweaker(root: $0) }
         }
         
+        super.viewDidLoad()
+        
+        guard let dataSelectorSwitch,
+              let markerSelectorSwitch
+        else { return }
+
+        for index in 0..<dataSelectorSwitch.numberOfSegments {
+            dataSelectorSwitch.setTitle(dataSelectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+        }
+        
+        _recursiveImageTweaker(root: markerSelectorSwitch)
+
         self._updateLocations()
     }
     
