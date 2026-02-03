@@ -977,14 +977,14 @@ open class BigJuJuMapViewController: UIViewController {
     
     /* ################################################################## */
     /**
-     The image to be used for markers, representing single locations.
+     The image to be used for markers, representing single locations. Default is the generic map marker (both single and aggregate)
      */
     @IBInspectable
     public var singleMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
 
     /* ################################################################## */
     /**
-     The image to be used for markers, representing aggregated locations.
+     The image to be used for markers, representing aggregated locations. Default is the generic map marker (both single and aggregate)
      */
     @IBInspectable
     public var multiMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
