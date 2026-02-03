@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		D41D83382F2EB7F800880103 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41D83372F2EB7F800880103 /* Media.xcassets */; };
+		D42456232F32B57200148264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB42F2D0FAA00116B91 /* Assets.xcassets */; };
+		D42456242F32B57800148264 /* USA.csv in Resources */ = {isa = PBXBuildFile; fileRef = D42A111B2F2D5465000C9277 /* USA.csv */; };
+		D42456252F32B57D00148264 /* Omaha.csv in Resources */ = {isa = PBXBuildFile; fileRef = D44840EB2F3155440015A2AB /* Omaha.csv */; };
+		D42456262F32B58300148264 /* Philadelphia.csv in Resources */ = {isa = PBXBuildFile; fileRef = D44840EC2F3155440015A2AB /* Philadelphia.csv */; };
+		D42456272F32B58800148264 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D44840EF2F3157E20015A2AB /* Localizable.strings */; };
+		D42456292F32B5AB00148264 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */; };
+		D424562A2F32B5AB00148264 /* BigJuJuMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; };
+		D424562B2F32B5AB00148264 /* BigJuJuMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D42456322F32B5C900148264 /* BJJM_SwiftUIMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D424562F2F32B5C900148264 /* BJJM_SwiftUIMainView.swift */; };
+		D42456332F32B5C900148264 /* BJJM_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42456302F32B5C900148264 /* BJJM_SwiftUIApp.swift */; };
 		D42A111C2F2D5465000C9277 /* USA.csv in Resources */ = {isa = PBXBuildFile; fileRef = D42A111B2F2D5465000C9277 /* USA.csv */; };
 		D44840ED2F3155440015A2AB /* Omaha.csv in Resources */ = {isa = PBXBuildFile; fileRef = D44840EB2F3155440015A2AB /* Omaha.csv */; };
 		D44840EE2F3155440015A2AB /* Philadelphia.csv in Resources */ = {isa = PBXBuildFile; fileRef = D44840EC2F3155440015A2AB /* Philadelphia.csv */; };
@@ -26,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D424562C2F32B5AB00148264 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D43A138C2F2A3F35001FD7C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D451ABE42F2D118A00116B91;
+			remoteInfo = BigJuJuMap;
+		};
 		D451ABE92F2D118A00116B91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D43A138C2F2A3F35001FD7C6 /* Project object */;
@@ -36,6 +53,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D424562E2F32B5AB00148264 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D424562B2F32B5AB00148264 /* BigJuJuMap.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D451ABD02F2D10CB00116B91 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,6 +79,9 @@
 
 /* Begin PBXFileReference section */
 		D41D83372F2EB7F800880103 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		D42456182F32B55000148264 /* SwiftUITestHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITestHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D424562F2F32B5C900148264 /* BJJM_SwiftUIMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_SwiftUIMainView.swift; sourceTree = "<group>"; };
+		D42456302F32B5C900148264 /* BJJM_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_SwiftUIApp.swift; sourceTree = "<group>"; };
 		D42A111B2F2D5465000C9277 /* USA.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = USA.csv; sourceTree = "<group>"; };
 		D44840EB2F3155440015A2AB /* Omaha.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Omaha.csv; sourceTree = "<group>"; };
 		D44840EC2F3155440015A2AB /* Philadelphia.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Philadelphia.csv; sourceTree = "<group>"; };
@@ -69,6 +100,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D42456152F32B55000148264 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D424562A2F32B5AB00148264 /* BigJuJuMap.framework in Frameworks */,
+				D42456292F32B5AB00148264 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D451AB9B2F2D0FA100116B91 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,12 +136,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D42456312F32B5C900148264 /* SwiftUITestHarness */ = {
+			isa = PBXGroup;
+			children = (
+				D42456302F32B5C900148264 /* BJJM_SwiftUIApp.swift */,
+				D424562F2F32B5C900148264 /* BJJM_SwiftUIMainView.swift */,
+			);
+			path = SwiftUITestHarness;
+			sourceTree = "<group>";
+		};
 		D43A138B2F2A3F35001FD7C6 = {
 			isa = PBXGroup;
 			children = (
 				D451AB982F2D0F5800116B91 /* Tests */,
 				D43A13A12F2A3F52001FD7C6 /* Sources */,
-				D451ABC62F2D104000116B91 /* Frameworks */,
 				D43A13962F2A3F35001FD7C6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +159,7 @@
 			children = (
 				D451AB9E2F2D0FA100116B91 /* UIKitTestHarness.app */,
 				D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */,
+				D42456182F32B55000148264 /* SwiftUITestHarness.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				D45E714A2F3237300018A6E9 /* Shared */,
+				D42456312F32B5C900148264 /* SwiftUITestHarness */,
 				D451ABBC2F2D0FAA00116B91 /* UIKitTestHarness */,
 			);
 			path = Tests;
@@ -171,13 +221,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D451ABC62F2D104000116B91 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D45E714A2F3237300018A6E9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,11 +232,11 @@
 		D45E714B2F3237380018A6E9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D44840EF2F3157E20015A2AB /* Localizable.strings */,
 				D451ABB42F2D0FAA00116B91 /* Assets.xcassets */,
 				D42A111B2F2D5465000C9277 /* USA.csv */,
 				D44840EB2F3155440015A2AB /* Omaha.csv */,
 				D44840EC2F3155440015A2AB /* Philadelphia.csv */,
-				D44840EF2F3157E20015A2AB /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -211,6 +254,28 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		D42456172F32B55000148264 /* SwiftUITestHarness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D42456222F32B55000148264 /* Build configuration list for PBXNativeTarget "SwiftUITestHarness" */;
+			buildPhases = (
+				D42456142F32B55000148264 /* Sources */,
+				D42456152F32B55000148264 /* Frameworks */,
+				D42456162F32B55000148264 /* Resources */,
+				D424562E2F32B5AB00148264 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D424562D2F32B5AB00148264 /* PBXTargetDependency */,
+			);
+			name = SwiftUITestHarness;
+			packageProductDependencies = (
+				D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */,
+			);
+			productName = SwiftUITestHarness;
+			productReference = D42456182F32B55000148264 /* SwiftUITestHarness.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D451AB9D2F2D0FA100116B91 /* UIKitTestHarness */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D451ABB02F2D0FA100116B91 /* Build configuration list for PBXNativeTarget "UIKitTestHarness" */;
@@ -263,6 +328,9 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					D42456172F32B55000148264 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					D451AB9D2F2D0FA100116B91 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -288,6 +356,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				D42456172F32B55000148264 /* SwiftUITestHarness */,
 				D451AB9D2F2D0FA100116B91 /* UIKitTestHarness */,
 				D451ABE42F2D118A00116B91 /* BigJuJuMap */,
 			);
@@ -295,6 +364,18 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D42456162F32B55000148264 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D42456272F32B58800148264 /* Localizable.strings in Resources */,
+				D42456242F32B57800148264 /* USA.csv in Resources */,
+				D42456232F32B57200148264 /* Assets.xcassets in Resources */,
+				D42456252F32B57D00148264 /* Omaha.csv in Resources */,
+				D42456262F32B58300148264 /* Philadelphia.csv in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D451AB9C2F2D0FA100116B91 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +401,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D42456142F32B55000148264 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D42456322F32B5C900148264 /* BJJM_SwiftUIMainView.swift in Sources */,
+				D42456332F32B5C900148264 /* BJJM_SwiftUIApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D451AB9A2F2D0FA100116B91 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,6 +432,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D424562D2F32B5AB00148264 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D451ABE42F2D118A00116B91 /* BigJuJuMap */;
+			targetProxy = D424562C2F32B5AB00148264 /* PBXContainerItemProxy */;
+		};
 		D451ABEA2F2D118A00116B91 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D451ABE42F2D118A00116B91 /* BigJuJuMap */;
@@ -377,6 +472,74 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D42456202F32B55000148264 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0000;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "BigJuJuMap-SwiftUI";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.litlegreenviper.BJJM-SwiftUI-TestHarness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D42456212F32B55000148264 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 0000;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "BigJuJuMap-SwiftUI";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.litlegreenviper.BJJM-SwiftUI-TestHarness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D43A139C2F2A3F35001FD7C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -661,6 +824,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D42456222F32B55000148264 /* Build configuration list for PBXNativeTarget "SwiftUITestHarness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D42456202F32B55000148264 /* Debug */,
+				D42456212F32B55000148264 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D43A138F2F2A3F35001FD7C6 /* Build configuration list for PBXProject "BigJuJuMap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -702,6 +874,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
 		D44840F32F315BC20015A2AB /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
