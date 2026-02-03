@@ -32,7 +32,7 @@
                                 </segments>
                                 <color key="selectedSegmentTintColor" name="AccentColor"/>
                                 <connections>
-                                    <action selector="selectorSwitchHit" destination="BYZ-38-t0r" eventType="valueChanged" id="tY5-M5-soS"/>
+                                    <action selector="markerSelectorSwitchHit" destination="BYZ-38-t0r" eventType="valueChanged" id="xhP-uQ-2Qw"/>
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IPy-1O-yBj">
@@ -44,7 +44,7 @@
                                 </segments>
                                 <color key="selectedSegmentTintColor" name="AccentColor"/>
                                 <connections>
-                                    <action selector="selectorSwitchHit" destination="BYZ-38-t0r" eventType="valueChanged" id="SfA-gB-dtf"/>
+                                    <action selector="locationSelectorSwitchHit" destination="BYZ-38-t0r" eventType="valueChanged" id="SfA-gB-dtf"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>

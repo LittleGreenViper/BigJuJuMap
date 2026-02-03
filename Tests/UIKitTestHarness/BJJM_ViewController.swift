@@ -186,6 +186,30 @@ extension BJJM_ViewController {
     /* ################################################################## */
     /**
      */
+    private func _updateMarkers() {
+        guard let myController = self._myMapController else { return }
+        
+        switch markerSelectorSwitch?.selectedSegmentIndex {
+        case _MarkerType.customEnumerated.rawValue:
+            myController.singleMarkerImage = UIImage(named: "CustomGeneric")
+            myController.multiMarkerImage = UIImage(named: "CustomGeneric")
+            myController.displayNumbers = true
+
+        case _MarkerType.customNonEnumerated.rawValue:
+            myController.singleMarkerImage = UIImage(named: "CustomSingle")
+            myController.multiMarkerImage = UIImage(named: "CustomMulti")
+            myController.displayNumbers = false
+
+        default:
+            myController.singleMarkerImage = nil
+            myController.multiMarkerImage = nil
+            myController.displayNumbers = true
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     private func _updateLocations() {
         guard let dataFrame = self._locationData,
               let myController = self._myMapController
@@ -207,22 +231,6 @@ extension BJJM_ViewController {
             print("Loaded \(locations.count) map locations.")
         #endif
 
-        switch markerSelectorSwitch?.selectedSegmentIndex {
-        case _MarkerType.customEnumerated.rawValue:
-            myController.singleMarkerImage = UIImage(named: "CustomGeneric")
-            myController.multiMarkerImage = UIImage(named: "CustomGeneric")
-            myController.displayNumbers = true
-
-        case _MarkerType.customNonEnumerated.rawValue:
-            myController.singleMarkerImage = UIImage(named: "CustomSingle")
-            myController.multiMarkerImage = UIImage(named: "CustomMulti")
-            myController.displayNumbers = false
-
-        default:
-            myController.singleMarkerImage = nil
-            myController.multiMarkerImage = nil
-            myController.displayNumbers = true
-        }
         myController.mapData = locations
         myController.region = locations.containingCoordinateRegion
     }
@@ -236,8 +244,16 @@ extension BJJM_ViewController {
     /**
      The switch that selects our map data was changed.
      */
-    @IBAction func selectorSwitchHit() {
+    @IBAction func locationSelectorSwitchHit() {
         self._updateLocations()
+    }
+    
+    /* ################################################################## */
+    /**
+     The switch that selects our map data was changed.
+     */
+    @IBAction func markerSelectorSwitchHit() {
+        self._updateMarkers()
     }
 }
 

@@ -980,21 +980,21 @@ open class BigJuJuMapViewController: UIViewController {
      The image to be used for markers, representing single locations.
      */
     @IBInspectable
-    public var singleMarkerImage: UIImage?
+    public var singleMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
 
     /* ################################################################## */
     /**
      The image to be used for markers, representing aggregated locations.
      */
     @IBInspectable
-    public var multiMarkerImage: UIImage?
+    public var multiMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
 
     /* ################################################################## */
     /**
      If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
      */
     @IBInspectable
-    public var displayNumbers = true
+    public var displayNumbers = true { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
 }
 
 /* ################################################################################################################################## */
