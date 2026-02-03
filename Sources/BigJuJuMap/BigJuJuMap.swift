@@ -359,37 +359,47 @@ open class BigJuJuMapViewController: UIViewController {
     open class LocationAnnotation: NSObject, MKAnnotation {
         /* ########################################################## */
         /**
+         The coordinate of this annotation
          */
         public private(set) var coordinate: CLLocationCoordinate2D
 
         /* ########################################################## */
         /**
+         The data associated with this annotation
          */
         public var data: [any BigJuJuMapLocationProtocol]
 
         /* ########################################################## */
         /**
+         Latitude summation
          */
         private var _latSum: Double
 
         /* ########################################################## */
         /**
+         Longitude summation.
          */
         private var _lonSum: Double
 
         /* ########################################################## */
         /**
+         This merges annotations, in an efficient manner.
+         
+         - parameter inToBeMerged: The annotation with the data to be merged into this annotation.
          */
-        fileprivate func _mergeIn(_ other: LocationAnnotation) {
-            self.data.append(contentsOf: other.data)
-            self._latSum += other._latSum
-            self._lonSum += other._lonSum
+        fileprivate func _mergeIn(_ inToBeMerged: LocationAnnotation) {
+            self.data.append(contentsOf: inToBeMerged.data)
+            self._latSum += inToBeMerged._latSum
+            self._lonSum += inToBeMerged._lonSum
             let c = Double(max(1, self.data.count))
             self.coordinate = CLLocationCoordinate2D(latitude: _latSum / c, longitude: _lonSum / c)
         }
 
         /* ########################################################## */
         /**
+         Initializer with an array of location data entities.
+         
+         - parameter inData: An array of data items, conformant to BigJuJuMapLocationProtocol
          */
         public init(_ inData: [any BigJuJuMapLocationProtocol]) {
             self.data = inData
@@ -409,6 +419,9 @@ open class BigJuJuMapViewController: UIViewController {
 
         /* ########################################################## */
         /**
+         Initializer with a single location data entity.
+         
+         - parameter inData: A single data item, conformant to BigJuJuMapLocationProtocol
          */
         public convenience init(_ inData: any BigJuJuMapLocationProtocol) { self.init([inData]) }
     }
@@ -483,6 +496,7 @@ open class BigJuJuMapViewController: UIViewController {
             /* ########################################################## */
             /**
              Required for coder compliance.
+             
              - parameter coder: ignored.
              */
             required init?(coder: NSCoder) { nil }
@@ -514,8 +528,9 @@ open class BigJuJuMapViewController: UIViewController {
 
         /* ################################################################## */
         /**
+         This is the padding inside the cell.
          */
-        private static let _outerPadding: CGFloat = 8   // must match the contentInsetView constraints
+        private static let _outerPadding: CGFloat = 8
 
         /* ################################################################## */
         /**
@@ -641,6 +656,7 @@ open class BigJuJuMapViewController: UIViewController {
         /* ################################################################## */
         /**
          Required for coder compliance.
+         
          - parameter coder: ignored.
          */
         required init?(coder: NSCoder) { nil }
@@ -726,6 +742,8 @@ open class BigJuJuMapViewController: UIViewController {
 
         /* ################################################################## */
         /**
+         Creates a table cell
+         
          - parameter inTableView: The table view with the row being created (ignored).
          - parameter inIndexPath: The index path of the row being created.
          - returns: A new custom table cell, associated with a data item.
@@ -967,6 +985,8 @@ open class BigJuJuMapViewController: UIViewController {
      */
     private var _dismissTapGR: UITapGestureRecognizer?
 
+    // MARK: PUBLIC PROPERTIES
+    
     /* ################################################################## */
     /**
      The data for the map to display.
@@ -1077,7 +1097,7 @@ extension BigJuJuMapViewController {
      This makes sure the popover is positioned near the selected marker.
      
      - parameter inPopover: The popover view.
-     - parameter inView: The ccntainer view.
+     - parameter inView: The annotation view we're being displayed near.
      */
     @MainActor
     private func _positionPopover(_ inPopover: _BJJMMarkerPopoverView, for inView: MKAnnotationView) {
@@ -1119,13 +1139,18 @@ extension BigJuJuMapViewController {
     /* ################################################################## */
     /**
      Returns the opposite of the current UI style.
+     
+     - parameter inStyle: The style we want reversed.
+     - returns: The opposite style.
      */
     private func _reversedStyle(for inStyle: UIUserInterfaceStyle) -> UIUserInterfaceStyle {
         switch inStyle {
         case .dark:
             return .light
+            
         case .light:
             return .dark
+            
         default:
             return .unspecified
         }
@@ -1133,17 +1158,19 @@ extension BigJuJuMapViewController {
     
     /* ################################################################## */
     /**
-     Apply the correct marker image to the given annotation view, optionally forcing
-     the marker to resolve in the *opposite* trait mode.
+     Apply the correct marker image to the given annotation view, optionally forcing the marker to resolve in the opposite trait mode.
+     
+     - parameter inView: The annotation view we'll be rendering.
+     - parameter inReversed: True, if we have selected the marker.
      */
     @MainActor
-    private func _applyMarkerAppearance(to inView: MKAnnotationView, reversed: Bool) {
+    private func _applyMarkerAppearance(to inView: MKAnnotationView, reversed inReversed: Bool) {
         guard let annotation = inView.annotation as? LocationAnnotation else { return }
 
         let count = annotation.data.count
         let base = (count == 1) ? self.singleMarkerImage : self.multiMarkerImage
 
-        if reversed {
+        if inReversed {
             let reversedStyle = _reversedStyle(for: self.traitCollection.userInterfaceStyle)
 
             // Force the view itself to render in reversed style.
@@ -1159,13 +1186,13 @@ extension BigJuJuMapViewController {
             inView.image = self._markerImage(from: base, compatibleWith: self.traitCollection)
         }
 
-        // If it’s your custom view, relayout so the count layer refreshes.
         (inView as? AnnotationView)?.setNeedsLayout()
     }
     
     /* ################################################################## */
     /**
      This returns a marker image that will change when the markers are recalculated.
+     
      - parameter inBase: The image that we resize (the original asset).
      - parameter inTraits: The traits style (light or dark) that we want.
      - returns: A scaled, appropriate marker image.
@@ -1226,6 +1253,8 @@ extension BigJuJuMapViewController {
         // MARK: Generate a Cell Key From a Coordinate
         /* ############################################################## */
         /**
+         This generates a cCellKaey for the given position.
+         
          - parameter inPoint: The floating-point coords we'll use.
          - returns: A new CellKey struct, made from the given point.
          */
