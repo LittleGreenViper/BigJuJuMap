@@ -132,43 +132,85 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
             span: MKCoordinateSpan(latitudeDelta: .nan, longitudeDelta: .nan)
         )
     }
-
+    
     /* ################################################################## */
     /**
      Returns an MKCoordinateRegion that contains all points in the collection (with padding).
      If the collection is empty, returns `invalidContainingRegion`.
      */
     var containingCoordinateRegion: MKCoordinateRegion {
-        guard !self.isEmpty else { return Self.invalidContainingRegion }
-
-        var minLat =  90.0
-        var maxLat = -90.0
-        var minLon =  180.0
-        var maxLon = -180.0
-
-        self.forEach {
-            let coordinate = $0.location.coordinate
-            minLat = Swift.min(minLat, coordinate.latitude)
-            maxLat = Swift.max(maxLat, coordinate.latitude)
-            minLon = Swift.min(minLon, coordinate.longitude)
-            maxLon = Swift.max(maxLon, coordinate.longitude)
+        let coords: [CLLocationCoordinate2D] = self.compactMap {
+            let c = $0.location.coordinate
+            return CLLocationCoordinate2DIsValid(c) ? c : nil
         }
 
-        let center = CLLocationCoordinate2D(
-            latitude: (minLat + maxLat) * 0.5,
-            longitude: (minLon + maxLon) * 0.5
-        )
+        guard !coords.isEmpty else { return Self.invalidContainingRegion }
 
-        // Add padding and ensure a minimum usable span
-        let latDelta = Swift.max(0.002, (maxLat - minLat) * 1.10)
-        let lonDelta = Swift.max(0.002, (maxLon - minLon) * 1.10)
+        // Latitude is linear (no wrap)
+        var minLat =  90.0
+        var maxLat = -90.0
+
+        // Longitude is circular; keep in [-180, 180)
+        var lons: [Double] = []
+        lons.reserveCapacity(coords.count)
+
+        for c in coords {
+            minLat = Swift.min(minLat, c.latitude)
+            maxLat = Swift.max(maxLat, c.latitude)
+
+            var lon = c.longitude
+            // Normalize to [-180, 180)
+            lon = (lon + 180.0).truncatingRemainder(dividingBy: 360.0)
+            if lon < 0 { lon += 360.0 }
+            lon -= 180.0
+
+            lons.append(lon)
+        }
+
+        // Find the smallest arc that contains all longitudes.
+        // Classic "minimum window on a circle" by duplicating +360.
+        let n = lons.count
+        let sorted = lons.sorted()
+        var extended = sorted
+        extended.reserveCapacity(2 * n)
+        extended.append(contentsOf: sorted.map { $0 + 360.0 })
+
+        var bestStartIndex = 0
+        var bestSpan = Double.greatestFiniteMagnitude
+
+        if n == 1 {
+            bestSpan = 0
+            bestStartIndex = 0
+        } else {
+            for i in 0..<n {
+                let start = extended[i]
+                let end = extended[i + n - 1]
+                let span = end - start
+                if span < bestSpan {
+                    bestSpan = span
+                    bestStartIndex = i
+                }
+            }
+        }
+
+        let lonStart = extended[bestStartIndex]
+        let lonCenterRaw = lonStart + (bestSpan * 0.5)
+
+        // Wrap center back to [-180, 180)
+        var lonCenter = (lonCenterRaw + 180.0).truncatingRemainder(dividingBy: 360.0)
+        if lonCenter < 0 { lonCenter += 360.0 }
+        lonCenter -= 180.0
+
+        let latCenter = (minLat + maxLat) * 0.5
+
+        // Padding + minimum deltas
+        let latDelta = Swift.max(0.002, (maxLat - minLat) * 1.20)
+        let lonSpan = bestSpan // already the *minimal* span (could be 0)
+        let lonDelta = Swift.max(0.002, lonSpan * 1.20)
 
         return MKCoordinateRegion(
-            center: center,
-            span: MKCoordinateSpan(
-                latitudeDelta: latDelta,
-                longitudeDelta: lonDelta
-            )
+            center: CLLocationCoordinate2D(latitude: latCenter, longitude: lonCenter),
+            span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
         )
     }
     
