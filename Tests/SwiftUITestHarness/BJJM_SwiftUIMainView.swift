@@ -90,7 +90,7 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
         inUIViewController.multiMarkerImage = multiImage
         inUIViewController.displayNumbers = displayNumbers
         inUIViewController.mapData = locations
-        inUIViewController.region = locations.containingCoordinateRegion
+        inUIViewController.visibleRect = locations.containingMapRectDatelineAware
     }
 }
 

@@ -114,7 +114,7 @@ extension BJJM_ViewController {
         #endif
 
         myController.mapData = locations
-        myController.region = locations.containingCoordinateRegion
+        myController.visibleRect = locations.containingMapRectDatelineAware
     }
 }
 

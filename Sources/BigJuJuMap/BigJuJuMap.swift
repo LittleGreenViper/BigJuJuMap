@@ -135,6 +135,12 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
     
     /* ################################################################## */
     /**
+     This is just a way of saying "Bogus, dude."
+     */
+    static var invalidContainingMapRect: MKMapRect { .null }
+    
+    /* ################################################################## */
+    /**
      Returns an MKCoordinateRegion that contains all points in the collection (with padding).
      If the collection is empty, returns `invalidContainingRegion`.
      */
@@ -212,6 +218,91 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
             center: CLLocationCoordinate2D(latitude: latCenter, longitude: lonCenter),
             span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
         )
+    }
+
+    /* ################################################################## */
+    /**
+     Returns an MKMapRect that contains all points, choosing the *short* wrap across the dateline.
+     */
+    var containingMapRectDatelineAware: MKMapRect {
+        let coords: [CLLocationCoordinate2D] = self.compactMap {
+            let c = $0.location.coordinate
+            return CLLocationCoordinate2DIsValid(c) ? c : nil
+        }
+
+        guard !coords.isEmpty else { return Self.invalidContainingMapRect }
+
+        let worldW = MKMapSize.world.width
+
+        // Convert to MKMapPoints
+        let points = coords.map { MKMapPoint($0) }
+
+        // Y is linear (no wrap)
+        var minY = Double.greatestFiniteMagnitude
+        var maxY = -Double.greatestFiniteMagnitude
+
+        // X wraps (0 ... worldW)
+        var xs: [Double] = []
+        xs.reserveCapacity(points.count)
+
+        for p in points {
+            minY = Swift.min(minY, p.y)
+            maxY = Swift.max(maxY, p.y)
+
+            // MKMapPoint.x is already in [0, worldW) for valid coordinates
+            xs.append(p.x)
+        }
+
+        // Find smallest window on a circle in X-space (like longitude, but in map points)
+        let n = xs.count
+        let sorted = xs.sorted()
+        var extended = sorted
+        extended.reserveCapacity(2 * n)
+        extended.append(contentsOf: sorted.map { $0 + worldW })
+
+        var bestStartIndex = 0
+        var bestSpan = Double.greatestFiniteMagnitude
+
+        if n == 1 {
+            bestSpan = 0
+            bestStartIndex = 0
+        } else {
+            for i in 0..<n {
+                let start = extended[i]
+                let end = extended[i + n - 1]
+                let span = end - start
+                if span < bestSpan {
+                    bestSpan = span
+                    bestStartIndex = i
+                }
+            }
+        }
+
+        var minX = extended[bestStartIndex]
+        var width = bestSpan
+        let height = maxY - minY
+
+        // Normalize origin back into [0, worldW)
+        // (Rect may still extend beyond worldW; MapKit can handle that for wrapping.)
+        if minX >= worldW { minX -= worldW }
+        if minX < 0 { minX += worldW }
+
+        var rect = MKMapRect(x: minX, y: minY, width: width, height: height)
+
+        // Add padding (10% each side, with a minimum)
+        let padX = Swift.max(rect.size.width * 0.10, 5_000)
+        let padY = Swift.max(rect.size.height * 0.10, 5_000)
+        rect = rect.insetBy(dx: -padX, dy: -padY)
+
+        // Ensure not degenerate
+        let minSize: Double = 10_000
+        if rect.size.width < minSize || rect.size.height < minSize {
+            let cx = rect.midX
+            let cy = rect.midY
+            rect = MKMapRect(x: cx - minSize * 0.5, y: cy - minSize * 0.5, width: minSize, height: minSize)
+        }
+
+        return rect
     }
     
     /* ################################################################## */
@@ -1091,6 +1182,15 @@ public extension BigJuJuMapViewController {
     var region: MKCoordinateRegion {
         get { self.mapView.region }
         set { self.mapView.setRegion(newValue, animated: true) }
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows direct access to the displayed map rect.
+     */
+    var visibleRect: MKMapRect {
+        get { self.mapView.visibleMapRect }
+        set { self.mapView.setVisibleMapRect(newValue, edgePadding: .zero, animated: true) }
     }
 }
 
