@@ -19,76 +19,165 @@
 
 import SwiftUI
 import UIKit
+import BigJuJuMap
 
-// MARK: - UIKit Segmented Control Wrapper (Images)
+/* ################################################################################################################################## */
+// MARK: - UIViewControllerRepresentable Wrapper for the Map View Controller -
+/* ################################################################################################################################## */
+/**
+ 
+ */
+struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
+    /* ################################################################## */
+    /**
+     */
+    typealias UIViewControllerType = BigJuJuMapViewController
+    
+    /* ################################################################## */
+    /**
+     */
+    var onDismiss: (() -> Void)?
+
+    /* ################################################################## */
+    /**
+     */
+    func makeUIViewController(context inContext: Context) -> BigJuJuMap.BigJuJuMapViewController {
+        BigJuJuMap.BigJuJuMapViewController()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: - UIKit Segmented Control Wrapper (Images) -
+/* ################################################################################################################################## */
+/**
+ 
+ */
 struct BJJM_ImageSegmentedControl: UIViewRepresentable {
+    /* ################################################################## */
+    /**
+     */
     typealias UIViewType = UISegmentedControl
 
-    let imageNames: [String]          // Asset names in your xcassets
+    /* ################################################################## */
+    /**
+     */
+    private static let _iconSize: CGSize = CGSize(width: 30, height: 30)
+
+    /* ################################################################## */
+    /**
+     */
+    let imageNames: [String]
+
+    /* ################################################################## */
+    /**
+     */
     @Binding var selectedIndex: Int
 
-    var iconSize: CGSize = CGSize(width: 90, height: 32)   // "label" box for each segment’s image
+    /* ################################################################## */
+    /**
+     */
     var backgroundColor: UIColor = .systemGray4
+
+    /* ################################################################## */
+    /**
+     */
     var selectedTintColor: UIColor = .systemBlue
 
-    // Empty handler closure (wire later)
+    /* ################################################################## */
+    /**
+     */
     var onChange: (Int) -> Void = { _ in }
 
-    func makeUIView(context: Context) -> UISegmentedControl {
-        let control = UISegmentedControl(items: Array(repeating: "", count: imageNames.count))
+    /* ################################################################## */
+    /**
+     */
+    func makeUIView(context inContext: Context) -> UISegmentedControl {
+        let control = UISegmentedControl(items: Array(repeating: "", count: self.imageNames.count))
 
         // Match UIKit-ish appearance
-        control.backgroundColor = backgroundColor
-        control.selectedSegmentTintColor = selectedTintColor
+        control.backgroundColor = self.backgroundColor
+        control.selectedSegmentTintColor = self.selectedTintColor
 
         // Remove default text styling impact
         control.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
         control.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .selected)
 
-        control.addTarget(context.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
+        control.addTarget(inContext.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
 
-        // Set images (aspect-fit into a fixed box)
         for (idx, name) in imageNames.enumerated() {
             if let img = UIImage(named: name) {
-                let fitted = img.bjjm_aspectFit(in: iconSize)
-                // Preserve your artwork colors (don’t template-tint it)
-                control.setImage(fitted.withRenderingMode(.alwaysOriginal), forSegmentAt: idx)
+                let fitted = img._aspectFit(in: Self._iconSize)
+                control.setImage(fitted.withRenderingMode(.alwaysTemplate), forSegmentAt: idx)
             }
         }
 
-        control.selectedSegmentIndex = selectedIndex
+        control.selectedSegmentIndex = self.selectedIndex
         return control
     }
 
+    /* ################################################################## */
+    /**
+     */
     func updateUIView(_ uiView: UISegmentedControl, context: Context) {
-        // Keep selection in sync
-        if uiView.selectedSegmentIndex != selectedIndex {
-            uiView.selectedSegmentIndex = selectedIndex
+        if uiView.selectedSegmentIndex != self.selectedIndex {
+            uiView.selectedSegmentIndex = self.selectedIndex
         }
 
-        // In case you change traits / colors dynamically:
-        uiView.backgroundColor = backgroundColor
-        uiView.selectedSegmentTintColor = selectedTintColor
+        uiView.backgroundColor = self.backgroundColor
+        uiView.selectedSegmentTintColor = self.selectedTintColor
     }
 
+    /* ################################################################## */
+    /**
+     */
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
+    /* ############################################################################################################################## */
+    // MARK: Change Handler
+    /* ############################################################################################################################## */
+    /**
+     
+     */
     final class Coordinator: NSObject {
+        /* ############################################################## */
+        /**
+         */
         var parent: BJJM_ImageSegmentedControl
-        init(_ parent: BJJM_ImageSegmentedControl) { self.parent = parent }
 
-        @objc func changed(_ sender: UISegmentedControl) {
-            parent.selectedIndex = sender.selectedSegmentIndex
-            parent.onChange(sender.selectedSegmentIndex)   // empty by default
+        /* ################################################################## */
+        /**
+         */
+        init(_ inParent: BJJM_ImageSegmentedControl) {
+            self.parent = inParent
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        @objc func changed(_ inControl: UISegmentedControl) {
+            self.parent.selectedIndex = inControl.selectedSegmentIndex
+            self.parent.onChange(inControl.selectedSegmentIndex)
         }
     }
 }
 
-// MARK: - UIImage helper: aspect-fit into a target box
+/* ################################################################################################################################## */
+// MARK: UIImage Resizing Extension
+/* ################################################################################################################################## */
 private extension UIImage {
-    func bjjm_aspectFit(in target: CGSize) -> UIImage {
-        let scale = min(target.width / size.width, target.height / size.height)
-        let newSize = CGSize(width: size.width * scale, height: size.height * scale)
+    /* ################################################################## */
+    /**
+     UIImage helper: aspect-fit into a target box
+     */
+    func _aspectFit(in target: CGSize) -> UIImage {
+        let scale = min(target.width / self.size.width, target.height / self.size.height)
+        let newSize = CGSize(width: self.size.width * scale, height: self.size.height * scale)
 
         let format = UIGraphicsImageRendererFormat()
         format.scale = self.scale
@@ -100,61 +189,73 @@ private extension UIImage {
                 x: (target.width - newSize.width) * 0.5,
                 y: (target.height - newSize.height) * 0.5
             )
-            draw(in: CGRect(origin: origin, size: newSize))
+            self.draw(in: CGRect(origin: origin, size: newSize))
         }
     }
 }
 
 /* ################################################################################################################################## */
-// MARK: Main View Class
+// MARK: - Main View Class -
 /* ################################################################################################################################## */
 /**
  
  */
 struct BJJM_SwiftUIMainView: View {
-    @State private var topIndex: Int = 0
-    @State private var bottomIndex: Int = 0
+    /* ################################################################## */
+    /**
+     */
+    @State private var _topIndex: Int = 0
 
-    // Use your *actual* asset names from the UIKit project:
-    private let topImages = [
+    /* ################################################################## */
+    /**
+     */
+    @State private var _bottomIndex: Int = 0
+
+    /* ################################################################## */
+    /**
+     */
+    private let _topImages = [
         "TemplateBuiltIn",     // <- change to your real names
         "TemplateEnum",
         "TemplateCustom"
     ]
 
+    /* ################################################################## */
+    /**
+     */
     var body: some View {
         ZStack {
             Color.blue.opacity(0.35).ignoresSafeArea()
         }
         .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 10) {
-
-                // TOP: UIKit-accurate segmented control with images
+            VStack(spacing: 0) {
                 BJJM_ImageSegmentedControl(
-                    imageNames: topImages,
-                    selectedIndex: $topIndex,
-                    iconSize: CGSize(width: 90, height: 30),
+                    imageNames: self._topImages,
+                    selectedIndex: self.$_topIndex,
                     backgroundColor: .systemGray4,
-                    selectedTintColor: .systemBlue,
-                    onChange: { _ in }    // empty handler
+                    selectedTintColor: UIColor(Color.accentColor),
+                    onChange: { _ in
+                    }
                 )
                 .frame(height: 44)
 
-                // BOTTOM: you can keep SwiftUI Picker (or wrap another UISegmentedControl)
-                Picker("", selection: $bottomIndex) {
+                Picker("", selection: self.$_bottomIndex) {
                     Text("USA").tag(0)
                     Text("Omaha").tag(1)
                     Text("Philadelphia").tag(2)
                 }
                 .pickerStyle(.segmented)
-                .onChange(of: bottomIndex) { _, _ in
-                    // empty handler
+                .onChange(of: self._bottomIndex) { _, _ in
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 10)
-            .padding(.bottom, 12)
             .background(.thinMaterial)
+            .tint(.accentColor)
+        }
+        .onAppear {
+            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
         }
     }
 }

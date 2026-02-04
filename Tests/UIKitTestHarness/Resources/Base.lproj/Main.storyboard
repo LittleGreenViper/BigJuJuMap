@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYb-NI-XxN" userLabel="BigJuJuMap Container">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="722"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="716"/>
                                 <connections>
                                     <segue destination="H3I-4K-Mpq" kind="embed" id="9GW-vT-KpS"/>
                                 </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Zc-kt-Hbi">
-                                <rect key="frame" x="16" y="722" width="361" height="32"/>
+                                <rect key="frame" x="16" y="716" width="361" height="32"/>
                                 <segments>
                                     <segment title="" image="TemplateBuiltIn"/>
                                     <segment title="" image="TemplateEnum"/>
@@ -58,7 +58,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Zc-kt-Hbi" secondAttribute="trailing" constant="16" id="VV0-CI-0HB"/>
                             <constraint firstItem="IPy-1O-yBj" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="d1x-5q-tvB"/>
                             <constraint firstItem="eYb-NI-XxN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="i1m-Wx-JRG"/>
-                            <constraint firstItem="IPy-1O-yBj" firstAttribute="top" secondItem="4Zc-kt-Hbi" secondAttribute="bottom" id="jpI-ut-on5"/>
+                            <constraint firstItem="IPy-1O-yBj" firstAttribute="top" secondItem="4Zc-kt-Hbi" secondAttribute="bottom" constant="6" id="jpI-ut-on5"/>
                             <constraint firstItem="eYb-NI-XxN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="win-Ds-KA2"/>
                             <constraint firstItem="4Zc-kt-Hbi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="ywy-sn-Tkm"/>
                         </constraints>
