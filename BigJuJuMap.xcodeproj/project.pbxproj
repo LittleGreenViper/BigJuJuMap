@@ -33,6 +33,8 @@
 		D451ABEC2F2D118A00116B91 /* BigJuJuMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D451ABF02F2D119600116B91 /* BigJuJuMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */; };
 		D451ABF12F2D119E00116B91 /* BigJuJuMap.docc in Sources */ = {isa = PBXBuildFile; fileRef = D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */; };
+		D4B46C0A2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */; };
+		D4B46C0B2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,7 @@
 		D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_SceneDelegate.swift; sourceTree = "<group>"; };
 		D451ABBB2F2D0FAA00116B91 /* BJJM_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_ViewController.swift; sourceTree = "<group>"; };
 		D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigJuJuMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_LocationFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +227,7 @@
 		D45E714A2F3237300018A6E9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D4B46C062F339B4700B45E44 /* Sources */,
 				D45E714B2F3237380018A6E9 /* Resources */,
 			);
 			path = Shared;
@@ -239,6 +243,14 @@
 				D44840EC2F3155440015A2AB /* Philadelphia.csv */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D4B46C062F339B4700B45E44 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D42456322F32B5C900148264 /* BJJM_SwiftUIMainView.swift in Sources */,
+				D4B46C0A2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */,
 				D42456332F32B5C900148264 /* BJJM_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D451ABBD2F2D0FAA00116B91 /* BJJM_AppDelegate.swift in Sources */,
+				D4B46C0B2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */,
 				D451ABBE2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift in Sources */,
 				D451ABBF2F2D0FAA00116B91 /* BJJM_ViewController.swift in Sources */,
 			);

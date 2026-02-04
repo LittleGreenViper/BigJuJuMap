@@ -24,124 +24,12 @@ import CoreLocation
 import RVS_Generic_Swift_Toolbox
 
 /* ################################################################################################################################## */
-// MARK: - DataFrame Helpers -
-/* ################################################################################################################################## */
-/**
- 
- */
-fileprivate extension DataFrame.Row {
-    /* ################################################################## */
-    /**
-     */
-    func string(_ inColumn: String) -> String? {
-        if let s = self[inColumn] as? String { return s }
-        return nil
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func int(_ inColumn: String) -> Int? {
-        if let i = self[inColumn] as? Int { return i }
-        if let s = self[inColumn] as? String { return Int(s.trimmingCharacters(in: .whitespacesAndNewlines)) }
-        if let d = self[inColumn] as? Double { return Int(d) }
-        return nil
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func double(_ inColumn: String) -> Double? {
-        if let d = self[inColumn] as? Double { return d }
-        if let i = self[inColumn] as? Int { return Double(i) }
-        if let s = self[inColumn] as? String {
-            return Double(s.trimmingCharacters(in: .whitespacesAndNewlines))
-        }
-        return nil
-    }
-}
-
-/* ################################################################################################################################## */
 // MARK: - Main View Controller Class -
 /* ################################################################################################################################## */
 /**
  
  */
 class BJJM_ViewController: UIViewController {
-    /* ############################################################################################################################## */
-    // MARK: Marker Type Selection Enum
-    /* ############################################################################################################################## */
-    /**
-     */
-    private enum _MarkerType: Int {
-        /* ############################################################## */
-        /**
-         */
-        case builtIn
-
-        /* ############################################################## */
-        /**
-         */
-        case customEnumerated
-
-        /* ############################################################## */
-        /**
-         */
-        case customNonEnumerated
-    }
-    
-    /* ############################################################################################################################## */
-    // MARK: Concrete Map Location Class
-    /* ############################################################################################################################## */
-    /**
-     This class implements the data item protocol.
-     */
-    final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
-        /* ############################################################## */
-        /**
-         Makes it identifiable.
-         */
-        var id: AnyHashable
-        
-        /* ############################################################## */
-        /**
-         Has a basic location
-         */
-        let location: CLLocation
-        
-        /* ############################################################## */
-        /**
-         Has a name
-         */
-        let name: String
-        
-        /* ############################################################## */
-        /**
-         This is called when the location is chosen on the map.
-         */
-        let handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void)
-        
-        /* ############################################################## */
-        /**
-         Basic initializer
-         - parameter inID: The hashable identifier
-         - parameter inName: The string to be applied.
-         - parameter inLat: The latitude
-         - parameter inLng: The longitude
-         - parameter handler: The handler closure.
-         */
-        init(id inID: AnyHashable,
-             name inName: String,
-             latitude inLat: CLLocationDegrees,
-             longitude inLng: CLLocationDegrees,
-             handler inHandler: @escaping ((_ inItem: any BigJuJuMapLocationProtocol) -> Void) = { _ in }) {
-            self.id = inID
-            self.name = inName
-            self.location = CLLocation(latitude: inLat, longitude: inLng)
-            self.handler = inHandler
-        }
-    }
-    
     /* ################################################################## */
     /**
      */
@@ -169,13 +57,7 @@ extension BJJM_ViewController {
     private var _locationData: DataFrame? {
         let selectedIndex = self.dataSelectorSwitch?.selectedSegmentIndex ?? 0
         let fileName = self.dataSelectorSwitch?.titleForSegment(at: selectedIndex) ?? "SLUG-USA".localizedVariant
-        let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
-
-        guard let csvDataURL = Bundle.main.url(forResource: fileName, withExtension: "csv"),
-              let dataFrame = try? DataFrame(contentsOfCSVFile: csvDataURL, options: csvOptions)
-        else { return nil }
-
-        return dataFrame
+        return BJJM_LocationFactory.locationData(from: fileName)
     }
 }
 
@@ -190,12 +72,12 @@ extension BJJM_ViewController {
         guard let myController = self._myMapController else { return }
         
         switch markerSelectorSwitch?.selectedSegmentIndex {
-        case _MarkerType.customEnumerated.rawValue:
+        case BJJM_MarkerType.customEnumerated.rawValue:
             myController.singleMarkerImage = UIImage(named: "CustomGeneric")
             myController.multiMarkerImage = UIImage(named: "CustomGeneric")
             myController.displayNumbers = true
 
-        case _MarkerType.customNonEnumerated.rawValue:
+        case BJJM_MarkerType.customNonEnumerated.rawValue:
             myController.singleMarkerImage = UIImage(named: "CustomSingle")
             myController.multiMarkerImage = UIImage(named: "CustomMulti")
             myController.displayNumbers = false
