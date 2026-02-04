@@ -222,7 +222,7 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 
     /* ################################################################## */
     /**
-     Returns an MKMapRect that contains all points, choosing the *short* wrap across the dateline.
+     Returns an MKMapRect that contains all points, choosing the shortest wrap across the dateline.
      */
     var containingMapRectDatelineAware: MKMapRect {
         let coords: [CLLocationCoordinate2D] = self.compactMap {
@@ -279,7 +279,6 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
         }
 
         var minX = extended[bestStartIndex]
-        var width = bestSpan
         let height = maxY - minY
 
         // Normalize origin back into [0, worldW)
@@ -287,7 +286,7 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
         if minX >= worldW { minX -= worldW }
         if minX < 0 { minX += worldW }
 
-        var rect = MKMapRect(x: minX, y: minY, width: width, height: height)
+        var rect = MKMapRect(x: minX, y: minY, width: bestSpan, height: height)
 
         // Add padding (10% each side, with a minimum)
         let padX = Swift.max(rect.size.width * 0.10, 5_000)
