@@ -32,18 +32,11 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
     /**
      */
     typealias UIViewControllerType = BigJuJuMapViewController
-    
-    /* ################################################################## */
-    /**
-     */
-    var onDismiss: (() -> Void)?
 
     /* ################################################################## */
     /**
      */
-    func makeUIViewController(context inContext: Context) -> BigJuJuMap.BigJuJuMapViewController {
-        BigJuJuMap.BigJuJuMapViewController()
-    }
+    func makeUIViewController(context inContext: Context) -> BigJuJuMap.BigJuJuMapViewController { BigJuJuMap.BigJuJuMapViewController() }
     
     /* ################################################################## */
     /**
@@ -224,34 +217,31 @@ struct BJJM_SwiftUIMainView: View {
     /**
      */
     var body: some View {
-        ZStack {
-            Color.blue.opacity(0.35).ignoresSafeArea()
-        }
-        .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 0) {
-                BJJM_ImageSegmentedControl(
-                    imageNames: self._topImages,
-                    selectedIndex: self.$_topIndex,
-                    backgroundColor: .systemGray4,
-                    selectedTintColor: UIColor(Color.accentColor),
-                    onChange: { _ in
-                    }
-                )
-                .frame(height: 44)
+        VStack(spacing: 0) {
+            BJJM_BigJuJuMapViewController()
 
-                Picker("", selection: self.$_bottomIndex) {
-                    Text("USA").tag(0)
-                    Text("Omaha").tag(1)
-                    Text("Philadelphia").tag(2)
+            BJJM_ImageSegmentedControl(
+                imageNames: self._topImages,
+                selectedIndex: self.$_topIndex,
+                backgroundColor: .systemGray4,
+                selectedTintColor: UIColor(Color.accentColor),
+                onChange: { _ in
                 }
-                .pickerStyle(.segmented)
-                .onChange(of: self._bottomIndex) { _, _ in
-                }
+            )
+
+            Picker("", selection: self.$_bottomIndex) {
+                Text("USA").tag(0)
+                Text("Omaha").tag(1)
+                Text("Philadelphia").tag(2)
             }
-            .padding(.horizontal, 16)
-            .background(.thinMaterial)
-            .tint(.accentColor)
+            .padding(.top, 6)
+            .pickerStyle(.segmented)
+            .onChange(of: self._bottomIndex) { _, _ in
+            }
         }
+        .padding(.horizontal, 16)
+        .background(.thinMaterial)
+        .tint(.accentColor)
         .onAppear {
             UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
             UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
