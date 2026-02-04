@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYb-NI-XxN" userLabel="BigJuJuMap Container">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <connections>
                                     <segue destination="H3I-4K-Mpq" kind="embed" id="9GW-vT-KpS"/>
                                 </connections>
@@ -38,9 +38,9 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IPy-1O-yBj">
                                 <rect key="frame" x="16" y="753" width="361" height="32"/>
                                 <segments>
+                                    <segment title="SLUG-NC"/>
                                     <segment title="SLUG-USA"/>
-                                    <segment title="SLUG-OMAHA"/>
-                                    <segment title="SLUG-PHILADELPHIA"/>
+                                    <segment title="SLUG-VI"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" name="AccentColor"/>
                                 <connections>
@@ -52,8 +52,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IPy-1O-yBj" secondAttribute="trailing" constant="16" id="2fC-NM-Fdl"/>
+                            <constraint firstAttribute="bottom" secondItem="eYb-NI-XxN" secondAttribute="bottom" id="76S-zg-o7L"/>
                             <constraint firstAttribute="trailing" secondItem="eYb-NI-XxN" secondAttribute="trailing" id="8E9-8u-Tl0"/>
-                            <constraint firstItem="4Zc-kt-Hbi" firstAttribute="top" secondItem="eYb-NI-XxN" secondAttribute="bottom" id="JPa-pa-0G5"/>
                             <constraint firstItem="IPy-1O-yBj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JZk-OA-luH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Zc-kt-Hbi" secondAttribute="trailing" constant="16" id="VV0-CI-0HB"/>
                             <constraint firstItem="IPy-1O-yBj" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="d1x-5q-tvB"/>
@@ -77,7 +77,7 @@
             <objects>
                 <viewController id="H3I-4K-Mpq" customClass="BigJuJuMapViewController" customModule="BigJuJuMap" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nNK-sm-M62">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="722"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="u0x-7X-aTz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

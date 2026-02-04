@@ -1,0 +1,1524 @@
+id,name,latitude,longitude
+0,"Lake Phelps State Lake",35.768548,-76.463606
+1,"Dismal Swamp State Park",36.510728,-76.400221
+2,"South Mountains State Park Dedicated Nature Preserve",35.608337,-81.671263
+3,"Lake Waccamaw State Park",34.276774,-78.502639
+4,"Stone Mountain State Park Dedicated Nature Preserve",36.402051,-81.074498
+5,"Gorges State Park Dedicated Nature Preserve",35.089410,-82.907086
+6,"Bald Head Island State Natural Area",33.888767,-77.972040
+7,"Morrow Mountain State Park",35.366253,-80.082060
+8,"Hanging Rock State Park Dedicated Nature Preserve",36.394729,-80.254134
+9,"Pilot Mountain State Park",36.308059,-80.475868
+10,"Bobs Creek State Natural Area",35.611532,-81.933444
+11,"William B. Umstead State Park Dedicated Nature Preserve",35.848228,-78.750953
+12,"Chimney Rock State Park Dedicated Nature Preserve",35.413935,-82.250409
+13,"Lumber River State Park Dedicated Nature Preserve",34.391047,-78.987499
+14,"Merchants Millpond State Park",36.433848,-76.682621
+15,"Medoc Mountain State Park",36.258694,-77.880687
+16,"Stone Mountain State Park",36.380912,-81.024911
+17,"South Mountains State Park",35.637464,-81.700785
+18,"Carvers Creek State Park Dedicated Nature Preserve",35.186549,-78.883507
+19,"Bay Tree Lake State Natural Area",34.669156,-78.415573
+20,"Raven Rock State Park",35.455578,-78.901910
+21,"Chowan Swamp State Natural Area",36.373089,-76.795189
+22,"Chowan Swamp State Natural Area",36.361112,-76.749675
+23,"Lumber River State Park",34.481095,-78.935895
+24,"Jones Lake State Park Dedicated Nature Preserve",34.700079,-78.625713
+25,"Crowders Mountain State Park",35.221339,-81.305634
+26,"South Mountains State Park",35.591118,-81.622645
+27,"Goose Creek State Park",35.471494,-76.910682
+28,"Chowan Swamp State Natural Area",36.380131,-76.772906
+29,"William B. Umstead State Park",35.877822,-78.758245
+30,"South Mountains State Park",35.627190,-81.622386
+31,"Lumber River State Park Dedicated Nature Preserve",34.477590,-78.952975
+32,"Chimney Rock State Park",35.459147,-82.218165
+33,"Lake Norman State Park",35.661501,-80.946523
+34,"Singletary Lake State Park",34.591460,-78.458267
+35,"Mount Mitchell State Park Dedicated Nature Preserve",35.769529,-82.266799
+36,"Salmon Creek State Natural Area",36.016565,-76.718871
+37,"Bushy Lake State Natural Area",34.884476,-78.670437
+38,"Stone Mountain State Park Dedicated Nature Preserve",36.388503,-81.048335
+39,"Haw River State Park",36.246421,-79.773948
+40,"Raven Rock State Park",35.480927,-78.921141
+41,"Lumber River State Park",34.410167,-78.997591
+42,"New River State Park",36.420326,-81.351346
+43,"Lumber River State Park",34.369555,-78.972980
+44,"Cliffs of the Neuse State Park",35.240966,-77.887887
+45,"Eno River State Park Dedicated Nature Preserve",36.077965,-79.024032
+46,"White Lake State Lake",34.643519,-78.497877
+47,"Warwick Mill Bay State Natural Area",34.566093,-78.919550
+48,"South Mountains State Park",35.633864,-81.747369
+49,"Pettigrew State Park",35.793324,-76.510463
+50,"Gorges State Park Dedicated Nature Preserve",35.087607,-82.938827
+51,"Elk Knob State Park Dedicated Nature Preserve",36.398157,-81.643915
+52,"Carver's Creek State Park",35.209499,-78.972985
+53,"Crowders Mountain State Park Dedicated Nature Preserve",35.180539,-81.347935
+54,"Eno River State Park",36.058273,-78.980762
+55,"Crowders Mountain State Park Dedicated Nature Preserve",35.188982,-81.324463
+56,"Raven Rock State Park Dedicated Nature Preserve",35.455785,-78.884822
+57,"Lumber River State Park",34.452987,-78.955121
+58,"Elk Knob State Park Dedicated Nature Preserve",36.331627,-81.679467
+59,"Gorges State Park",35.089487,-82.948643
+60,"Elk Knob State Park",36.383631,-81.654024
+61,"Eno River State Park",36.069998,-79.012118
+62,"Elk Knob State Park",36.339078,-81.687706
+63,"Crowders Mountain State Park Dedicated Nature Preserve",35.230540,-81.275581
+64,"Lake James State Park",35.732999,-81.880399
+65,"Lumber River State Park",34.911987,-79.356258
+66,"South Fork of the New River State Natural and Scenic River",36.493500,-81.331580
+67,"South Mountains State Park",35.625628,-81.792221
+68,"Carolina Beach State Park",34.042582,-77.917600
+69,"Crowders Mountain State Park Dedicated Nature Preserve",35.207322,-81.313723
+70,"Raven Rock State Park Dedicated Nature Preserve",35.471230,-78.913959
+71,"Hanging Rock State Park",36.417194,-80.252846
+72,"Hanging Rock State Park",36.392855,-80.223755
+73,"Eno River State Park Dedicated Nature Preserve",36.088834,-79.012948
+74,"Pettigrew State Park",35.726057,-76.435062
+75,"Chimney Rock State Park",35.448033,-82.244696
+76,"Yellow Mountain State Natural Area",36.015411,-82.042455
+77,"Hammocks Beach State Park Dedicated Nature Preserve",34.631214,-77.153289
+78,"Chowan Swamp State Natural Area",36.392012,-76.877629
+79,"Carvers Creek State Park Dedicated Nature Preserve",35.212995,-78.980340
+80,"Fort Fisher State Recreation Area",33.953585,-77.928739
+81,"Lumber River State Park Dedicated Nature Preserve",34.431191,-78.961271
+82,"Lake Norman State Park",35.664289,-80.927250
+83,"Hanging Rock State Park Dedicated Nature Preserve",36.373542,-80.224936
+84,"William B. Umstead State Park",35.836292,-78.753585
+85,"Yellow Mountain State Natural Area",35.970864,-82.035172
+86,"Mayo River State Park",36.505952,-79.999833
+87,"Pisgah View State Park",35.478971,-82.776710
+88,"Mayo River State Park",36.436051,-79.952204
+89,"Medoc Mountain State Park",36.222810,-77.901098
+90,"Lumber River State Park",34.518463,-78.917338
+91,"Jockeys Ridge State Park Dedicated Nature Preserve",35.962672,-75.636049
+92,"Hanging Rock State Park",36.387219,-80.215261
+93,"Bushy Lake State Natural Area",34.860402,-78.675797
+94,"Hanging Rock State Park",36.411926,-80.267854
+95,"Morrow Mountain State Park",35.402327,-80.099851
+96,"Mountains-to-Sea Trail",35.700484,-78.445472
+97,"Elk Knob State Park",36.349987,-81.700790
+98,"South Mountains State Park",35.566507,-81.647843
+99,"Yellow Mountain State Natural Area",36.064123,-82.078117
+100,"Hammocks Beach State Park Dedicated Nature Preserve",34.639701,-77.132813
+101,"Hammocks Beach State Park",34.676466,-77.147829
+102,"Mayo River State Park",36.482511,-79.964775
+103,"Mayo River State Park",36.433169,-79.936868
+104,"Wilderness Gateway State Trail",35.690014,-81.321714
+105,"Mayo River State Park",36.463470,-79.947643
+106,"New River State Park",36.553000,-81.348218
+107,"Raven Rock State Park Dedicated Nature Preserve",35.479777,-78.910414
+108,"Lumber River State Park",34.375007,-79.016301
+109,"New River State Park",36.561146,-81.321720
+110,"New River State Park",36.357668,-81.422012
+111,"South Mountains State Park Dedicated Nature Preserve",35.630826,-81.785980
+112,"Mayo River State Park",36.537581,-79.982790
+113,"Fort Macon State Park Dedicated Nature Preserve",34.699868,-76.694944
+114,"Hanging Rock State Park",36.378291,-80.269649
+115,"Hanging Rock State Park",36.394957,-80.266512
+116,"Lumber River State Park",34.508180,-78.938646
+117,"Crowders Mountain State Park",35.169760,-81.345518
+118,"Carver's Creek State Park",35.168360,-78.899818
+119,"Medoc Mountain State Park Dedicated Nature Preserve",36.229086,-77.888010
+120,"Lumber River State Park",34.433564,-78.974171
+121,"Grandfather Mountain State Park",36.122573,-81.783966
+122,"Bushy Lake State Natural Area",34.909556,-78.637785
+123,"Eno River State Park Dedicated Nature Preserve",36.043214,-78.993763
+124,"Goose Creek State Park",35.480369,-76.931177
+125,"Hammocks Beach State Park",34.631743,-77.142969
+126,"Mountains-to-Sea Trail",36.157711,-79.489463
+127,"Jones Lake State Park",34.682850,-78.597653
+128,"NC Division of Parks and Recreation Conservation Land",36.101370,-82.033850
+129,"New River State Park",36.462561,-81.339578
+130,"Hammocks Beach State Park Dedicated Nature Preserve",34.672726,-77.117269
+131,"Mountains-to-Sea Trail",36.196932,-79.807356
+132,"Wilderness Gateway State Trail",35.643880,-81.361847
+133,"Elk Knob State Park",36.316764,-81.684545
+134,"Mount Jefferson State Natural Area",36.397198,-81.468879
+135,"Lumber River State Park",34.548170,-78.950588
+136,"Beech Creek State Natural Area",36.218573,-81.875553
+137,"Lumber State Natural and Scenic River",34.329506,-79.035384
+138,"Lumber River State Park",34.572284,-78.974524
+139,"Carver's Creek State Park",35.192956,-78.891839
+140,"Eno River State Park Dedicated Nature Preserve",36.051953,-78.988384
+141,"Sandy Run Savannas State Natural Area",34.628874,-77.633447
+142,"Hanging Rock State Park",36.387355,-80.369012
+143,"New River State Park",36.491342,-81.321583
+144,"Gorges State Park",35.107392,-82.883679
+145,"Lumber River State Park",34.555067,-78.961197
+146,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.865880,-76.381053
+147,"Elk Knob State Park Dedicated Nature Preserve",36.394775,-81.624345
+148,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859794,-76.393508
+149,"Mount Jefferson State Natural Area",36.404688,-81.439639
+150,"Medoc Mountain State Park",36.233469,-77.903140
+151,"Lumber River State Park Dedicated Nature Preserve",34.514171,-78.921820
+152,"Stone Mountain State Park",36.391477,-81.001528
+153,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.870604,-76.343314
+154,"Lake James State Park",35.780668,-81.874043
+155,"Bullhead Mountain State Natural Area",36.456302,-81.045986
+156,"New River State Park Dedicated Nature Preserve",36.411529,-81.363796
+157,"Crowders Mountain State Park",35.239176,-81.268851
+158,"Deep River State Trail",35.616256,-79.138706
+159,"Hammocks Beach State Park",34.659687,-77.120831
+160,"Fort Macon State Park",34.698392,-76.678822
+161,"Elk Knob State Park",36.398189,-81.655180
+162,"Occoneechee Mountain State Natural Area",36.063371,-79.122841
+163,"Lumber River State Park",34.390408,-79.001888
+164,"Stone Mountain State Park",36.423445,-81.065562
+165,"Hanging Rock State Park",36.379289,-80.238487
+166,"Pilot Mountain State Park",36.289924,-80.537496
+167,"Eno River State Park",36.045843,-78.995940
+168,"Stone Mountain State Park",36.418314,-81.127095
+169,"Hanging Rock State Park Dedicated Nature Preserve",36.425533,-80.256691
+170,"Chimney Rock State Park",35.430023,-82.274792
+171,"Eno River State Park Dedicated Nature Preserve",36.078254,-79.066077
+172,"Lumber State Natural and Scenic River",34.786045,-79.338059
+173,"Lumber River State Park Dedicated Nature Preserve",34.523107,-78.930159
+174,"Weymouth Woods-Sandhills Nature Preserve",35.140039,-79.402659
+175,"Run Hill State Natural Area",36.000463,-75.672943
+176,"Hanging Rock State Park",36.383213,-80.248074
+177,"Fonta Flora State Trail",35.637228,-82.200892
+178,"Lumber State Natural and Scenic River",34.626051,-79.151133
+179,"Elk Knob State Park",36.364950,-81.662009
+180,"Lake Norman State Park",35.659376,-80.919401
+181,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.918940,-76.265575
+182,"Mount Mitchell State Park Dedicated Nature Preserve",35.740175,-82.317508
+183,"Carver's Creek State Park",35.175010,-78.870850
+184,"Yellow Mountain State Natural Area",36.062892,-82.039785
+185,"Raven Rock State Park",35.474018,-78.891530
+186,"Lumber River State Park",34.465720,-78.959701
+187,"Mayo River State Park",36.539271,-79.993388
+188,"Morrow Mountain State Park",35.419850,-80.100594
+189,"Stone Mountain State Park",36.429840,-81.076713
+190,"Hemlock Bluffs State Natural Area",35.723948,-78.786562
+191,"Haw River State Park",36.256255,-79.847633
+192,"Mayo River State Park",36.398086,-79.963447
+193,"Mayo River State Park",36.430293,-79.949165
+194,"Pisgah View State Park",35.491747,-82.785578
+195,"Lumber River State Park",34.699039,-79.273482
+196,"Merchants Millpond State Park Dedicated Nature Preserve",36.405128,-76.739373
+197,"Carvers Creek State Park Dedicated Nature Preserve",35.211905,-78.963040
+198,"William B. Umstead State Park Dedicated Nature Preserve",35.877822,-78.767262
+199,"Morrow Mountain State Park",35.411957,-80.101436
+200,"Stone Mountain State Park",36.410111,-81.029887
+201,"Elk Knob State Park Dedicated Nature Preserve",36.317708,-81.658040
+202,"Elk Knob State Park Dedicated Nature Preserve",36.330734,-81.710531
+203,"Gorges State Park",35.064219,-82.885891
+204,"Fort Macon State Park Dedicated Nature Preserve",34.695051,-76.693184
+205,"Mount Mitchell State Park",35.747839,-82.323461
+206,"Eno River State Park",36.099686,-79.010993
+207,"Dismal Swamp State Park",36.468912,-76.378695
+208,"Eno River State Park",36.106897,-79.012650
+209,"Mount Mitchell State Park",35.756437,-82.271988
+210,"Stone Mountain State Park",36.371111,-81.017987
+211,"Fonta Flora State Trail",35.731005,-81.873308
+212,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.911535,-76.264516
+213,"Chimney Rock State Park",35.470499,-82.248475
+214,"Lumber State Natural and Scenic River",34.670749,-79.224372
+215,"Chowan Swamp State Natural Area",36.386406,-76.755448
+216,"New River State Park",36.422516,-81.390382
+217,"Lumber River State Park Dedicated Nature Preserve",34.929432,-79.350141
+218,"Crowders Mountain State Park Dedicated Nature Preserve",35.169913,-81.368626
+219,"Elk Knob State Park",36.407871,-81.650665
+220,"Morrow Mountain State Park",35.413157,-80.097259
+221,"Medoc Mountain State Park Dedicated Nature Preserve",36.260055,-77.901266
+222,"New River State Park Dedicated Nature Preserve",36.419733,-81.359314
+223,"Mayo River State Park",36.491894,-79.961611
+224,"Carvers Creek State Park Dedicated Nature Preserve",35.168469,-78.881612
+225,"Crowders Mountain State Park",35.176965,-81.320970
+226,"Deep River State Trail",35.627745,-79.099004
+227,"Sandy Run Savannas State Natural Area",34.641028,-77.604301
+228,"Bullhead Mountain State Natural Area",36.446693,-81.079156
+229,"Eno River State Park",36.043141,-79.003037
+230,"Hammocks Beach State Park",34.654754,-77.125036
+231,"New River State Park Dedicated Nature Preserve",36.460312,-81.332516
+232,"Crowders Mountain State Park",35.185345,-81.310882
+233,"Lumber River State Park Dedicated Nature Preserve",34.532119,-78.932956
+234,"Hanging Rock State Park",36.422749,-80.310650
+235,"Lumber River State Park",34.618425,-79.069991
+236,"Eno River State Park Dedicated Nature Preserve",36.061761,-78.966559
+237,"Gorges State Park",35.114659,-82.914490
+238,"Lumber River State Park",34.531631,-78.929104
+239,"Lumber State Natural and Scenic River",34.593865,-78.981055
+240,"Pettigrew State Park",35.873844,-76.342292
+241,"Pettigrew State Park",35.860331,-76.380286
+242,"Lumber State Natural and Scenic River",34.623343,-79.012272
+243,"Lumber River State Park",34.852363,-79.339108
+244,"Stone Mountain State Park",36.392943,-80.993721
+245,"Elk Knob State Park",36.316144,-81.691495
+246,"Bullhead Mountain State Natural Area",36.446914,-81.062299
+247,"Carvers Creek State Park Dedicated Nature Preserve",35.198562,-78.898049
+248,"Lake James State Park",35.763577,-81.905038
+249,"New River State Park",36.564034,-81.313843
+250,"Stone Mountain State Park",36.352584,-81.075606
+251,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859716,-76.375567
+252,"Carver's Creek State Park",35.181604,-78.905564
+253,"Stone Mountain State Park",36.383729,-81.091581
+254,"South Mountains State Park",35.641108,-81.718691
+255,"Medoc Mountain State Park",36.232781,-77.890557
+256,"Mayo River State Park",36.529731,-79.989633
+257,"Hanging Rock State Park",36.403674,-80.303073
+258,"Carver's Creek State Park",35.189168,-78.906622
+259,"Mountains-to-Sea Trail",36.287272,-80.882928
+260,"Merchants Millpond State Park",36.416648,-76.720469
+261,"South Mountains State Park Dedicated Nature Preserve",35.630665,-81.772199
+262,"Lumber River State Park",34.692683,-79.259782
+263,"Weymouth Woods-Sandhills Nature Preserve",35.143880,-79.393881
+264,"Hanging Rock State Park",36.378201,-80.294329
+265,"Eno River State Park",36.082506,-79.049379
+266,"Pineola State Natural Area",36.025845,-81.900850
+267,"Yellow Mountain State Natural Area",36.079831,-82.059665
+268,"NC Division of Parks and Recreation Conservation Land",36.110963,-82.036215
+269,"Grandfather Mountain State Park Dedicated Nature Preserve",36.133496,-81.797634
+270,"Elk Knob State Park",36.395091,-81.618848
+271,"Haw River State Park",36.231154,-79.796459
+272,"Pettigrew State Park",35.915159,-76.267685
+273,"Eno River State Park",36.087455,-79.005190
+274,"Hanging Rock State Park",36.405648,-80.214428
+275,"Hanging Rock State Park",36.399505,-80.288882
+276,"Sandy Run Savannas State Natural Area",34.618150,-77.630603
+277,"Mount Mitchell State Park",35.736339,-82.314386
+278,"Carvers Creek State Park Dedicated Nature Preserve",35.165523,-78.898137
+279,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.884678,-76.318697
+280,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.913206,-76.267431
+281,"Mount Mitchell State Park Dedicated Nature Preserve",35.753516,-82.320513
+282,"Pettigrew State Park",35.886675,-76.334855
+283,"Mount Jefferson State Natural Area",36.386376,-81.452036
+284,"Chimney Rock State Park",35.389957,-82.261168
+285,"Elk Knob State Park",36.355430,-81.718678
+286,"New River State Park Dedicated Nature Preserve",36.563459,-81.315798
+287,"Hanging Rock State Park",36.412715,-80.306985
+288,"Jockeys Ridge State Park",35.964754,-75.632283
+289,"Deep River State Trail",35.628571,-79.113770
+290,"Grandfather Mountain State Park Dedicated Nature Preserve",36.136898,-81.792027
+291,"Lumber River State Park",34.502485,-78.947097
+292,"Mayo River State Park",36.424048,-79.956819
+293,"Lake James State Park",35.778774,-81.884986
+294,"Hanging Rock State Park",36.419514,-80.302589
+295,"Chimney Rock State Park",35.437540,-82.255587
+296,"Grandfather Mountain State Park Dedicated Nature Preserve (TNC Dedication)",36.121514,-81.826659
+297,"New River State Park",36.529894,-81.333352
+298,"Occoneechee Mountain State Natural Area",36.061917,-79.114923
+299,"Crowders Mountain State Park",35.175063,-81.330018
+300,"Medoc Mountain State Park Dedicated Nature Preserve",36.273086,-77.900341
+301,"Lumber State Natural and Scenic River",34.542007,-78.947082
+302,"Lake James State Park",35.751115,-81.868741
+303,"Bear Paw State Natural Area",36.151873,-81.816955
+304,"Stone Mountain State Park",36.421551,-81.059065
+305,"Bushy Lake State Natural Area",34.903691,-78.616159
+306,"Gorges State Park",35.124730,-82.926868
+307,"Crowders Mountain State Park",35.168697,-81.371484
+308,"Lumber River State Park",34.416844,-78.964137
+309,"Hanging Rock State Park",36.415548,-80.313417
+310,"Hanging Rock State Park Dedicated Nature Preserve",36.403878,-80.299636
+311,"Pettigrew State Park",35.878429,-76.344326
+312,"New River State Park",36.538189,-81.345747
+313,"Hanging Rock State Park",36.374091,-80.281049
+314,"Lumber State Natural and Scenic River",34.879673,-79.346301
+315,"Crowders Mountain State Park",35.169631,-81.364507
+316,"Elk Knob State Park Dedicated Nature Preserve",36.319604,-81.681100
+317,"Fonta Flora State Trail",35.635455,-82.165472
+318,"Chimney Rock State Park",35.407127,-82.233108
+319,"Grandfather Mountain State Park",36.119684,-81.833250
+320,"Pettigrew State Park",35.878989,-76.353593
+321,"New River State Park Dedicated Nature Preserve",36.418196,-81.375818
+322,"Jones Lake State Park",34.694756,-78.600540
+323,"William B. Umstead State Park Dedicated Nature Preserve",35.893789,-78.768380
+324,"Lower Haw River State Natural Area",35.776374,-79.153405
+325,"New River State Park",36.551920,-81.323947
+326,"Hanging Rock State Park Dedicated Nature Preserve",36.414967,-80.268735
+327,"Lumber River State Park",34.625289,-79.060360
+328,"William B. Umstead State Park",35.891324,-78.749039
+329,"Pilot Mountain State Park",36.359891,-80.496484
+330,"Hanging Rock State Park",36.373668,-80.219844
+331,"Mayo River State Park",36.467919,-79.960106
+332,"Eno River State Park Dedicated Nature Preserve",36.060719,-79.008756
+333,"Hanging Rock State Park",36.384120,-80.298442
+334,"Mayo River State Park",36.400331,-79.960875
+335,"William B. Umstead State Park",35.824331,-78.747475
+336,"Grandfather Mountain State Park",36.118824,-81.812914
+337,"Pettigrew State Park",35.864117,-76.391146
+338,"Chimney Rock State Park",35.433454,-82.235756
+339,"Carver's Creek State Park",35.196599,-78.877903
+340,"Hanging Rock State Park",36.430721,-80.257715
+341,"Haw River State Park",36.251936,-79.824536
+342,"Sandy Run Savannas State Natural Area",34.626068,-77.627103
+343,"Hanging Rock State Park Dedicated Nature Preserve",36.431525,-80.252170
+344,"Pineola State Natural Area",36.016634,-81.895767
+345,"Raven Rock State Park Dedicated Nature Preserve",35.448998,-78.904565
+346,"Beech Creek State Natural Area",36.196253,-81.847868
+347,"Eno River State Park",36.085804,-79.063982
+348,"Hanging Rock State Park",36.369063,-80.230886
+349,"Eno River State Park Dedicated Nature Preserve",36.067329,-79.011220
+350,"Mount Mitchell State Park",35.837474,-82.298218
+351,"Crowders Mountain State Park",35.199849,-81.320596
+352,"Pettigrew State Park",35.865880,-76.387845
+353,"Yellow Mountain State Natural Area",36.078605,-82.050418
+354,"Hanging Rock State Park",36.417203,-80.305722
+355,"Fort Macon State Park Dedicated Nature Preserve",34.696331,-76.699680
+356,"Carver's Creek State Park",35.192521,-78.908470
+357,"Weymouth Woods-Sandhills Nature Preserve",35.168795,-79.381414
+358,"Chimney Rock State Park",35.423077,-82.264994
+359,"Sugar Mountain State Natural Area",36.082792,-81.895711
+360,"Hanging Rock State Park",36.422776,-80.289643
+361,"Stone Mountain State Park",36.418100,-81.064527
+362,"Yellow Mountain State Natural Area",36.087507,-82.061835
+363,"Carver's Creek State Park",35.204342,-78.887982
+364,"Eno River State Park",36.053522,-78.993349
+365,"Stone Mountain State Park",36.413399,-81.026337
+366,"Medoc Mountain State Park Dedicated Nature Preserve",36.270799,-77.894732
+367,"New River State Park",36.556788,-81.316176
+368,"Lumber River State Park",34.429420,-78.972995
+369,"Lake Norman State Park Dedicated Nature Preserve",35.659630,-80.921999
+370,"Gorges State Park",35.114892,-82.940197
+371,"Lumber State Natural and Scenic River",34.563049,-78.971496
+372,"Chimney Rock State Park Dedicated Nature Preserve",35.434038,-82.237865
+373,"Lower Haw River State Natural Area",35.778353,-79.146076
+374,"Lumber State Natural and Scenic River",34.708832,-79.279670
+375,"New River State Park",36.523881,-81.331197
+376,"Carver's Creek State Park",35.164680,-78.899700
+377,"Chimney Rock State Park",35.415632,-82.276857
+378,"Mayo River State Park",36.529650,-79.991731
+379,"New River State Park",36.406852,-81.369201
+380,"Eno River State Park Dedicated Nature Preserve",36.063708,-79.012956
+381,"Merchants Millpond State Park Registered Heritage Area",36.440083,-76.646665
+382,"Pineola State Natural Area",36.031129,-81.898465
+383,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.879670,-76.290174
+384,"Lower Haw River State Natural Area",35.782273,-79.148228
+385,"Mayo River State Park",36.437044,-79.939550
+386,"Hammocks Beach State Park",34.697316,-77.105223
+387,"Morrow Mountain State Park",35.411684,-80.110066
+388,"Jockeys Ridge State Park",35.953542,-75.630405
+389,"Mount Mitchell State Park Dedicated Nature Preserve",35.740775,-82.285008
+390,"Merchants Millpond State Park Registered Heritage Area",36.444787,-76.651415
+391,"Haw River State Park Dedicated Nature Preserve",36.259137,-79.752463
+392,"Medoc Mountain State Park Dedicated Nature Preserve",36.244986,-77.902600
+393,"Elk Knob State Park",36.357075,-81.722987
+394,"Raven Rock State Park Dedicated Nature Preserve",35.449289,-78.868248
+395,"Elk Knob State Park",36.350144,-81.715400
+396,"Mount Jefferson State Natural Area",36.412225,-81.435245
+397,"New River State Park Dedicated Nature Preserve",36.424693,-81.357261
+398,"Mount Mitchell State Park",35.803450,-82.295695
+399,"Medoc Mountain State Park",36.273396,-77.901341
+400,"Bushy Lake State Natural Area",34.879159,-78.715925
+401,"Mount Jefferson State Natural Area",36.409521,-81.474924
+402,"Mount Jefferson State Natural Area",36.411072,-81.437451
+403,"Eno River State Park",36.083834,-79.043085
+404,"Eno River State Park Dedicated Nature Preserve",36.067395,-78.952600
+405,"Theodore Roosevelt State Natural Area",34.695307,-76.829099
+406,"William B. Umstead State Park",35.834296,-78.725806
+407,"New River State Park",36.569838,-81.317868
+408,"Gorges State Park",35.055174,-82.912285
+409,"Elk Knob State Park Dedicated Nature Preserve",36.334889,-81.704570
+410,"Stone Mountain State Park",36.429052,-81.068284
+411,"Bushy Lake State Natural Area",34.880118,-78.711734
+412,"Medoc Mountain State Park",36.226325,-77.905869
+413,"Carver's Creek State Park",35.194601,-78.883193
+414,"Lumber State Natural and Scenic River",34.948319,-79.356625
+415,"Mount Jefferson State Natural Area",36.398851,-81.444833
+416,"Elk Knob State Park",36.335476,-81.699657
+417,"Weymouth Woods-Sandhills Nature Preserve",35.146530,-79.369701
+418,"Mountains-to-Sea Trail",36.070834,-79.088809
+419,"Mayo River State Park",36.450591,-79.949117
+420,"Mount Mitchell State Park",35.815485,-82.283780
+421,"Lake James State Park",35.793423,-81.890924
+422,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.920009,-76.301469
+423,"Lumber State Natural and Scenic River",34.440358,-78.960543
+424,"Grandfather Mountain State Park",36.125148,-81.823922
+425,"Medoc Mountain State Park",36.263503,-77.904293
+426,"Carver's Creek State Park",35.195258,-78.885690
+427,"Elk Knob State Park",36.391396,-81.626527
+428,"Eno River State Park Dedicated Nature Preserve",36.071046,-78.939385
+429,"South Mountains State Park",35.633236,-81.772651
+430,"Merchants Millpond State Park Registered Heritage Area",36.448451,-76.673525
+431,"Mount Mitchell State Park Dedicated Nature Preserve",35.734011,-82.306454
+432,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.928671,-76.257395
+433,"Salmon Creek State Natural Area",36.006892,-76.719945
+434,"Stone Mountain State Park",36.427737,-81.069677
+435,"Fonta Flora State Trail",35.635834,-82.161453
+436,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.896675,-76.314628
+437,"Mayo River State Park",36.405266,-79.963800
+438,"Weymouth Woods-Sandhills Nature Preserve",35.144397,-79.371049
+439,"Mount Jefferson State Natural Area",36.399077,-81.449234
+440,"Jones Lake State Park",34.712395,-78.648376
+441,"Lumber State Natural and Scenic River",34.515995,-78.928689
+442,"Mayo River State Park",36.425152,-79.955200
+443,"Grandfather Mountain State Park",36.103770,-81.783991
+444,"Hammocks Beach State Park",34.648272,-77.168949
+445,"Hanging Rock State Park",36.421091,-80.281433
+446,"Crowders Mountain State Park",35.188175,-81.333851
+447,"New River State Park",36.488336,-81.341798
+448,"Mount Mitchell State Park",35.741971,-82.284292
+449,"Stone Mountain State Park",36.391825,-81.006470
+450,"Pilot Mountain State Park Dedicated Nature Preserve",36.358917,-80.495980
+451,"Gorges State Park",35.058565,-82.896104
+452,"Eno River State Park",36.086243,-79.035520
+453,"Eno River State Park",36.039897,-79.006181
+454,"Carvers Creek State Park Dedicated Nature Preserve",35.168586,-78.893864
+455,"Bear Paw State Natural Area",36.163929,-81.811441
+456,"New River State Park",36.415509,-81.384505
+457,"Bald Head Island State Natural Area",33.910074,-77.995654
+458,"Lake Norman State Park",35.654250,-80.956759
+459,"Lea Island State Natural Area",34.336405,-77.669672
+460,"Lower Haw River State Natural Area",35.765847,-79.137026
+461,"Stone Mountain State Park",36.420365,-81.059895
+462,"Stone Mountain State Park",36.415209,-81.061606
+463,"Lumber State Natural and Scenic River",34.928669,-79.354432
+464,"Yellow Mountain State Natural Area",36.057636,-82.059973
+465,"Chimney Rock State Park",35.413987,-82.227009
+466,"Stone Mountain State Park",36.414272,-81.038226
+467,"Lower Haw River State Natural Area",35.771992,-79.142294
+468,"Crowders Mountain State Park",35.192099,-81.334957
+469,"Lumber State Natural and Scenic River",34.964831,-79.370237
+470,"Chimney Rock State Park",35.435996,-82.283619
+471,"Merchants Millpond State Park",36.433687,-76.618593
+472,"Eno River State Park",36.057160,-79.014645
+473,"Crowders Mountain State Park",35.173551,-81.362587
+474,"Yellow Mountain State Natural Area",35.961002,-82.047124
+475,"Hammocks Beach State Park",34.664101,-77.117953
+476,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.882228,-76.261716
+477,"Carver's Creek State Park",35.200916,-78.887476
+478,"Lumber River State Park",34.525283,-78.933034
+479,"Lake Norman State Park",35.661360,-80.963982
+480,"Stone Mountain State Park",36.390012,-81.006441
+481,"Raven Rock State Park",35.490303,-78.908619
+482,"Lumber River State Park",34.625881,-79.142204
+483,"Crowders Mountain State Park",35.185265,-81.332746
+484,"Carver's Creek State Park",35.198502,-78.880188
+485,"Lumber State Natural and Scenic River",34.700677,-79.270800
+486,"Mayo River State Park",36.480709,-79.967859
+487,"Stone Mountain State Park",36.414733,-81.065642
+488,"Sandy Run Savannas State Natural Area",34.621933,-77.666906
+489,"Jockeys Ridge State Park",35.962363,-75.628098
+490,"Chowan Swamp State Natural Area",36.394243,-76.754483
+491,"Fort Macon State Park",34.704060,-76.702241
+492,"Lumber State Natural and Scenic River",34.392918,-78.973718
+493,"Chimney Rock State Park",35.463119,-82.247529
+494,"Medoc Mountain State Park Dedicated Nature Preserve",36.264500,-77.905002
+495,"Lumber State Natural and Scenic River",34.446441,-78.953384
+496,"Lake Waccamaw State Park",34.318277,-78.536716
+497,"Lumber State Natural and Scenic River",34.375958,-79.007599
+498,"Medoc Mountain State Park",36.245474,-77.903705
+499,"Mount Jefferson State Natural Area",36.406470,-81.454113
+500,"Mitchell Mill State Natural Area",35.926327,-78.391167
+501,"Chimney Rock State Park",35.406370,-82.270393
+502,"Carver's Creek State Park",35.169199,-78.886998
+503,"Lumber State Natural and Scenic River",34.412731,-78.968067
+504,"Gorges State Park Dedicated Nature Preserve",35.072593,-82.922804
+505,"Bald Head Island State Natural Area",33.907104,-78.014561
+506,"Eno River State Park Dedicated Nature Preserve",36.081428,-79.068262
+507,"William B. Umstead State Park",35.866368,-78.740028
+508,"New River State Park",36.527885,-81.336934
+509,"Hanging Rock State Park",36.381658,-80.212623
+510,"Morrow Mountain State Park Registered Heritage Area",35.352737,-80.105345
+511,"Fort Macon State Park",34.699050,-76.701763
+512,"Elk Knob State Park",36.347869,-81.709222
+513,"Eno River State Park",36.039716,-79.001767
+514,"Crowders Mountain State Park",35.203867,-81.320480
+515,"Pettigrew State Park",35.870623,-76.377376
+516,"Lumber State Natural and Scenic River",34.695374,-79.265446
+517,"Elk Knob State Park",36.410160,-81.619660
+518,"Hanging Rock State Park Dedicated Nature Preserve",36.429376,-80.257782
+519,"Jockeys Ridge State Park",35.973270,-75.641320
+520,"Mountains-to-Sea Trail",36.070683,-79.083435
+521,"Bear Paw State Natural Area",36.159303,-81.814464
+522,"Yellow Mountain State Natural Area",36.091394,-82.076932
+523,"Hanging Rock State Park",36.386846,-80.315278
+524,"Lumber State Natural and Scenic River",34.420234,-78.969111
+525,"Medoc Mountain State Park",36.262947,-77.902684
+526,"New River State Park",36.442043,-81.357410
+527,"New River State Park",36.558654,-81.318278
+528,"Weymouth Woods-Sandhills Nature Preserve",35.155463,-79.353671
+529,"Lumber State Natural and Scenic River",34.430816,-78.967177
+530,"Lea Island State Natural Area",34.333190,-77.674095
+531,"Mayo River State Park",36.433537,-79.943357
+532,"Lea Island State Natural Area",34.335355,-77.671660
+533,"Dutchmans Creek Mitigation Site",35.691705,-78.725372
+534,"Yellow Mountain State Natural Area",36.073457,-82.045744
+535,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.875322,-76.325879
+536,"Bushy Lake State Natural Area",34.907321,-78.657068
+537,"Mount Mitchell State Park",35.734202,-82.308002
+538,"Haw River State Park",36.245625,-79.759974
+539,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.873320,-76.330824
+540,"Lumber State Natural and Scenic River",34.971501,-79.374601
+541,"Eno River State Park Dedicated Nature Preserve",36.086982,-79.034651
+542,"Hanging Rock State Park",36.413733,-80.262649
+543,"South Mountains State Park",35.629547,-81.771626
+544,"Lake James State Park",35.772526,-81.891370
+545,"Hanging Rock State Park",36.393241,-80.293380
+546,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.873267,-76.264190
+547,"Bushy Lake State Natural Area",34.866629,-78.705404
+548,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.886848,-76.285117
+549,"Chimney Rock State Park",35.416658,-82.265723
+550,"Deep River State Trail",35.733902,-79.661879
+551,"Lea Island State Natural Area",34.333795,-77.673078
+552,"Lea Island State Natural Area",34.337300,-77.669315
+553,"Gorges State Park",35.119235,-82.934136
+554,"Deep River State Trail",35.623702,-79.105811
+555,"Lake James State Park",35.747779,-81.884484
+556,"Jockeys Ridge State Park",35.956498,-75.626222
+557,"Lower Haw River State Natural Area",35.722998,-79.089442
+558,"Lumber State Natural and Scenic River",34.361465,-79.004022
+559,"Elk Knob State Park",36.349972,-81.709466
+560,"Eno River State Park Dedicated Nature Preserve",36.084769,-79.036324
+561,"Eno River State Park Dedicated Nature Preserve",36.060712,-79.010406
+562,"Mount Mitchell State Park",35.796509,-82.258297
+563,"Mount Mitchell State Park",35.861583,-82.303209
+564,"Mount Mitchell State Park",35.806104,-82.314431
+565,"Lower Haw River State Natural Area",35.753003,-79.132236
+566,"Sandy Run Savannas State Natural Area",34.637121,-77.614901
+567,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.862940,-76.336371
+568,"Lumber State Natural and Scenic River",34.495748,-78.946179
+569,"Elk Knob State Park",36.351621,-81.709411
+570,"Lea Island State Natural Area",34.334179,-77.672153
+571,"Lumber River State Park",34.386324,-78.981698
+572,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.886711,-76.296347
+573,"Chimney Rock State Park",35.420301,-82.268381
+574,"Mount Mitchell State Park",35.860749,-82.289451
+575,"Dutchmans Creek Mitigation Site",35.692560,-78.735136
+576,"Theodore Roosevelt State Natural Area",34.700527,-76.823863
+577,"Stone Mountain State Park",36.431903,-81.075149
+578,"Stone Mountain State Park",36.395280,-81.006846
+579,"Lea Island State Natural Area",34.339215,-77.665811
+580,"Merchants Millpond State Park Registered Heritage Area",36.437338,-76.636607
+581,"Bald Head Island State Natural Area",33.910413,-77.985663
+582,"Bushy Lake State Natural Area",34.885456,-78.618728
+583,"Goose Creek State Park",35.475155,-76.896718
+584,"Stone Mountain State Park",36.373002,-81.042922
+585,"Hammocks Beach State Park",34.656868,-77.125010
+586,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.878978,-76.294857
+587,"Eno River State Park Dedicated Nature Preserve",36.068080,-79.013290
+588,"Lake James State Park",35.790954,-81.883600
+589,"Lea Island State Natural Area",34.336036,-77.671290
+590,"Lower Haw River State Natural Area",35.777190,-79.147764
+591,"Lumber State Natural and Scenic River",34.427037,-78.970958
+592,"Hanging Rock State Park",36.416413,-80.286029
+593,"Lower Haw River State Natural Area",35.758158,-79.130261
+594,"Lumber State Natural and Scenic River",34.854343,-79.337463
+595,"Mountains-to-Sea Trail",36.061590,-79.131074
+596,"Bald Head Island State Natural Area",33.917375,-77.981968
+597,"Gorges State Park",35.120274,-82.928601
+598,"Lake James State Park",35.789701,-81.896729
+599,"Jockeys Ridge State Park",35.971261,-75.639381
+600,"Lumber River State Park",34.437377,-78.963941
+601,"Stone Mountain State Park",36.372713,-81.069446
+602,"Jones Lake State Park",34.698922,-78.633731
+603,"Hanging Rock State Park",36.379975,-80.306773
+604,"Stone Mountain State Park",36.397794,-81.009588
+605,"Pilot Mountain State Park",36.285497,-80.546293
+606,"Stone Mountain State Park",36.378472,-81.012389
+607,"Mount Mitchell State Park",35.759485,-82.266657
+608,"Merchants Millpond State Park Registered Heritage Area",36.447420,-76.661334
+609,"Chimney Rock State Park",35.436726,-82.288447
+610,"Yellow Mountain State Natural Area",36.059396,-82.043466
+611,"Lower Haw River State Natural Area",35.718252,-79.102394
+612,"Yellow Mountain State Natural Area",36.057695,-82.069991
+613,"Mayo River State Park",36.438855,-79.942385
+614,"Lumber River State Park",34.430648,-78.972954
+615,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.920459,-76.292507
+616,"Weymouth Woods-Sandhills Nature Preserve",35.144050,-79.373011
+617,"South Mountains State Park",35.625240,-81.664504
+618,"Crowders Mountain State Park",35.198850,-81.317739
+619,"Lumber State Natural and Scenic River",34.403565,-78.968121
+620,"Lower Haw River State Natural Area",35.717184,-79.082746
+621,"Lumber State Natural and Scenic River",34.493368,-78.953698
+622,"South Mountains State Park",35.601995,-81.716066
+623,"South Mountains State Park",35.589622,-81.712039
+624,"Yellow Mountain State Natural Area",36.052870,-82.070362
+625,"Mount Mitchell State Park",35.800893,-82.269702
+626,"Lower Haw River State Natural Area",35.740347,-79.102718
+627,"Mount Mitchell State Park",35.844994,-82.293700
+628,"Lumber River State Park Dedicated Nature Preserve",34.508537,-78.909027
+629,"Deep River State Trail",35.626127,-79.123003
+630,"Mayo River State Park",36.542403,-79.988717
+631,"Yellow Mountain State Natural Area",36.069185,-82.054151
+632,"South Mountains State Park",35.596824,-81.716327
+633,"Lower Haw River State Natural Area",35.732098,-79.122134
+634,"Lumber State Natural and Scenic River",34.572800,-78.970437
+635,"Mount Mitchell State Park",35.806075,-82.284172
+636,"Chimney Rock State Park",35.445255,-82.290221
+637,"Bald Head Island State Natural Area",33.906688,-78.010364
+638,"Stone Mountain State Park",36.413427,-81.062368
+639,"Grandfather Mountain State Park",36.100395,-81.782494
+640,"Lumber State Natural and Scenic River",34.398514,-78.969176
+641,"Yellow Mountain State Natural Area",36.025366,-82.035551
+642,"Lumber State Natural and Scenic River",34.647138,-79.185350
+643,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.876791,-76.320449
+644,"Medoc Mountain State Park Dedicated Nature Preserve",36.275936,-77.890964
+645,"Grandfather Mountain State Park",36.135534,-81.791381
+646,"Lumber State Natural and Scenic River",34.363860,-79.001362
+647,"Yellow Mountain State Natural Area",36.079685,-82.071334
+648,"Bald Head Island State Natural Area",33.908509,-77.991483
+649,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.862438,-76.374252
+650,"Mount Mitchell State Park",35.862529,-82.299390
+651,"Lower Haw River State Natural Area",35.745496,-79.117101
+652,"Grandfather Mountain State Park",36.119964,-81.816963
+653,"New River State Park",36.461387,-81.330343
+654,"Jockeys Ridge State Park",35.963059,-75.640108
+655,"Bald Head Island State Natural Area",33.915720,-77.983975
+656,"Mount Mitchell State Park",35.872554,-82.286329
+657,"Lumber State Natural and Scenic River",34.642924,-79.181781
+658,"Bald Head Island State Natural Area",33.914189,-77.998161
+659,"Yellow Mountain State Natural Area",35.963521,-82.043563
+660,"Lumber State Natural and Scenic River",34.499074,-78.946841
+661,"Lake James State Park",35.757001,-81.904059
+662,"Bushy Lake State Natural Area",34.874980,-78.629572
+663,"Lumber State Natural and Scenic River",34.406087,-78.968294
+664,"William B. Umstead State Park",35.856948,-78.784745
+665,"Mount Mitchell State Park",35.831930,-82.300045
+666,"Lumber State Natural and Scenic River",34.487862,-78.956408
+667,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.868454,-76.370420
+668,"Mayo River State Park",36.511258,-79.985223
+669,"William B. Umstead State Park",35.861343,-78.770292
+670,"Chimney Rock State Park",35.480438,-82.186828
+671,"Raven Rock State Park",35.478929,-78.936835
+672,"Pettigrew State Park",35.874204,-76.329734
+673,"Eno River State Park",36.088333,-79.040063
+674,"Crowders Mountain State Park",35.196813,-81.315926
+675,"Mount Mitchell State Park",35.823936,-82.314795
+676,"New River State Park",36.365199,-81.433464
+677,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.881598,-76.333344
+678,"Mount Mitchell State Park",35.821574,-82.307626
+679,"Raven Rock State Park",35.478762,-78.941426
+680,"Lower Haw River State Natural Area",35.734178,-79.106261
+681,"South Mountains State Park",35.592548,-81.713046
+682,"Lumber State Natural and Scenic River",34.494558,-78.952176
+683,"South Mountains State Park",35.603556,-81.740313
+684,"Lower Haw River State Natural Area",35.730401,-79.108173
+685,"Mount Jefferson State Natural Area",36.408669,-81.438831
+686,"Mount Mitchell State Park",35.795732,-82.265473
+687,"Stone Mountain State Park",36.391771,-80.997795
+688,"Lake James State Park Dedicated Nature Preserve",35.779203,-81.885026
+689,"Bald Head Island State Natural Area",33.921094,-77.979443
+690,"Yellow Mountain State Natural Area",36.084736,-82.064049
+691,"Mount Jefferson State Natural Area",36.393929,-81.470980
+692,"Lumber State Natural and Scenic River",34.509522,-78.928434
+693,"South Mountains State Park",35.595173,-81.716095
+694,"Bald Head Island State Natural Area",33.907213,-77.992368
+695,"Mount Mitchell State Park",35.859038,-82.301122
+696,"Jones Lake State Park",34.716137,-78.644635
+697,"Pettigrew State Park",35.870167,-76.381596
+698,"Mayo River State Park",36.439368,-79.935878
+699,"Mayo River State Park",36.512121,-79.990131
+700,"Mount Mitchell State Park",35.812167,-82.283463
+701,"Mount Mitchell State Park",35.833838,-82.298241
+702,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.887954,-76.290936
+703,"Lumber State Natural and Scenic River",34.424454,-78.969924
+704,"New River State Park",36.411160,-81.390786
+705,"Theodore Roosevelt State Natural Area",34.699375,-76.830558
+706,"Lumber State Natural and Scenic River",34.935732,-79.355110
+707,"Lower Haw River State Natural Area",35.753480,-79.122807
+708,"Pettigrew State Park",35.792470,-76.410230
+709,"Hammocks Beach State Park",34.634722,-77.155851
+710,"Lumber River State Park",34.360277,-79.006655
+711,"Bald Head Island State Natural Area",33.908338,-77.995706
+712,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.869537,-76.332913
+713,"Grandfather Mountain State Park",36.122567,-81.826096
+714,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.880073,-76.278705
+715,"Merchants Millpond State Park Registered Heritage Area",36.448523,-76.658894
+716,"Lumber State Natural and Scenic River",34.643892,-79.183634
+717,"Lumber State Natural and Scenic River",34.400624,-78.969405
+718,"Hanging Rock State Park",36.395400,-80.290887
+719,"Lake Waccamaw State Park",34.318562,-78.549868
+720,"Hanging Rock State Park",36.418207,-80.314551
+721,"Morrow Mountain State Park Registered Heritage Area",35.356106,-80.107450
+722,"William B. Umstead State Park",35.896804,-78.762804
+723,"Lumber State Natural and Scenic River",34.378642,-79.009721
+724,"Lumber State Natural and Scenic River",34.624309,-79.062901
+725,"Lake Waccamaw State Park",34.307379,-78.557838
+726,"Grandfather Mountain State Park",36.140958,-81.797898
+727,"Lumber State Natural and Scenic River",34.380231,-79.011607
+728,"Crowders Mountain State Park",35.242701,-81.276602
+729,"Stone Mountain State Park",36.412130,-81.029802
+730,"South Mountains State Park",35.588449,-81.708852
+731,"Eno River State Park",36.081741,-79.002663
+732,"South Mountains State Park",35.601985,-81.733617
+733,"Hanging Rock State Park",36.420334,-80.284366
+734,"Mount Mitchell State Park",35.809050,-82.283848
+735,"Lumber State Natural and Scenic River",34.505601,-78.931521
+736,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.870772,-76.270845
+737,"Lower Haw River State Natural Area",35.734383,-79.122042
+738,"Lumber State Natural and Scenic River",34.396036,-78.969787
+739,"Lumber State Natural and Scenic River",34.506978,-78.931246
+740,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.871017,-76.278175
+741,"New River State Park",36.489016,-81.331924
+742,"Mount Mitchell State Park",35.811034,-82.271205
+743,"Cliffs of the Neuse State Park Registered Heritage Area",35.228966,-77.875752
+744,"Chimney Rock State Park",35.427118,-82.245996
+745,"Theodore Roosevelt State Natural Area",34.701162,-76.830955
+746,"Lumber State Natural and Scenic River",34.957989,-79.361837
+747,"Eno River State Park",36.078304,-79.061244
+748,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.863682,-76.380848
+749,"Mayo River State Park",36.542388,-79.994313
+750,"Lumber State Natural and Scenic River",34.408393,-78.968542
+751,"Lumber State Natural and Scenic River",34.383815,-79.006332
+752,"Jockeys Ridge State Park",35.968319,-75.641511
+753,"Lumber State Natural and Scenic River",34.490261,-78.955449
+754,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.878895,-76.336561
+755,"Lumber State Natural and Scenic River",34.367491,-79.003326
+756,"Yellow Mountain State Natural Area",36.020605,-82.023704
+757,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.873527,-76.338025
+758,"Sandy Run Savannas State Natural Area",34.635335,-77.643525
+759,"New River State Park",36.420382,-81.390206
+760,"Yellow Mountain State Natural Area",36.084162,-82.076067
+761,"Hanging Rock State Park",36.394263,-80.290861
+762,"Bald Head Island State Natural Area",33.908688,-78.006735
+763,"Bald Head Island State Natural Area",33.911149,-77.983197
+764,"Lumber State Natural and Scenic River",34.382514,-79.008423
+765,"Lumber State Natural and Scenic River",34.939878,-79.353157
+766,"Mount Mitchell State Park",35.829005,-82.308778
+767,"Lower Haw River State Natural Area",35.775005,-79.150229
+768,"Carver's Creek State Park",35.168918,-78.879856
+769,"Lumber State Natural and Scenic River",34.491406,-78.953501
+770,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.923492,-76.274458
+771,"Bald Head Island State Natural Area",33.904793,-78.011458
+772,"Yellow Mountain State Natural Area",36.062126,-82.050380
+773,"Lumber State Natural and Scenic River",34.451698,-78.943287
+774,"Bald Head Island State Natural Area",33.909109,-78.004490
+775,"Lumber State Natural and Scenic River",34.422428,-78.968144
+776,"Gorges State Park",35.055684,-82.899952
+777,"Lumber State Natural and Scenic River",34.857058,-79.339054
+778,"Mount Mitchell State Park",35.829830,-82.292087
+779,"Lower Haw River State Natural Area",35.741051,-79.120535
+780,"Hanging Rock State Park",36.425190,-80.288135
+781,"Mount Jefferson State Natural Area",36.396012,-81.470969
+782,"Lumber State Natural and Scenic River",34.959182,-79.362976
+783,"Lower Haw River State Natural Area",35.727751,-79.106420
+784,"Bushy Lake State Natural Area",34.879363,-78.629361
+785,"Mayo River State Park",36.406452,-79.963691
+786,"Lumber State Natural and Scenic River",34.903132,-79.348644
+787,"Mount Mitchell State Park",35.821034,-82.273040
+788,"Lower Haw River State Natural Area",35.764806,-79.131130
+789,"Lumber State Natural and Scenic River",34.917258,-79.350655
+790,"Raven Rock State Park",35.475434,-78.941312
+791,"Lumber State Natural and Scenic River",34.373373,-79.007122
+792,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.887326,-76.321177
+793,"Lumber State Natural and Scenic River",34.718641,-79.301078
+794,"New River State Park",36.490983,-81.331760
+795,"Hammocks Beach State Park",34.670876,-77.111002
+796,"Theodore Roosevelt State Natural Area",34.703815,-76.825953
+797,"New River State Park",36.436712,-81.360548
+798,"Lumber State Natural and Scenic River",34.645544,-79.185809
+799,"Grandfather Mountain State Park",36.139477,-81.793251
+800,"Mount Mitchell State Park",35.833637,-82.296035
+801,"Bald Head Island State Natural Area",33.907281,-77.991344
+802,"Lumber State Natural and Scenic River",34.697703,-79.268778
+803,"Lumber State Natural and Scenic River",34.382993,-79.007243
+804,"Lumber State Natural and Scenic River",34.453212,-78.941804
+805,"Bald Head Island State Natural Area",33.910167,-78.006799
+806,"Mount Mitchell State Park",35.816277,-82.275141
+807,"New River State Park",36.433163,-81.352291
+808,"Lower Haw River State Natural Area",35.733141,-79.115336
+809,"Pettigrew State Park",35.862203,-76.382930
+810,"Lumber State Natural and Scenic River",34.364969,-79.001987
+811,"Medoc Mountain State Park",36.263388,-77.896339
+812,"Bald Head Island State Natural Area",33.908554,-78.008676
+813,"Yellow Mountain State Natural Area",36.026258,-82.036783
+814,"Mount Mitchell State Park",35.814643,-82.275962
+815,"Bald Head Island State Natural Area",33.908743,-77.997192
+816,"Pettigrew State Park",35.872007,-76.368166
+817,"Yellow Mountain State Natural Area",36.052558,-82.066610
+818,"Pettigrew State Park",35.876144,-76.329989
+819,"Lumber State Natural and Scenic River",34.938269,-79.353831
+820,"Carver's Creek State Park",35.184997,-78.857598
+821,"Lumber State Natural and Scenic River",34.504252,-78.944358
+822,"Sandy Run Savannas State Natural Area",34.609772,-77.638190
+823,"Mount Mitchell State Park",35.810964,-82.308917
+824,"South Mountains State Park",35.603607,-81.728128
+825,"Grandfather Mountain State Park",36.107729,-81.788271
+826,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.922674,-76.274054
+827,"Lumber State Natural and Scenic River",34.381790,-79.010222
+828,"Lumber State Natural and Scenic River",34.715324,-79.297376
+829,"Lumber State Natural and Scenic River",34.714684,-79.296645
+830,"Mount Mitchell State Park",35.820554,-82.281413
+831,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859656,-76.368690
+832,"Lumber State Natural and Scenic River",34.922235,-79.350234
+833,"Lumber River State Park",34.440198,-78.964247
+834,"Theodore Roosevelt State Natural Area",34.700677,-76.829272
+835,"Morrow Mountain State Park Registered Heritage Area",35.343336,-80.090658
+836,"Mount Mitchell State Park",35.843621,-82.288950
+837,"Mount Mitchell State Park",35.808385,-82.284875
+838,"Yellow Mountain State Natural Area",36.024251,-82.031930
+839,"Pettigrew State Park",35.863767,-76.380413
+840,"Mount Mitchell State Park",35.854927,-82.301323
+841,"Mayo River State Park",36.401355,-79.965120
+842,"Lumber State Natural and Scenic River",34.719376,-79.299862
+843,"Lumber State Natural and Scenic River",34.370581,-79.004979
+844,"Goose Creek State Park Registered Heritage Area",35.475476,-76.930476
+845,"Sandy Run Savannas State Natural Area",34.635621,-77.646068
+846,"Lumber State Natural and Scenic River",34.906491,-79.350259
+847,"Stone Mountain State Park",36.430816,-81.079427
+848,"Chimney Rock State Park",35.439080,-82.248062
+849,"Bald Head Island State Natural Area",33.907313,-78.008640
+850,"Lumber State Natural and Scenic River",34.492346,-78.955433
+851,"Bald Head Island State Natural Area",33.913760,-78.008521
+852,"Lake James State Park",35.776889,-81.884195
+853,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.918592,-76.285725
+854,"Bald Head Island State Natural Area",33.905085,-77.995741
+855,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.933768,-76.253645
+856,"Bald Head Island State Natural Area",33.843005,-77.959458
+857,"Yellow Mountain State Natural Area",36.069455,-82.059024
+858,"Lumber State Natural and Scenic River",34.508744,-78.930062
+859,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.887488,-76.301866
+860,"Hammocks Beach State Park",34.672235,-77.114251
+861,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.860576,-76.369733
+862,"Lumber State Natural and Scenic River",34.395288,-78.973117
+863,"Bald Head Island State Natural Area",33.905430,-77.996401
+864,"Lower Haw River State Natural Area",35.717303,-79.090457
+865,"Haw River State Park",36.249265,-79.762931
+866,"Crowders Mountain State Park",35.197440,-81.316811
+867,"Lumber State Natural and Scenic River",34.904305,-79.349487
+868,"Mount Mitchell State Park",35.819576,-82.314399
+869,"Lumber State Natural and Scenic River",34.395357,-78.974312
+870,"Lower Haw River State Natural Area",35.718364,-79.088951
+871,"Lumber State Natural and Scenic River",34.958721,-79.362648
+872,"Bald Head Island State Natural Area",33.910029,-78.011905
+873,"Carver's Creek State Park",35.203731,-78.885213
+874,"Morrow Mountain State Park Registered Heritage Area",35.340290,-80.082928
+875,"Lumber State Natural and Scenic River",34.644555,-79.185296
+876,"Mount Mitchell State Park",35.862805,-82.285721
+877,"Lake James State Park Dedicated Nature Preserve",35.762982,-81.876087
+878,"Lake James State Park Dedicated Nature Preserve",35.764666,-81.880030
+879,"William B. Umstead State Park",35.858777,-78.776480
+880,"Lumber State Natural and Scenic River",34.369399,-79.004326
+881,"Mount Mitchell State Park",35.863852,-82.294668
+882,"South Mountains State Park",35.591407,-81.711830
+883,"Hanging Rock State Park",36.417530,-80.281285
+884,"Mayo River State Park",36.498663,-79.976634
+885,"Mount Mitchell State Park",35.814417,-82.272674
+886,"Lumber State Natural and Scenic River",34.716392,-79.299928
+887,"Grandfather Mountain State Park",36.138494,-81.797542
+888,"Lake James State Park",35.790690,-81.894293
+889,"Lumber State Natural and Scenic River",34.647239,-79.187084
+890,"Lake Waccamaw State Park",34.315658,-78.554919
+891,"Lumber State Natural and Scenic River",34.486534,-78.955857
+892,"Lumber State Natural and Scenic River",34.717029,-79.300378
+893,"Mount Mitchell State Park",35.832644,-82.297465
+894,"Bald Head Island State Natural Area",33.910496,-78.005213
+895,"Chimney Rock State Park",35.436991,-82.245405
+896,"Deep River State Trail",35.628049,-79.107795
+897,"Lumber State Natural and Scenic River",34.505266,-78.932612
+898,"Lumber State Natural and Scenic River",34.371432,-79.005188
+899,"Mount Mitchell State Park",35.807976,-82.279220
+900,"Lake James State Park Dedicated Nature Preserve",35.766152,-81.883024
+901,"Chimney Rock State Park",35.462074,-82.252567
+902,"Lake James State Park Dedicated Nature Preserve",35.760987,-81.875431
+903,"Crowders Mountain State Park",35.200134,-81.319080
+904,"Mount Mitchell State Park",35.792583,-82.265431
+905,"Medoc Mountain State Park",36.233594,-77.894122
+906,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.860846,-76.359231
+907,"Grandfather Mountain State Park",36.100281,-81.804957
+908,"Lower Haw River State Natural Area",35.775823,-79.150375
+909,"Lower Haw River State Natural Area",35.731389,-79.104560
+910,"Fort Macon State Park",34.701823,-76.701283
+911,"Lumber State Natural and Scenic River",34.716082,-79.299154
+912,"Grandfather Mountain State Park",36.098649,-81.800651
+913,"Carver's Creek State Park",35.205111,-78.981175
+914,"Lumber State Natural and Scenic River",34.372529,-79.006257
+915,"Lumber State Natural and Scenic River",34.497908,-78.948136
+916,"Yellow Mountain State Natural Area",36.069458,-82.050487
+917,"Lumber State Natural and Scenic River",34.510738,-78.927802
+918,"Lake James State Park Dedicated Nature Preserve",35.752673,-81.886366
+919,"Lumber State Natural and Scenic River",34.960522,-79.364548
+920,"Chimney Rock State Park",35.436552,-82.241226
+921,"Stone Mountain State Park",36.414733,-81.064592
+922,"Lake James State Park Dedicated Nature Preserve",35.759986,-81.875484
+923,"Mount Mitchell State Park",35.797676,-82.266930
+924,"Eno River State Park",36.076573,-79.035095
+925,"New River State Park",36.439532,-81.353563
+926,"Lower Haw River State Natural Area",35.736747,-79.105027
+927,"Sugar Mountain State Natural Area",36.086349,-81.894644
+928,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.889139,-76.305457
+929,"Mount Mitchell State Park",35.831918,-82.294348
+930,"Lake James State Park Dedicated Nature Preserve",35.790286,-81.882671
+931,"Morrow Mountain State Park Registered Heritage Area",35.346774,-80.073250
+932,"Pettigrew State Park",35.862449,-76.374586
+933,"Mount Mitchell State Park",35.857601,-82.298484
+934,"Stone Mountain State Park",36.372311,-81.049537
+935,"Raven Rock State Park",35.476543,-78.941638
+936,"Grandfather Mountain State Park",36.122862,-81.822310
+937,"Pettigrew State Park",35.861118,-76.374026
+938,"Haw River State Park",36.247509,-79.761329
+939,"South Mountains State Park",35.606447,-81.723617
+940,"Lake James State Park Dedicated Nature Preserve",35.753086,-81.888131
+941,"Morrow Mountain State Park Registered Heritage Area",35.346138,-80.070317
+942,"Mount Mitchell State Park",35.819445,-82.310923
+943,"Eno River State Park",36.046090,-79.010725
+944,"Stone Mountain State Park",36.431271,-81.077333
+945,"Lumber State Natural and Scenic River",34.933475,-79.354993
+946,"Lake James State Park Dedicated Nature Preserve",35.760804,-81.877975
+947,"Chimney Rock State Park",35.443127,-82.290933
+948,"Mount Mitchell State Park",35.821679,-82.276179
+949,"Lumber State Natural and Scenic River",34.365011,-79.002974
+950,"Lumber State Natural and Scenic River",34.937078,-79.353299
+951,"Lumber State Natural and Scenic River",34.505426,-78.934984
+952,"Lake James State Park Dedicated Nature Preserve",35.760523,-81.873214
+953,"Mount Mitchell State Park",35.827002,-82.311990
+954,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.888077,-76.312357
+955,"Yellow Mountain State Natural Area",36.077155,-82.042348
+956,"Jockeys Ridge State Park",35.955529,-75.627433
+957,"Elk Knob State Park",36.389880,-81.622625
+958,"Medoc Mountain State Park",36.240395,-77.903440
+959,"Mount Mitchell State Park",35.812051,-82.272314
+960,"Lumber River State Park",34.387850,-78.980461
+961,"New River State Park",36.484938,-81.333671
+962,"Merchants Millpond State Park",36.401254,-76.740318
+963,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861834,-76.355578
+964,"Mount Mitchell State Park",35.813962,-82.273964
+965,"Mount Mitchell State Park",35.862909,-82.291668
+966,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.875712,-76.337897
+967,"Grandfather Mountain State Park",36.134139,-81.794029
+968,"Mount Mitchell State Park",35.841986,-82.292346
+969,"Merchants Millpond State Park Registered Heritage Area",36.442993,-76.641612
+970,"Lake James State Park",35.750193,-81.893562
+971,"Lower Haw River State Natural Area",35.729621,-79.112951
+972,"Medoc Mountain State Park",36.264880,-77.905364
+973,"South Mountains State Park",35.601907,-81.736277
+974,"Crowders Mountain State Park",35.196875,-81.312454
+975,"Carver's Creek State Park",35.209182,-78.982427
+976,"Bald Head Island State Natural Area",33.907702,-77.993295
+977,"Chimney Rock State Park",35.435054,-82.241451
+978,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.878085,-76.296667
+979,"Mayo River State Park",36.497774,-79.970265
+980,"New River State Park",36.484871,-81.326874
+981,"Lumber State Natural and Scenic River",34.372291,-79.007216
+982,"Hanging Rock State Park Dedicated Nature Preserve",36.388174,-80.309951
+983,"Fort Macon State Park",34.701016,-76.701166
+984,"Hammocks Beach State Park",34.672984,-77.115287
+985,"Hanging Rock State Park",36.424578,-80.284112
+986,"Yellow Mountain State Natural Area",36.068903,-82.060392
+987,"Run Hill State Natural Area",35.996388,-75.674434
+988,"New River State Park",36.486109,-81.332650
+989,"Lower Haw River State Natural Area",35.736375,-79.106030
+990,"Bald Head Island State Natural Area",33.861961,-77.961121
+991,"Elk Knob State Park",36.319375,-81.659545
+992,"Eno River State Park",36.065866,-79.017770
+993,"Lumber State Natural and Scenic River",34.381184,-79.011395
+994,"Lumber River State Park",34.520317,-78.934021
+995,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.858783,-76.361307
+996,"Lumber State Natural and Scenic River",34.905162,-79.349708
+997,"Eno River State Park",36.073679,-79.033618
+998,"Morrow Mountain State Park Registered Heritage Area",35.354897,-80.107058
+999,"Merchants Millpond State Park Registered Heritage Area",36.442312,-76.640380
+1000,"Lumber State Natural and Scenic River",34.915490,-79.351170
+1001,"Bushy Lake State Natural Area",34.911473,-78.650925
+1002,"Deep River State Trail",35.626743,-79.105459
+1003,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.885061,-76.333932
+1004,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925146,-76.264904
+1005,"Lumber State Natural and Scenic River",34.720838,-79.301078
+1006,"Lumber State Natural and Scenic River",34.913371,-79.351350
+1007,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.871959,-76.330614
+1008,"Lower Haw River State Natural Area",35.727663,-79.096461
+1009,"Lake James State Park Dedicated Nature Preserve",35.767496,-81.883477
+1010,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924612,-76.286582
+1011,"Cliffs of the Neuse State Park Registered Heritage Area",35.246122,-77.881833
+1012,"Mount Mitchell State Park",35.865118,-82.286169
+1013,"Lumber State Natural and Scenic River",34.372551,-79.005519
+1014,"Lumber State Natural and Scenic River",34.569622,-78.969993
+1015,"Chimney Rock State Park",35.441556,-82.279830
+1016,"Mount Mitchell State Park",35.817910,-82.272877
+1017,"Lumber State Natural and Scenic River",34.568609,-78.969550
+1018,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924472,-76.270753
+1019,"Carver's Creek State Park",35.181605,-78.866863
+1020,"Mayo River State Park",36.508335,-79.981788
+1021,"Bald Head Island State Natural Area",33.906069,-77.993318
+1022,"Lumber State Natural and Scenic River",34.647422,-79.186076
+1023,"Lumber State Natural and Scenic River",34.957402,-79.361469
+1024,"Deep River State Trail",35.627396,-79.106192
+1025,"Chimney Rock State Park",35.412650,-82.233924
+1026,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859546,-76.366693
+1027,"Lumber State Natural and Scenic River",34.909605,-79.351221
+1028,"Mayo River State Park",36.496306,-79.969324
+1029,"South Mountains State Park",35.604434,-81.725940
+1030,"Carver's Creek State Park",35.200960,-78.896736
+1031,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925182,-76.261625
+1032,"Mount Mitchell State Park",35.861498,-82.293011
+1033,"Turkey Oak (Singletary Lake State Park) Registered Heritage Area",34.597699,-78.451030
+1034,"Sandy Run Savannas State Natural Area",34.635705,-77.644471
+1035,"South Mountains State Park",35.604977,-81.743274
+1036,"Bald Head Island State Natural Area",33.860765,-77.961157
+1037,"Mount Mitchell State Park",35.828435,-82.289519
+1038,"Lake James State Park Dedicated Nature Preserve",35.757433,-81.872424
+1039,"Mount Mitchell State Park",35.820087,-82.313999
+1040,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925204,-76.267830
+1041,"Lumber State Natural and Scenic River",34.958534,-79.362221
+1042,"Stone Mountain State Park",36.374711,-81.048143
+1043,"Mayo River State Park",36.498385,-79.971961
+1044,"Lumber State Natural and Scenic River",34.368730,-79.003051
+1045,"Lake Waccamaw State Park",34.319811,-78.543884
+1046,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924204,-76.271795
+1047,"Morrow Mountain State Park Registered Heritage Area",35.344872,-80.091829
+1048,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.923715,-76.272777
+1049,"Sandy Run Savannas State Natural Area",34.620622,-77.665482
+1050,"Bushy Lake State Natural Area",34.908524,-78.654041
+1051,"New River State Park",36.435520,-81.354579
+1052,"Lake James State Park Dedicated Nature Preserve",35.753664,-81.871070
+1053,"Lumber State Natural and Scenic River",34.485104,-78.953930
+1054,"Lumber State Natural and Scenic River",34.910175,-79.351804
+1055,"Carver's Creek State Park",35.186919,-78.861494
+1056,"Eno River State Park",36.075341,-79.072917
+1057,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924853,-76.268511
+1058,"Lumber State Natural and Scenic River",34.505663,-78.933873
+1059,"Lake James State Park Dedicated Nature Preserve",35.755348,-81.870159
+1060,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.890139,-76.307517
+1061,"Stone Mountain State Park",36.422686,-81.064028
+1062,"Mayo River State Park",36.496938,-79.969398
+1063,"Lumber State Natural and Scenic River",34.905818,-79.350034
+1064,"Lower Haw River State Natural Area",35.731659,-79.104375
+1065,"Lumber State Natural and Scenic River",34.851845,-79.340371
+1066,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.889400,-76.311218
+1067,"Crowders Mountain State Park",35.178278,-81.360510
+1068,"Lumber State Natural and Scenic River",34.936973,-79.354219
+1069,"Lumber State Natural and Scenic River",34.720372,-79.301526
+1070,"Lumber State Natural and Scenic River",34.910848,-79.351651
+1071,"Elk Knob State Park",36.388577,-81.621568
+1072,"Merchants Millpond State Park Registered Heritage Area",36.439825,-76.660168
+1073,"Lumber State Natural and Scenic River",34.505992,-78.932851
+1074,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.863057,-76.381334
+1075,"Pettigrew State Park",35.863389,-76.377657
+1076,"Mount Mitchell State Park",35.818758,-82.314025
+1077,"Mount Mitchell State Park",35.812523,-82.272708
+1078,"Eno River State Park",36.077736,-79.035865
+1079,"Lake James State Park Dedicated Nature Preserve",35.764621,-81.877103
+1080,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925513,-76.266578
+1081,"Morrow Mountain State Park Registered Heritage Area",35.341841,-80.078544
+1082,"Lumber State Natural and Scenic River",34.912862,-79.351776
+1083,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925278,-76.262982
+1084,"Bald Head Island State Natural Area",33.909072,-77.947514
+1085,"Mount Mitchell State Park",35.814506,-82.273592
+1086,"Chimney Rock State Park",35.421476,-82.224181
+1087,"Lower Haw River State Natural Area",35.757537,-79.126180
+1088,"Lake James State Park Dedicated Nature Preserve",35.751753,-81.882698
+1089,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.915447,-76.300440
+1090,"Eno River State Park",36.088964,-79.034269
+1091,"Hanging Rock State Park",36.425757,-80.307206
+1092,"Lumber State Natural and Scenic River",34.919375,-79.351333
+1093,"Carver's Creek State Park",35.214967,-78.982648
+1094,"New River State Park",36.437185,-81.350536
+1095,"Carver's Creek State Park",35.193201,-78.885429
+1096,"Lumber State Natural and Scenic River",34.908844,-79.350968
+1097,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925185,-76.266914
+1098,"Lumber State Natural and Scenic River",34.917951,-79.350946
+1099,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861602,-76.353663
+1100,"Lumber State Natural and Scenic River",34.504895,-78.931920
+1101,"Lake James State Park",35.751645,-81.897802
+1102,"Lumber State Natural and Scenic River",34.504915,-78.943500
+1103,"Lake James State Park Dedicated Nature Preserve",35.752611,-81.888294
+1104,"Mount Mitchell State Park",35.820340,-82.313066
+1105,"Hanging Rock State Park",36.415832,-80.301789
+1106,"Chimney Rock State Park",35.436834,-82.243282
+1107,"Bald Head Island State Natural Area",33.911902,-78.006556
+1108,"Chimney Rock State Park",35.435804,-82.239765
+1109,"South Mountains State Park",35.581277,-81.700664
+1110,"Lumber State Natural and Scenic River",34.505054,-78.940450
+1111,"Lumber State Natural and Scenic River",34.956715,-79.361555
+1112,"Lumber State Natural and Scenic River",34.508183,-78.930739
+1113,"Hanging Rock State Park",36.424907,-80.285319
+1114,"South Fork of the New River State Natural and Scenic River",36.416019,-81.385383
+1115,"Chimney Rock State Park",35.439744,-82.249936
+1116,"Grandfather Mountain State Park",36.089959,-81.826897
+1117,"Goose Creek State Park Registered Heritage Area",35.473554,-76.931320
+1118,"Lumber State Natural and Scenic River",34.484296,-78.952993
+1119,"Lake James State Park Dedicated Nature Preserve",35.759321,-81.871996
+1120,"Mount Mitchell State Park",35.825271,-82.313377
+1121,"Lumber State Natural and Scenic River",34.923423,-79.350668
+1122,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.922812,-76.286535
+1123,"Yellow Mountain State Natural Area",36.019364,-82.025309
+1124,"Mayo River State Park",36.511639,-79.994332
+1125,"Lower Haw River State Natural Area",35.728709,-79.114619
+1126,"Mount Mitchell State Park",35.815225,-82.275849
+1127,"Mayo River State Park",36.511964,-79.996135
+1128,"Sandy Run Savannas State Natural Area",34.606524,-77.627338
+1129,"Lumber State Natural and Scenic River",34.912353,-79.351161
+1130,"Mount Mitchell State Park",35.813758,-82.272764
+1131,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.917463,-76.288436
+1132,"Crowders Mountain State Park",35.204940,-81.321792
+1133,"Sandy Run Savannas State Natural Area",34.635722,-77.645243
+1134,"Bald Head Island State Natural Area",33.911454,-78.005724
+1135,"Lumber State Natural and Scenic River",34.505604,-78.941688
+1136,"Lake Waccamaw State Park",34.312339,-78.557631
+1137,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.886993,-76.290699
+1138,"Morrow Mountain State Park Registered Heritage Area",35.346326,-80.071234
+1139,"New River State Park",36.435134,-81.351844
+1140,"Mount Mitchell State Park",35.847960,-82.295662
+1141,"Lumber State Natural and Scenic River",34.643347,-79.183111
+1142,"William B. Umstead State Park",35.829590,-78.736035
+1143,"Hanging Rock State Park",36.421250,-80.285210
+1144,"Mayo River State Park",36.502124,-79.972434
+1145,"Hanging Rock State Park Dedicated Nature Preserve",36.386764,-80.315499
+1146,"Grandfather Mountain State Park",36.137587,-81.794405
+1147,"Bald Head Island State Natural Area",33.911327,-77.946831
+1148,"Medoc Mountain State Park",36.263938,-77.900308
+1149,"Morrow Mountain State Park Registered Heritage Area",35.337442,-80.079278
+1150,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925078,-76.263987
+1151,"Mount Mitchell State Park",35.820641,-82.275435
+1152,"Mount Mitchell State Park",35.825538,-82.287397
+1153,"Lumber State Natural and Scenic River",34.717940,-79.300091
+1154,"Hanging Rock State Park",36.412960,-80.241408
+1155,"Sandy Run Savannas State Natural Area",34.606130,-77.626025
+1156,"Chimney Rock State Park",35.439838,-82.248633
+1157,"Lumber State Natural and Scenic River",34.921154,-79.350343
+1158,"Lumber State Natural and Scenic River",34.364243,-79.002023
+1159,"Lake James State Park Dedicated Nature Preserve",35.764022,-81.884360
+1160,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859679,-76.364618
+1161,"Bald Head Island State Natural Area",33.920714,-77.971586
+1162,"Mayo River State Park",36.521913,-79.995632
+1163,"Eno River State Park",36.069072,-79.030855
+1164,"Lumber State Natural and Scenic River",34.939164,-79.353611
+1165,"Sandy Run Savannas State Natural Area",34.643936,-77.606114
+1166,"Bushy Lake State Natural Area",34.901529,-78.666457
+1167,"Lumber State Natural and Scenic River",34.923858,-79.351170
+1168,"New River State Park",36.433162,-81.347434
+1169,"Lake James State Park Dedicated Nature Preserve",35.751454,-81.879787
+1170,"Elk Knob State Park",36.402550,-81.621764
+1171,"Hanging Rock State Park",36.424220,-80.283505
+1172,"Lumber State Natural and Scenic River",34.920861,-79.351034
+1173,"New River State Park",36.434597,-81.357114
+1174,"Mount Mitchell State Park",35.862185,-82.291250
+1175,"Yellow Mountain State Natural Area",36.078366,-82.055048
+1176,"Lumber State Natural and Scenic River",34.567593,-78.969242
+1177,"Bald Head Island State Natural Area",33.907448,-77.997445
+1178,"New River State Park",36.359153,-81.429156
+1179,"New River State Park",36.366578,-81.432201
+1180,"Bald Head Island State Natural Area",33.858745,-77.961739
+1181,"Hanging Rock State Park",36.425459,-80.306850
+1182,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859393,-76.362497
+1183,"Mount Jefferson State Natural Area",36.408485,-81.433286
+1184,"Bald Head Island State Natural Area",33.919420,-77.979751
+1185,"Lake James State Park Dedicated Nature Preserve",35.752367,-81.871778
+1186,"Lake James State Park Dedicated Nature Preserve",35.751734,-81.884109
+1187,"Carver's Creek State Park",35.226442,-78.968914
+1188,"South Mountains State Park",35.600112,-81.716186
+1189,"Merchants Millpond State Park Registered Heritage Area",36.443271,-76.642919
+1190,"Carver's Creek State Park",35.186050,-78.857966
+1191,"Mount Mitchell State Park",35.809155,-82.270495
+1192,"Lumber State Natural and Scenic River",34.905611,-79.350584
+1193,"Linville River State Natural and Scenic River",35.950815,-81.922323
+1194,"South Mountains State Park",35.603299,-81.738870
+1195,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861627,-76.352680
+1196,"Bald Head Island State Natural Area",33.907728,-77.985508
+1197,"Pettigrew State Park",35.862528,-76.372970
+1198,"Weymouth Woods-Sandhills Nature Preserve",35.152433,-79.361664
+1199,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925191,-76.261059
+1200,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861299,-76.357640
+1201,"Mayo River State Park",36.497832,-79.970878
+1202,"Lake James State Park Dedicated Nature Preserve",35.758513,-81.871755
+1203,"Yellow Mountain State Natural Area",36.075817,-82.069571
+1204,"Merchants Millpond State Park Registered Heritage Area",36.441040,-76.640559
+1205,"Lumber State Natural and Scenic River",34.913751,-79.351308
+1206,"Lower Haw River State Natural Area",35.770869,-79.142782
+1207,"Lumber State Natural and Scenic River",34.905448,-79.349888
+1208,"Lumber State Natural and Scenic River",34.614809,-79.013407
+1209,"Pettigrew State Park",35.862346,-76.383294
+1210,"Lake James State Park Dedicated Nature Preserve",35.752239,-81.885075
+1211,"Sandy Run Savannas State Natural Area",34.644005,-77.613249
+1212,"Lake James State Park Dedicated Nature Preserve",35.765355,-81.881784
+1213,"Hanging Rock State Park",36.424564,-80.305708
+1214,"Pettigrew State Park",35.863140,-76.375264
+1215,"Lake James State Park",35.743878,-81.884847
+1216,"Lumber State Natural and Scenic River",34.721513,-79.300711
+1217,"Lumber State Natural and Scenic River",34.401650,-78.967697
+1218,"Lower Haw River State Natural Area",35.740957,-79.113533
+1219,"Bald Head Island State Natural Area",33.906358,-77.992189
+1220,"Lumber State Natural and Scenic River",34.506201,-78.936074
+1221,"Lumber River State Park",34.520775,-78.933747
+1222,"South Mountains State Park",35.632261,-81.768205
+1223,"Bald Head Island State Natural Area",33.909610,-77.986648
+1224,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859120,-76.361922
+1225,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.889744,-76.310535
+1226,"Pettigrew State Park",35.862360,-76.372627
+1227,"Stone Mountain State Park",36.421912,-81.128759
+1228,"New River State Park",36.433094,-81.354294
+1229,"Mayo River State Park",36.499168,-79.967163
+1230,"Lower Haw River State Natural Area",35.725085,-79.107987
+1231,"Mount Jefferson State Natural Area",36.390601,-81.457996
+1232,"Lower Haw River State Natural Area",35.719540,-79.083404
+1233,"Deep River State Trail",35.605098,-79.145660
+1234,"Mount Mitchell State Park",35.827889,-82.288507
+1235,"Morrow Mountain State Park Registered Heritage Area",35.346580,-80.076012
+1236,"Lumber State Natural and Scenic River",34.911594,-79.351677
+1237,"Mount Mitchell State Park",35.863353,-82.286524
+1238,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925241,-76.262169
+1239,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924767,-76.268854
+1240,"Bushy Lake State Natural Area",34.885794,-78.703760
+1241,"Pettigrew State Park",35.863038,-76.382013
+1242,"Lake James State Park",35.770724,-81.893884
+1243,"Stone Mountain State Park",36.396879,-81.012426
+1244,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859050,-76.360091
+1245,"Yellow Mountain State Natural Area",36.079225,-82.053548
+1246,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861609,-76.370049
+1247,"Mayo River State Park",36.542473,-79.974739
+1248,"Bald Head Island State Natural Area",33.908056,-77.985398
+1249,"Mount Mitchell State Park",35.821021,-82.275191
+1250,"Lower Haw River State Natural Area",35.714423,-79.084792
+1251,"New River State Park",36.436369,-81.352679
+1252,"Bald Head Island State Natural Area",33.870495,-77.985426
+1253,"Bald Head Island State Natural Area",33.910000,-77.997304
+1254,"Mitchell Mill State Natural Area",35.919046,-78.392039
+1255,"Lake James State Park Dedicated Nature Preserve",35.783835,-81.877379
+1256,"Lumber State Natural and Scenic River",34.920393,-79.350791
+1257,"Elk Knob State Park",36.322930,-81.652955
+1258,"Raven Rock State Park",35.474102,-78.941179
+1259,"Eno River State Park",36.080868,-79.067047
+1260,"Pettigrew State Park",35.871959,-76.330489
+1261,"Gorges State Park",35.125563,-82.924076
+1262,"Cliffs of the Neuse State Park Registered Heritage Area",35.247208,-77.881528
+1263,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925318,-76.265966
+1264,"Lower Haw River State Natural Area",35.729859,-79.108813
+1265,"Bushy Lake State Natural Area",34.884744,-78.694678
+1266,"Sandy Run Savannas State Natural Area",34.643388,-77.607601
+1267,"Sandy Run Savannas State Natural Area",34.635836,-77.644895
+1268,"Yellow Mountain State Natural Area",36.075147,-82.069355
+1269,"South Mountains State Park",35.575239,-81.679157
+1270,"New River State Park",36.424730,-81.371111
+1271,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.862109,-76.370111
+1272,"Mount Mitchell State Park",35.842289,-82.291078
+1273,"Deep River State Trail",35.630165,-79.124904
+1274,"Lake James State Park Dedicated Nature Preserve",35.751146,-81.880272
+1275,"Hanging Rock State Park",36.417677,-80.298238
+1276,"Lumber State Natural and Scenic River",34.506532,-78.933221
+1277,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.923909,-76.272611
+1278,"Stone Mountain State Park",36.423677,-81.064072
+1279,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925195,-76.267356
+1280,"Lake James State Park Dedicated Nature Preserve",35.759606,-81.873146
+1281,"Mayo River State Park",36.502349,-79.973331
+1282,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.923955,-76.286845
+1283,"New River State Park",36.435401,-81.359068
+1284,"Lumber State Natural and Scenic River",34.410318,-78.967282
+1285,"Lumber State Natural and Scenic River",34.505283,-78.941385
+1286,"South Mountains State Park",35.594182,-81.714979
+1287,"Mount Mitchell State Park",35.823398,-82.313590
+1288,"Lumber State Natural and Scenic River",34.907714,-79.350840
+1289,"Lower Haw River State Natural Area",35.740651,-79.112336
+1290,"Os-058",35.890638,-78.768919
+1291,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.888634,-76.304541
+1292,"Lower Haw River State Natural Area",35.769042,-79.137404
+1293,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.923615,-76.286780
+1294,"Fort Macon State Park",34.704085,-76.699254
+1295,"Lower Haw River State Natural Area",35.722100,-79.111694
+1296,"Hammocks Beach State Park",34.642725,-77.134069
+1297,"Lumber State Natural and Scenic River",34.365512,-79.001602
+1298,"Lumber State Natural and Scenic River",34.960095,-79.363770
+1299,"Hammocks Beach State Park",34.640886,-77.137630
+1300,"Lake James State Park Dedicated Nature Preserve",35.752771,-81.871620
+1301,"Mount Jefferson State Natural Area",36.406633,-81.433897
+1302,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.889666,-76.306489
+1303,"Yellow Mountain State Natural Area",36.090838,-82.062258
+1304,"Lake James State Park Dedicated Nature Preserve",35.755477,-81.847883
+1305,"Mount Mitchell State Park",35.817387,-82.274638
+1306,"Mount Mitchell State Park",35.864904,-82.283115
+1307,"Pettigrew State Park",35.887941,-76.293986
+1308,"Mount Mitchell State Park",35.863897,-82.286234
+1309,"Bald Head Island State Natural Area",33.906250,-77.996462
+1310,"Lumber State Natural and Scenic River",34.910999,-79.352016
+1311,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859691,-76.363587
+1312,"Bald Head Island State Natural Area",33.862916,-77.959835
+1313,"Pettigrew State Park",35.863259,-76.376662
+1314,"Pettigrew State Park",35.863081,-76.374772
+1315,"Sandy Run Savannas State Natural Area",34.615113,-77.675397
+1316,"Gorges State Park",35.123573,-82.921464
+1317,"Eno River State Park",36.044824,-78.992070
+1318,"Run Hill State Natural Area",35.996636,-75.677080
+1319,"Deep River State Trail",35.623747,-79.137657
+1320,"Sandy Run Savannas State Natural Area",34.632572,-77.663467
+1321,"Lumber State Natural and Scenic River",34.449040,-78.945693
+1322,"Bald Head Island State Natural Area",33.916679,-77.944187
+1323,"Pettigrew State Park",35.863052,-76.371765
+1324,"South Mountains State Park",35.572157,-81.676816
+1325,"Merchants Millpond State Park Registered Heritage Area",36.438195,-76.637909
+1326,"Pettigrew State Park",35.862729,-76.382706
+1327,"Mitchell Mill State Natural Area",35.914111,-78.388074
+1328,"Hammocks Beach State Park",34.641881,-77.117875
+1329,"Mayo River State Park",36.520993,-79.992621
+1330,"Lumber State Natural and Scenic River",34.695811,-79.267485
+1331,"Mount Mitchell State Park",35.863511,-82.292037
+1332,"Hanging Rock State Park",36.418821,-80.295472
+1333,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.890228,-76.308025
+1334,"Yellow Mountain State Natural Area",36.090574,-82.061778
+1335,"Morrow Mountain State Park Registered Heritage Area",35.346571,-80.074527
+1336,"Lake Norman State Park",35.655331,-80.925831
+1337,"Morrow Mountain State Park Registered Heritage Area",35.352889,-80.070122
+1338,"South Mountains State Park",35.580320,-81.699640
+1339,"Eno River State Park",36.067453,-78.954933
+1340,"Hanging Rock State Park",36.418307,-80.282489
+1341,"William B. Umstead State Park",35.896169,-78.766470
+1342,"Hammocks Beach State Park",34.627597,-77.169348
+1343,"Lower Haw River State Natural Area",35.725133,-79.108554
+1344,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.925209,-76.267595
+1345,"Lumber State Natural and Scenic River",34.721178,-79.300848
+1346,"South Mountains State Park",35.581637,-81.701746
+1347,"Cliffs of the Neuse State Park Registered Heritage Area",35.247737,-77.881091
+1348,"Lumber State Natural and Scenic River",34.902272,-79.348781
+1349,"Lumber State Natural and Scenic River",34.914274,-79.350926
+1350,"Hanging Rock State Park",36.419051,-80.294839
+1351,"Medoc Mountain State Park Dedicated Nature Preserve",36.228225,-77.895536
+1352,"Haw River State Park",36.250736,-79.776835
+1353,"Hanging Rock State Park",36.421090,-80.288839
+1354,"Bald Head Island State Natural Area",33.862717,-77.959893
+1355,"Sandy Run Savannas State Natural Area",34.605505,-77.625274
+1356,"Chimney Rock State Park",35.426103,-82.252433
+1357,"New River State Park",36.435455,-81.361099
+1358,"Pettigrew State Park",35.884412,-76.297880
+1359,"Hanging Rock State Park",36.417973,-80.300569
+1360,"Morrow Mountain State Park Registered Heritage Area",35.354230,-80.069867
+1361,"Lake James State Park Dedicated Nature Preserve",35.773909,-81.861023
+1362,"Lake James State Park Dedicated Nature Preserve",35.764359,-81.882998
+1363,"Yellow Mountain State Natural Area",36.091052,-82.062579
+1364,"Eno River State Park",36.067465,-78.955454
+1365,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.928067,-76.294853
+1366,"Mayo River State Park",36.511548,-79.993021
+1367,"Lumber State Natural and Scenic River",34.918768,-79.350900
+1368,"Mitchell Mill State Natural Area",35.913873,-78.385772
+1369,"New River State Park",36.464711,-81.334134
+1370,"Hanging Rock State Park",36.417011,-80.299850
+1371,"Sandy Run Savannas State Natural Area",34.607763,-77.634095
+1372,"Raven Rock State Park",35.478023,-78.942376
+1373,"Fort Macon State Park",34.710517,-76.702415
+1374,"Lumber State Natural and Scenic River",34.505021,-78.941298
+1375,"Eno River State Park",36.070676,-78.938935
+1376,"Lumber State Natural and Scenic River",34.908169,-79.350897
+1377,"Lake James State Park Dedicated Nature Preserve",35.763929,-81.883921
+1378,"Fort Macon State Park",34.702099,-76.692472
+1379,"Bald Head Island State Natural Area",33.909506,-77.997340
+1380,"Lake James State Park Dedicated Nature Preserve",35.766135,-81.862038
+1381,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.859723,-76.363087
+1382,"Sandy Run Savannas State Natural Area",34.608628,-77.636341
+1383,"Bald Head Island State Natural Area",33.862674,-77.960123
+1384,"Sandy Run Savannas State Natural Area",34.614941,-77.675614
+1385,"Lake James State Park Dedicated Nature Preserve",35.766979,-81.861317
+1386,"Run Hill State Natural Area",35.996620,-75.676953
+1387,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.862330,-76.370248
+1388,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.886395,-76.290065
+1389,"Morrow Mountain State Park Registered Heritage Area",35.351669,-80.071411
+1390,"Lumber State Natural and Scenic River",34.938852,-79.353763
+1391,"Bald Head Island State Natural Area",33.864497,-77.979229
+1392,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924097,-76.272427
+1393,"Morrow Mountain State Park Registered Heritage Area",35.346606,-80.074014
+1394,"Mount Mitchell State Park",35.857040,-82.299643
+1395,"Hammocks Beach State Park",34.669385,-77.115343
+1396,"Stone Mountain State Park",36.374781,-81.045817
+1397,"Lake James State Park Dedicated Nature Preserve",35.776873,-81.868845
+1398,"Hanging Rock State Park",36.420751,-80.289676
+1399,"Sandy Run Savannas State Natural Area",34.605855,-77.625712
+1400,"Hanging Rock State Park",36.431214,-80.253570
+1401,"Lake James State Park Dedicated Nature Preserve",35.766437,-81.861548
+1402,"Sandy Run Savannas State Natural Area",34.632753,-77.658168
+1403,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.885650,-76.333118
+1404,"Hanging Rock State Park",36.417200,-80.299451
+1405,"William B. Umstead State Park",35.892221,-78.768769
+1406,"South Mountains State Park",35.581535,-81.703389
+1407,"Bald Head Island State Natural Area",33.863126,-77.959907
+1408,"Bald Head Island State Natural Area",33.909395,-78.006418
+1409,"Yellow Mountain State Natural Area",36.078525,-82.054423
+1410,"Lumber River State Park",34.381779,-79.010086
+1411,"Bald Head Island State Natural Area",33.859257,-77.961048
+1412,"Fort Macon State Park",34.703984,-76.695079
+1413,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.887901,-76.294172
+1414,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.888035,-76.302814
+1415,"South Mountains State Park",35.602993,-81.729438
+1416,"Hanging Rock State Park",36.426695,-80.307382
+1417,"Sandy Run Savannas State Natural Area",34.627016,-77.669059
+1418,"Pettigrew State Park",35.863022,-76.381221
+1419,"Haw River State Park",36.259118,-79.754563
+1420,"Sandy Run Savannas State Natural Area",34.634628,-77.627748
+1421,"Gorges State Park",35.063065,-82.883080
+1422,"Gorges State Park",35.062966,-82.883272
+1423,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.924632,-76.269119
+1424,"Hanging Rock State Park",36.418500,-80.300331
+1425,"Lower Haw River State Natural Area",35.769211,-79.137568
+1426,"Goose Creek State Park Registered Heritage Area",35.472963,-76.931378
+1427,"Lumber State Natural and Scenic River",34.909673,-79.351578
+1428,"Bald Head Island State Natural Area",33.909369,-78.007653
+1429,"Pettigrew State Park",35.861854,-76.373781
+1430,"Pettigrew State Park",35.871955,-76.339201
+1431,"Yellow Mountain State Natural Area",36.091306,-82.062982
+1432,"Hammocks Beach State Park",34.642215,-77.118834
+1433,"Carver's Creek State Park",35.199819,-78.899770
+1434,"Bald Head Island State Natural Area",33.906910,-77.984486
+1435,"Hanging Rock State Park",36.418814,-80.281379
+1436,"Pettigrew State Park",35.863307,-76.376784
+1437,"Hammocks Beach State Park",34.628259,-77.165954
+1438,"Lake James State Park Dedicated Nature Preserve",35.766085,-81.862993
+1439,"Fort Macon State Park",34.703865,-76.694501
+1440,"Lumber State Natural and Scenic River",34.914844,-79.350813
+1441,"Beech Creek State Natural Area",36.199868,-81.850273
+1442,"Yellow Mountain State Natural Area",36.078378,-82.054696
+1443,"Lake James State Park Dedicated Nature Preserve",35.760866,-81.856745
+1444,"Mount Mitchell State Park",35.823279,-82.311478
+1445,"Lumber State Natural and Scenic River",34.504464,-78.942952
+1446,"Lake James State Park Dedicated Nature Preserve",35.760293,-81.853717
+1447,"Hammocks Beach State Park",34.644557,-77.130861
+1448,"Lake James State Park Dedicated Nature Preserve",35.775622,-81.860183
+1449,"Stone Mountain State Park",36.416348,-81.130354
+1450,"Pettigrew State Park",35.861190,-76.370046
+1451,"Lake James State Park Dedicated Nature Preserve",35.760500,-81.869998
+1452,"Sandy Run Savannas State Natural Area",34.634834,-77.649768
+1453,"Hanging Rock State Park",36.421112,-80.288363
+1454,"Hanging Rock State Park",36.424069,-80.305610
+1455,"Lower Haw River State Natural Area",35.761392,-79.129301
+1456,"Lake James State Park Dedicated Nature Preserve",35.775190,-81.860516
+1457,"Sandy Run Savannas State Natural Area",34.615453,-77.674865
+1458,"Pettigrew State Park",35.862958,-76.381199
+1459,"Pettigrew State Park",35.878131,-76.337029
+1460,"Pettigrew State Park",35.862632,-76.372108
+1461,"Lumber State Natural and Scenic River",34.918524,-79.350950
+1462,"Stone Mountain State Park",36.426562,-81.064451
+1463,"Merchants Millpond State Park",36.400840,-76.740685
+1464,"Gorges State Park",35.064085,-82.880779
+1465,"Pettigrew State Park",35.922109,-76.292541
+1466,"Sandy Run Savannas State Natural Area",34.635773,-77.646688
+1467,"Stone Mountain State Park",36.426655,-81.064323
+1468,"Gorges State Park",35.117345,-82.924752
+1469,"Lake James State Park Dedicated Nature Preserve",35.761179,-81.856549
+1470,"Yellow Mountain State Natural Area",36.067658,-82.061734
+1471,"Bald Head Island State Natural Area",33.910931,-78.005492
+1472,"Pettigrew State Park",35.859534,-76.364221
+1473,"Gorges State Park",35.123671,-82.921259
+1474,"Yellow Mountain State Natural Area",36.090034,-82.060993
+1475,"Lake James State Park Dedicated Nature Preserve",35.758013,-81.854803
+1476,"Lower Haw River State Natural Area",35.714411,-79.084311
+1477,"Lumber State Natural and Scenic River",34.938881,-79.353614
+1478,"Hanging Rock State Park",36.423723,-80.305716
+1479,"Chimney Rock State Park",35.436252,-82.286985
+1480,"Pettigrew State Park",35.933325,-76.252571
+1481,"Mount Mitchell State Park",35.736001,-82.306459
+1482,"Bald Head Island State Natural Area",33.909427,-78.004974
+1483,"Chimney Rock State Park",35.424495,-82.217388
+1484,"Hanging Rock State Park",36.420964,-80.289310
+1485,"Sandy Run Savannas State Natural Area",34.637146,-77.622333
+1486,"Sandy Run Savannas State Natural Area",34.608105,-77.634364
+1487,"Lumber State Natural and Scenic River",34.568796,-78.970079
+1488,"Sandy Run Savannas State Natural Area",34.606598,-77.627712
+1489,"Lake James State Park Dedicated Nature Preserve",35.759643,-81.873264
+1490,"Sandy Run Savannas State Natural Area",34.633106,-77.656914
+1491,"Lake James State Park Dedicated Nature Preserve",35.767804,-81.863126
+1492,"Sandy Run Savannas State Natural Area",34.604958,-77.624583
+1493,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.861154,-76.357944
+1494,"Pettigrew State Park",35.862900,-76.374036
+1495,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.922398,-76.286596
+1496,"Lake James State Park Dedicated Nature Preserve",35.760355,-81.877922
+1497,"Sandy Run Savannas State Natural Area",34.632701,-77.662691
+1498,"Yellow Mountain State Natural Area",36.090638,-82.062004
+1499,"Sandy Run Savannas State Natural Area",34.627631,-77.668734
+1500,"Sandy Run Savannas State Natural Area",34.627641,-77.668617
+1501,"Sandy Run Savannas State Natural Area",34.635729,-77.646513
+1502,"Lumber State Natural and Scenic River",34.415918,-78.968352
+1503,"Sandy Run Savannas State Natural Area",34.632743,-77.662936
+1504,"Hanging Rock State Park",36.425350,-80.307140
+1505,"Lake James State Park Dedicated Nature Preserve",35.759721,-81.857242
+1506,"Lake James State Park Dedicated Nature Preserve",35.752463,-81.871407
+1507,"Yellow Mountain State Natural Area",36.086165,-82.076695
+1508,"Lumber State Natural and Scenic River",34.716071,-79.299526
+1509,"Gorges State Park",35.119408,-82.922689
+1510,"Pettigrew State Park (Scuppernong River Section) Dedicated Nature Preserve",35.916715,-76.291921
+1511,"Sandy Run Savannas State Natural Area",34.606399,-77.631691
+1512,"Lumber State Natural and Scenic River",34.909090,-79.351695
+1513,"Gorges State Park",35.063130,-82.882912
+1514,"Sandy Run Savannas State Natural Area",34.633474,-77.654006
+1515,"Lake James State Park",35.753342,-81.874223
+1516,"Sandy Run Savannas State Natural Area",34.606828,-77.629890
+1517,"Sandy Run Savannas State Natural Area",34.635553,-77.647786
+1518,"Gorges State Park",35.064365,-82.880421
+1519,"Mount Mitchell State Park",35.811935,-82.271535
+1520,"Sandy Run Savannas State Natural Area",34.633030,-77.653148
+1521,"Sandy Run Savannas State Natural Area",34.632915,-77.651015
+1522,"Bald Head Island State Natural Area",33.912119,-78.005638

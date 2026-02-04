@@ -20,6 +20,9 @@
 import SwiftUI
 import UIKit
 import BigJuJuMap
+import RVS_Generic_Swift_Toolbox
+import TabularData
+import CoreLocation
 
 /* ################################################################################################################################## */
 // MARK: - UIViewControllerRepresentable Wrapper for the Map View Controller -
@@ -28,6 +31,22 @@ import BigJuJuMap
  
  */
 struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
+    /* ################################################################## */
+    /**
+     */
+    let markerNames: (single: String, multi: String)
+
+    /* ################################################################## */
+    /**
+     */
+    let dataSetName: String
+
+    /* ################################################################## */
+    /**
+     If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
+     */
+    var displayNumbers = true
+
     /* ################################################################## */
     /**
      */
@@ -42,6 +61,36 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
     /**
      */
     func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
+        guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName) else { return }
+        
+        let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.compactMap { inRow in
+            guard let id = inRow.int("id"),
+                  let name = inRow.string("name"),
+                  let latitude = inRow.double("latitude"),
+                  let longitude = inRow.double("longitude")
+            else { return nil }
+
+            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
+                print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
+            }
+        }
+
+        #if DEBUG
+            print("Loaded \(locations.count) map locations.")
+        #endif
+
+        let singleName: String = self.markerNames.single.isEmpty ? "" : self.markerNames.single
+        let multiName: String = self.markerNames.multi.isEmpty ? "" : self.markerNames.multi
+        
+        let singleImage: UIImage? = singleName.isEmpty ? nil : UIImage(named: singleName)
+        let multiImage: UIImage? = multiName.isEmpty ? nil : UIImage(named: multiName)
+        let displayNumbers = singleName == multiName
+        
+        inUIViewController.singleMarkerImage = singleImage
+        inUIViewController.multiMarkerImage = multiImage
+        inUIViewController.displayNumbers = displayNumbers
+        inUIViewController.mapData = locations
+        inUIViewController.region = locations.containingCoordinateRegion
     }
 }
 
@@ -198,54 +247,67 @@ struct BJJM_SwiftUIMainView: View {
     /**
      */
     @State private var _topIndex: Int = 0
-
+    
     /* ################################################################## */
     /**
      */
     @State private var _bottomIndex: Int = 0
-
+    
+    /* ################################################################## */
+    /**
+     */
+    private static let _bottomOptions = ["SLUG-NC".localizedVariant, "SLUG-USA".localizedVariant, "SLUG-VI".localizedVariant]
+    
+    private static let _topOptions: [(single: String, multi: String)] = [
+        (single: "", multi: ""),
+        (single: "CustomGeneric", multi: "CustomGeneric"),
+        (single: "CustomSingle", multi: "CustomMulti")
+    ]
+        
     /* ################################################################## */
     /**
      */
     private let _topImages = [
-        "TemplateBuiltIn",     // <- change to your real names
+        "TemplateBuiltIn",
         "TemplateEnum",
         "TemplateCustom"
     ]
-
+    
     /* ################################################################## */
     /**
      */
     var body: some View {
-        VStack(spacing: 0) {
-            BJJM_BigJuJuMapViewController()
-
-            BJJM_ImageSegmentedControl(
-                imageNames: self._topImages,
-                selectedIndex: self.$_topIndex,
-                backgroundColor: .systemGray4,
-                selectedTintColor: UIColor(Color.accentColor),
-                onChange: { _ in
+        BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex], dataSetName: Self._bottomOptions[self._bottomIndex])
+            .ignoresSafeArea(.all)
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 0) {
+                    BJJM_ImageSegmentedControl(
+                        imageNames: self._topImages,
+                        selectedIndex: self.$_topIndex,
+                        backgroundColor: .systemGray4,
+                        selectedTintColor: UIColor(Color.accentColor),
+                        onChange: { _ in
+                        }
+                    )
+                    
+                    Picker("", selection: self.$_bottomIndex) {
+                        ForEach(Self._bottomOptions.indices, id: \.self) { index in
+                            Text(Self._bottomOptions[index]).tag(index)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.top, 6)
+                    .onChange(of: self._bottomIndex) { _, _ in
+                    }
                 }
-            )
-
-            Picker("", selection: self.$_bottomIndex) {
-                Text("USA").tag(0)
-                Text("Omaha").tag(1)
-                Text("Philadelphia").tag(2)
+                .padding(.horizontal, 16)
+                .background(.clear)
+                .tint(.accentColor)
             }
-            .padding(.top, 6)
-            .pickerStyle(.segmented)
-            .onChange(of: self._bottomIndex) { _, _ in
+            .onAppear {
+                UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
             }
-        }
-        .padding(.horizontal, 16)
-        .background(.thinMaterial)
-        .tint(.accentColor)
-        .onAppear {
-            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
-        }
     }
 }
