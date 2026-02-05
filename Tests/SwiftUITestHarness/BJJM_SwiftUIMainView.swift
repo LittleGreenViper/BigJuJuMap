@@ -32,52 +32,81 @@ import CoreLocation
  We wrap it in a UIViewControllerRepresentable struct.
  */
 struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
-    /* ################################################################## */
+    /* ############################################################################################################################## */
+    // MARK: - UIViewControllerRepresentable Wrapper for the Map View Controller -
+    /* ############################################################################################################################## */
     /**
-     This holds the asset names we will be using for our two types of markers (single and multi).
+     This is used to determine when we need to update the map data and the region.
      */
-    let markerNames: (single: String, multi: String)
+    final class Coordinator {
+        /* ################################################################## */
+        /**
+         This is a hash that represents the "expensive" state of the map (the map data). The markers are not tracked.
+         */
+        var lastSignature: UInt64 = 0
+    }
 
     /* ################################################################## */
     /**
-     This is the selected CSV file name. We read this into our dataframe.
-     */
-    let dataSetName: String
-
-    /* ################################################################## */
-    /**
-     If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
-     */
-    var displayNumbers = true
-    
-    var onTap: (@MainActor (_ item: any BigJuJuMapLocationProtocol) -> Void)? = nil
-
-    /* ################################################################## */
-    /**
-     The internal instance of the UIViewController.
+     The controller is our wrapped BigJuJuMapViewController type.
      */
     typealias UIViewControllerType = BigJuJuMapViewController
 
     /* ################################################################## */
     /**
-     This is called to instantiate the BigJuJuMap.
-     
-     - parameter context: The context (ignored)
+     The image names for our current markers.
      */
-    func makeUIViewController(context: Context) -> BigJuJuMap.BigJuJuMapViewController { BigJuJuMap.BigJuJuMapViewController() }
-    
+    let markerNames: (single: String, multi: String)
+
     /* ################################################################## */
     /**
-     Called when it's time to update the map.
-     
-     - parameter inUIViewController: The instance of the BigJuJuMap view controller.
-     - parameter context: The context (ignored)
+     The filename for the dataset we're using.
      */
-    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context: Context) {
+    let dataSetName: String
+
+    /* ################################################################## */
+    /**
+     True, if we are displaying numbers over the markers.
+     */
+    var displayNumbers = true
+
+    /* ################################################################## */
+    /**
+     The signature of our tapped item callback.
+     The parameter is the data item that was selected. It is always called in the main thread.
+     */
+    var onTap: (@MainActor (_: any BigJuJuMapLocationProtocol) -> Void)? = nil
+
+    /* ################################################################## */
+    /**
+     This instantiates our context coordinator.
+     */
+    func makeCoordinator() -> Coordinator { Coordinator() }
+
+    /* ################################################################## */
+    /**
+     This instantiates our view controller class.
+     */
+    func makeUIViewController(context: Context) -> BigJuJuMap.BigJuJuMapViewController {
+        BigJuJuMap.BigJuJuMapViewController()
+    }
+
+    /* ################################################################## */
+    /**
+     Called when the view updates.
+     */
+    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
         guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName),
               let onTap
         else { return }
-        
+
+        // Build a signature for “what the map data would be” without needing Equatable.
+        // Include dataSetName so switching datasets always triggers.
+        var hasher = Hasher()
+        hasher.combine(self.dataSetName)
+        hasher.combine(dataFrame.rows.count)
+
+        // We prepare the location data for the map. We also set the state hasher.
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.flatMap { inRow -> [any BigJuJuMapLocationProtocol] in
             guard let id = inRow.int("id"),
                   let name = inRow.string("name"),
@@ -85,21 +114,34 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
                   let longitude = inRow.double("longitude")
             else { return [] }
 
-            return [
-                BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in Task { @MainActor in onTap(inItem) } }
-            ]
+            // Fold the data into the hash (Round the position to avoid float noise).
+            hasher.combine(id)
+            hasher.combine(name)
+            hasher.combine(Int((latitude  * 1_000_000).rounded()))
+            hasher.combine(Int((longitude * 1_000_000).rounded()))
+
+            return [BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in Task { @MainActor in onTap(inItem) } }]
         }
 
+        // Convert Hasher's Int to a stable-ish UInt64 for storage.
+        // (Within a single run, this is fine for "did it change since last update?")
+        let signature = UInt64(bitPattern: Int64(hasher.finalize()))
+
+        // Update marker config every time (cheap + independent of data).
         let singleName: String = self.markerNames.single.isEmpty ? "" : self.markerNames.single
         let multiName: String = self.markerNames.multi.isEmpty ? "" : self.markerNames.multi
-        
+
         let singleImage: UIImage? = singleName.isEmpty ? nil : UIImage(named: singleName)
         let multiImage: UIImage? = multiName.isEmpty ? nil : UIImage(named: multiName)
-        let displayNumbers = singleName == multiName
-        
+
         inUIViewController.singleMarkerImage = singleImage
         inUIViewController.multiMarkerImage = multiImage
-        inUIViewController.displayNumbers = displayNumbers
+        inUIViewController.displayNumbers = (singleName == multiName) ? true : self.displayNumbers
+
+        // Gate the expensive operations. We don't want to zoom away/out the map, unless we are changing the data, itself.
+        guard inContext.coordinator.lastSignature != signature else { return }
+        inContext.coordinator.lastSignature = signature
+
         inUIViewController.mapData = locations
         inUIViewController.visibleRect = locations.containingMapRectDatelineAware
     }

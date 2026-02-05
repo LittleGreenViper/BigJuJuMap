@@ -26,11 +26,12 @@ import BigJuJuMap
 // MARK: - Location Data "Factory" Struct -
 /* ################################################################################################################################## */
 /**
- 
+ This is s simple static struct, that provides a dataframe for a given filename (for a CSV-encoded location file).
  */
 struct BJJM_LocationFactory {
     /* ################################################################## */
     /**
+     Returns a DataFrame for the given filename.
      */
     static func locationData(from inFileName: String) -> DataFrame? {
         let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
@@ -47,35 +48,47 @@ struct BJJM_LocationFactory {
 // MARK: - DataFrame Helpers -
 /* ################################################################################################################################## */
 /**
- 
+ This provides some simple filtering and casting methods.
  */
 extension DataFrame.Row {
     /* ################################################################## */
     /**
+     Parses a string from the column.
+     
+     - parameter inColumn: The column data, in string format.
+     - returns: The column value, as a String
      */
     func string(_ inColumn: String) -> String? {
-        if let s = self[inColumn] as? String { return s }
+        if let string_version = self[inColumn] as? String { return string_version }
         return nil
     }
 
     /* ################################################################## */
     /**
+     Parses an int from the column.
+     
+     - parameter inColumn: The column data, in string format.
+     - returns: The column value, as an Int
      */
     func int(_ inColumn: String) -> Int? {
-        if let i = self[inColumn] as? Int { return i }
-        if let s = self[inColumn] as? String { return Int(s.trimmingCharacters(in: .whitespacesAndNewlines)) }
-        if let d = self[inColumn] as? Double { return Int(d) }
+        if let int_version = self[inColumn] as? Int { return int_version }
+        if let string_version = self[inColumn] as? String { return Int(string_version.trimmingCharacters(in: .whitespacesAndNewlines)) }
+        if let double_version = self[inColumn] as? Double { return Int(double_version) }
         return nil
     }
 
     /* ################################################################## */
     /**
+     Parses a double from the column.
+     
+     - parameter inColumn: The column data, in string format.
+     - returns: The column value, as a Double
      */
     func double(_ inColumn: String) -> Double? {
-        if let d = self[inColumn] as? Double { return d }
-        if let i = self[inColumn] as? Int { return Double(i) }
-        if let s = self[inColumn] as? String {
-            return Double(s.trimmingCharacters(in: .whitespacesAndNewlines))
+        if let double_version = self[inColumn] as? Double { return double_version }
+        if let int_version = self[inColumn] as? Int { return Double(int_version) }
+        if let string_version = self[inColumn] as? String {
+            return Double(string_version.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         return nil
     }
@@ -85,20 +98,24 @@ extension DataFrame.Row {
 // MARK: Marker Type Selection Enum
 /* ################################################################################################################################## */
 /**
+ These are the marker types we'll be using.
  */
 enum BJJM_MarkerType: Int {
     /* ################################################################## */
     /**
+     This one is provided by the library. It's a very simple "upside-down teardrop" shape.
      */
     case builtIn
 
     /* ################################################################## */
     /**
+     This is a simple custom shape that provides space for numbers.
      */
     case customEnumerated
 
     /* ################################################################## */
     /**
+     This is a more complex one, that has color, and no space for numbers.
      */
     case customNonEnumerated
 }
@@ -147,7 +164,7 @@ final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
      - parameter inName: The string to be applied.
      - parameter inLat: The latitude
      - parameter inLng: The longitude
-     - parameter handler: The handler closure.
+     - parameter inHandler: The handler closure. Optional. Default does nothing.
      */
     init(id inID: ID,
          name inName: String,

@@ -33,3 +33,67 @@ Additionally, you can choose to have the number of aggregated data points displa
 There are two test harness targets provided with the library: A UIKit target, and a SwiftUI target. They show simple implementations of BigJuJuMap, in practice.
 
 They are visually identical, presenting a single screen, filled with a map, and displaying a number of markers. At the bottom of the screen, are two segmented switches. The top switch selects which type of marker to display (default, custom simple, or custom complex).
+
+#### Markers
+
+The following images show the types of markers that can be selected by the app.
+
+##### Figure 1: Default Markers
+
+| ![](img/Fig-01-DefaultMarkers-Light.png) | ![](img/Fig-01-DefaultMarkers-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+##### Figure 2: Custom Markers With Space for Numbers
+
+| ![](img/Fig-02-CustomMarkers-1-Light.png) | ![](img/Fig-02-CustomMarkers-1-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+##### Figure 3: Custom Markers With No Numbers
+
+| ![](img/Fig-03-CustomMarkers-2-Light.png) | ![](img/Fig-03-CustomMarkers-2-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+#### Datasets
+
+##### Figure 4: State Parks in North Carolina
+
+| ![](img/Fig-04-NC-Light.png) | ![](img/Fig-04-NC-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+##### Figure 5: National Parks
+
+| ![](img/Fig-05-USA-Light.png) | ![](img/Fig-05-USA-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+##### Figure 6: Territorial Parks in the US Virgin Islands
+
+| ![](img/Fig-06-VI-Light.png) | ![](img/Fig-06-VI-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+#### Popovers
+
+##### Figure 7: Example of A Large Aggregate Marker
+
+| ![](img/Fig-07-LargePopover-Light.png) | ![](img/Fig-07-LargePopover-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+##### Figure 8: Example of A Single Marker
+
+| ![](img/Fig-08-Small-Popover-Light.png) | ![](img/Fig-08-Small-Popover-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
+
+#### Reaction Alerts
+
+##### Figure 9: Alert Displayed When Selecting A Row in A Popover
+
+| ![](img/Fig-09-Alert-Light.png) | ![](img/Fig-09-Alert-Dark.png) |
+|:-:|:-:|
+| *Light Mode*                            | *Dark Mode*                           |
