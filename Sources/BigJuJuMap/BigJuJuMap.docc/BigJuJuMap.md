@@ -143,7 +143,7 @@ You can directly access the [`MKMapView`](https://developer.apple.com/documentat
 
 You provide your own custom markers, by giving the ``BigJuJuMapViewController`` instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have ``BigJuJuMapViewController/displayNumbers`` as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.label`](https://developer.apple.com/documentation/uikit/uicolor/label) color.
 
-You provide the images by setting the ``BigJuJuMapViewController/singleMarkerImage`` and ``BigJuJuMapViewController/singleMarkerImage`` properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
+You provide the images by setting the ``BigJuJuMapViewController/singleMarkerImage`` and ``BigJuJuMapViewController/multiMarkerImage`` properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
 
 > NOTE: If you want the same image to be used for both ("Custom 1," in the test harness apps), then you need to provide the same image to **BOTH** of the properties.
 
