@@ -49,6 +49,8 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
      If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
      */
     var displayNumbers = true
+    
+    var onTap: (@MainActor (_ item: any BigJuJuMapLocationProtocol) -> Void)? = nil
 
     /* ################################################################## */
     /**
@@ -72,7 +74,9 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
      - parameter context: The context (ignored)
      */
     func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context: Context) {
-        guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName) else { return }
+        guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName),
+              let onTap
+        else { return }
         
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.flatMap { inRow -> [any BigJuJuMapLocationProtocol] in
             guard let id = inRow.int("id"),
@@ -81,11 +85,8 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
                   let longitude = inRow.double("longitude")
             else { return [] }
 
-            // NOTE: We use a console print, so we don't have to do a bunch of stuff to escape the wrapped environment.
             return [
-                BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
-                    print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
-                }
+                BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in Task { @MainActor in onTap(inItem) } }
             ]
         }
 
@@ -144,13 +145,28 @@ struct BJJM_SwiftUIMainView: View {
      The currently selected bottom segment.
      */
     @State private var _bottomIndex: Int = 0
+    
+    /* ################################################################## */
+    /**
+     This is true, when we want to display an alert, upon selecting a popover item.
+     */
+    @State private var _showingAlert: Bool = false
+    
+    /* ################################################################## */
+    /**
+     This is the text we want displayed in the alert.
+     */
+    @State private var _alertMessage: String = ""
 
     /* ################################################################## */
     /**
      This returns a view, with the map filling the screen, behind the two segmented switches.
      */
     var body: some View {
-        BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex], dataSetName: Self._bottomOptions[self._bottomIndex])
+        BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex], dataSetName: Self._bottomOptions[self._bottomIndex]) { inItem in
+            self._alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant, inItem.name)
+            self._showingAlert = true
+        }
             .ignoresSafeArea(.all)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
@@ -172,6 +188,11 @@ struct BJJM_SwiftUIMainView: View {
                 .padding(.horizontal, 16)
                 .background(.clear)
                 .tint(.accentColor)
+            }
+            .alert("SLUG-ALERT-HEADER".localizedVariant, isPresented: self.$_showingAlert) {
+                Button("SLUG-OK".localizedVariant, role: .cancel) { }
+            } message: {
+                Text(self._alertMessage)
             }
             .onAppear {
                 UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)

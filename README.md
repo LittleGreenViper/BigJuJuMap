@@ -10,4 +10,4 @@ It also allows a "drop in" high-functionality map for UIKit projects.
 
 ## How Does It Work?
 
-The implementation is provided as a dynamic-linked [framework](), that instantiates a single [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) instance.
+The implementation is provided as a static [framework](), instantiating an instance of a [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass.

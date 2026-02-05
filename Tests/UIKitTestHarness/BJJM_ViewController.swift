@@ -109,9 +109,15 @@ extension BJJM_ViewController {
                   let longitude = inRow.double("longitude")
             else { return nil }
             
-            // NOTE: We use a console print, so we maintain solidarity with our SwiftUI brother.
-            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
-                print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
+            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { [weak self] inItem in
+                guard let self else { return }
+                let alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant, inItem.name)
+
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "SLUG-ALERT-HEADER".localizedVariant, message: alertMessage, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "SLUG-OK".localizedVariant, style: .default))
+                    self.present(alert, animated: true)
+                }
             }
         }
         

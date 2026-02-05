@@ -23,3 +23,6 @@
 "SLUG-DM"               =   "Default Marker";
 "SLUG-C1"               =   "Custom 1";
 "SLUG-C2"               =   "Custom 2";
+"SLUG-ALERT-HEADER"     =   "Popover Item Selected";
+"SLUG-ALERT-FORMAT"     =   "You Selected \"%@\".";
+"SLUG-OK"               =   "OK";
