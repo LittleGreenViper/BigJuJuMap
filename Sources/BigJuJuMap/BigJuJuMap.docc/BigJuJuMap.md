@@ -133,21 +133,21 @@ Or just instantiate it directly:
 
 Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to ``BigJuJuMapLocationProtocol``. The test harnesses demonstrate this with simple datasets of US national and state parks.
 
-This is demonstrated in the ``BJJM_LocationFactory`` struct, shared between the UIKit and SwiftUI test harness apps.
+This is demonstrated in the [`BJJM_LocationFactory`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L31) struct, shared between the UIKit and SwiftUI test harness apps.
 
-Simply set the ``BigJuJuMapViewController.mapData`` property to the array, and you're good to go. You may also want to set the map's region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.
+Simply set the ``BigJuJuMapViewController/mapData`` property to the array, and you're good to go. You may also want to set the map's region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.
 
-You can directly access the [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) instance, by referencing the ``BigJuJuMapViewController.mapView`` computed property. The view controller's main [`view`](https://developer.apple.com/documentation/uikit/uiviewcontroller/view) property is also the mapView, but referenced as a top-level [UIView](https://developer.apple.com/documentation/UIKit/UIView), not [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview).
+You can directly access the [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) instance, by referencing the ``BigJuJuMapViewController/mapView`` computed property. The view controller's main [`view`](https://developer.apple.com/documentation/uikit/uiviewcontroller/view) property is also the mapView, but referenced as a top-level [UIView](https://developer.apple.com/documentation/UIKit/UIView), not [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview).
 
 #### The Markers
 
-You provide your own custom markers, by giving the ``BigJuJuMapViewController`` instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have ``BigJuJuMapViewController.displayNumbers`` as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.label`](https://developer.apple.com/documentation/uikit/uicolor/label) color.
+You provide your own custom markers, by giving the ``BigJuJuMapViewController`` instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have ``BigJuJuMapViewController/displayNumbers`` as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.label`](https://developer.apple.com/documentation/uikit/uicolor/label) color.
 
-You provide the images by setting the ``BigJuJuMapViewController.singleMarkerImage`` and ``BigJuJuMapViewController.singleMarkerImage`` properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
+You provide the images by setting the ``BigJuJuMapViewController/singleMarkerImage`` and ``BigJuJuMapViewController/singleMarkerImage`` properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
 
 > NOTE: If you want the same image to be used for both ("Custom 1," in the test harness apps), then you need to provide the same image to **BOTH** of the properties.
 
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 
-``BJJM_BigJuJuMapViewController`` struct.
+[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L34) struct.

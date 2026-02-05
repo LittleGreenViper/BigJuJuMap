@@ -1,3 +1,3 @@
- **1.0.0** *TBD*
+ **1.0.0** *February 5, 2026*
 
 - Initial Release
