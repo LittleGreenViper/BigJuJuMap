@@ -23,18 +23,22 @@ import UIKit
 // MARK: Main Scene Delegate Class
 /* ################################################################################################################################## */
 /**
- 
+ We run the app as a scene, so this is the scene delegate.
  */
 class BJJM_SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /* ################################################################## */
     /**
+     The required window property.
      */
     var window: UIWindow?
 
     /* ################################################################## */
     /**
+     - parameter inScene: The scene we are connecting.
+     - parameter willConnectTo: The secene  session (ignored)
+     - parameter options: The connection options (also ignored)
      */
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+    func scene(_ inScene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
+        guard let _ = (inScene as? UIWindowScene) else { return }
     }
 }

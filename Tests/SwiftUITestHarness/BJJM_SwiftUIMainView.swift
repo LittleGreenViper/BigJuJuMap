@@ -28,16 +28,19 @@ import CoreLocation
 // MARK: - UIViewControllerRepresentable Wrapper for the Map View Controller -
 /* ################################################################################################################################## */
 /**
- 
+ This is how we integrate the UIKit BigJuJuMap into the SwiftUI app.
+ We wrap it in a UIViewControllerRepresentable struct.
  */
 struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
     /* ################################################################## */
     /**
+     This holds the asset names we will be using for our two types of markers (single and multi).
      */
     let markerNames: (single: String, multi: String)
 
     /* ################################################################## */
     /**
+     This is the selected CSV file name. We read this into our dataframe.
      */
     let dataSetName: String
 
@@ -49,18 +52,26 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
 
     /* ################################################################## */
     /**
+     The internal instance of the UIViewController.
      */
     typealias UIViewControllerType = BigJuJuMapViewController
 
     /* ################################################################## */
     /**
+     This is called to instantiate the BigJuJuMap.
+     
+     - parameter context: The context (ignored)
      */
-    func makeUIViewController(context inContext: Context) -> BigJuJuMap.BigJuJuMapViewController { BigJuJuMap.BigJuJuMapViewController() }
+    func makeUIViewController(context: Context) -> BigJuJuMap.BigJuJuMapViewController { BigJuJuMap.BigJuJuMapViewController() }
     
     /* ################################################################## */
     /**
+     Called when it's time to update the map.
+     
+     - parameter inUIViewController: The instance of the BigJuJuMap view controller.
+     - parameter context: The context (ignored)
      */
-    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
+    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context: Context) {
         guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName) else { return }
         
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.flatMap { inRow -> [any BigJuJuMapLocationProtocol] in
@@ -70,16 +81,13 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
                   let longitude = inRow.double("longitude")
             else { return [] }
 
+            // NOTE: We use a console print, so we don't have to do a bunch of stuff to escape the wrapped environment.
             return [
                 BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
                     print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
                 }
-                ]
+            ]
         }
-
-        #if DEBUG
-            print("Loaded \(locations.count) map locations.")
-        #endif
 
         let singleName: String = self.markerNames.single.isEmpty ? "" : self.markerNames.single
         let multiName: String = self.markerNames.multi.isEmpty ? "" : self.markerNames.multi
@@ -97,200 +105,61 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
 }
 
 /* ################################################################################################################################## */
-// MARK: - UIKit Segmented Control Wrapper (Images) -
-/* ################################################################################################################################## */
-/**
- 
- */
-struct BJJM_ImageSegmentedControl: UIViewRepresentable {
-    /* ################################################################## */
-    /**
-     */
-    typealias UIViewType = UISegmentedControl
-
-    /* ################################################################## */
-    /**
-     */
-    private static let _iconSize: CGSize = CGSize(width: 30, height: 30)
-
-    /* ################################################################## */
-    /**
-     */
-    let imageNames: [String]
-
-    /* ################################################################## */
-    /**
-     */
-    @Binding var selectedIndex: Int
-
-    /* ################################################################## */
-    /**
-     */
-    var backgroundColor: UIColor = .systemGray4
-
-    /* ################################################################## */
-    /**
-     */
-    var selectedTintColor: UIColor = .systemBlue
-
-    /* ################################################################## */
-    /**
-     */
-    var onChange: (Int) -> Void = { _ in }
-
-    /* ################################################################## */
-    /**
-     */
-    func makeUIView(context inContext: Context) -> UISegmentedControl {
-        let control = UISegmentedControl(items: Array(repeating: "", count: self.imageNames.count))
-
-        // Match UIKit-ish appearance
-        control.backgroundColor = self.backgroundColor
-        control.selectedSegmentTintColor = self.selectedTintColor
-
-        // Remove default text styling impact
-        control.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
-        control.setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .selected)
-
-        control.addTarget(inContext.coordinator, action: #selector(Coordinator.changed(_:)), for: .valueChanged)
-
-        for (idx, name) in imageNames.enumerated() {
-            if let img = UIImage(named: name) {
-                let fitted = img._aspectFit(in: Self._iconSize)
-                control.setImage(fitted.withRenderingMode(.alwaysTemplate), forSegmentAt: idx)
-            }
-        }
-
-        control.selectedSegmentIndex = self.selectedIndex
-        return control
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func updateUIView(_ uiView: UISegmentedControl, context: Context) {
-        if uiView.selectedSegmentIndex != self.selectedIndex {
-            uiView.selectedSegmentIndex = self.selectedIndex
-        }
-
-        uiView.backgroundColor = self.backgroundColor
-        uiView.selectedSegmentTintColor = self.selectedTintColor
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func makeCoordinator() -> Coordinator { Coordinator(self) }
-
-    /* ############################################################################################################################## */
-    // MARK: Change Handler
-    /* ############################################################################################################################## */
-    /**
-     
-     */
-    final class Coordinator: NSObject {
-        /* ############################################################## */
-        /**
-         */
-        var parent: BJJM_ImageSegmentedControl
-
-        /* ################################################################## */
-        /**
-         */
-        init(_ inParent: BJJM_ImageSegmentedControl) {
-            self.parent = inParent
-        }
-
-        /* ################################################################## */
-        /**
-         */
-        @objc func changed(_ inControl: UISegmentedControl) {
-            self.parent.selectedIndex = inControl.selectedSegmentIndex
-            self.parent.onChange(inControl.selectedSegmentIndex)
-        }
-    }
-}
-
-/* ################################################################################################################################## */
-// MARK: UIImage Resizing Extension
-/* ################################################################################################################################## */
-private extension UIImage {
-    /* ################################################################## */
-    /**
-     UIImage helper: aspect-fit into a target box
-     */
-    func _aspectFit(in target: CGSize) -> UIImage {
-        let scale = min(target.width / self.size.width, target.height / self.size.height)
-        let newSize = CGSize(width: self.size.width * scale, height: self.size.height * scale)
-
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = self.scale
-        format.opaque = false
-
-        let renderer = UIGraphicsImageRenderer(size: target, format: format)
-        return renderer.image { _ in
-            let origin = CGPoint(
-                x: (target.width - newSize.width) * 0.5,
-                y: (target.height - newSize.height) * 0.5
-            )
-            self.draw(in: CGRect(origin: origin, size: newSize))
-        }
-    }
-}
-
-/* ################################################################################################################################## */
 // MARK: - Main View Class -
 /* ################################################################################################################################## */
 /**
- 
+ This displays a view, with the map filling the screen, behind  two segmented switches for selecting the marker and the dataset.
  */
 struct BJJM_SwiftUIMainView: View {
     /* ################################################################## */
     /**
+     These are the strings we use for the top segmented switch.
      */
-    @State private var _topIndex: Int = 0
+    private static let _topStrings = ["SLUG-DM".localizedVariant, "SLUG-C1".localizedVariant, "SLUG-C2".localizedVariant]
     
     /* ################################################################## */
     /**
-     */
-    @State private var _bottomIndex: Int = 0
-    
-    /* ################################################################## */
-    /**
+     These are the strings we use for the bottom segmented switch.
      */
     private static let _bottomOptions = ["SLUG-NC".localizedVariant, "SLUG-USA".localizedVariant, "SLUG-VI".localizedVariant]
     
+    /* ################################################################## */
+    /**
+     These are the names of the marker images.
+     */
     private static let _topOptions: [(single: String, multi: String)] = [
         (single: "", multi: ""),
         (single: "CustomGeneric", multi: "CustomGeneric"),
         (single: "CustomSingle", multi: "CustomMulti")
     ]
-        
-    /* ################################################################## */
-    /**
-     */
-    private let _topImages = [
-        "TemplateBuiltIn",
-        "TemplateEnum",
-        "TemplateCustom"
-    ]
     
     /* ################################################################## */
     /**
+     The currently selected top segment.
+     */
+    @State private var _topIndex: Int = 0
+    
+    /* ################################################################## */
+    /**
+     The currently selected bottom segment.
+     */
+    @State private var _bottomIndex: Int = 0
+
+    /* ################################################################## */
+    /**
+     This returns a view, with the map filling the screen, behind the two segmented switches.
      */
     var body: some View {
         BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex], dataSetName: Self._bottomOptions[self._bottomIndex])
             .ignoresSafeArea(.all)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
-                    BJJM_ImageSegmentedControl(
-                        imageNames: self._topImages,
-                        selectedIndex: self.$_topIndex,
-                        backgroundColor: .systemGray4,
-                        selectedTintColor: UIColor(Color.accentColor),
-                        onChange: { _ in
+                    Picker("", selection: self.$_topIndex) {
+                        ForEach(Self._topStrings.indices, id: \.self) { index in
+                            Text(Self._topStrings[index]).tag(index)
                         }
-                    )
+                    }
+                    .pickerStyle(.segmented)
                     
                     Picker("", selection: self.$_bottomIndex) {
                         ForEach(Self._bottomOptions.indices, id: \.self) { index in
@@ -299,8 +168,6 @@ struct BJJM_SwiftUIMainView: View {
                     }
                     .pickerStyle(.segmented)
                     .padding(.top, 6)
-                    .onChange(of: self._bottomIndex) { _, _ in
-                    }
                 }
                 .padding(.horizontal, 16)
                 .background(.clear)

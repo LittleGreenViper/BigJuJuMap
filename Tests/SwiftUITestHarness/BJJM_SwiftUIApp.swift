@@ -23,16 +23,13 @@ import SwiftUI
 // MARK: Main App Class
 /* ################################################################################################################################## */
 /**
- 
+ The main app wrapper
  */
 @main
 struct BJJM_SwiftUIApp: App {
     /* ################################################################## */
     /**
+     Very simple. We let the View do the work.
      */
-    var body: some Scene {
-        WindowGroup {
-            BJJM_SwiftUIMainView()
-        }
-    }
+    var body: some Scene { WindowGroup { BJJM_SwiftUIMainView() } }
 }

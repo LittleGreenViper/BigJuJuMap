@@ -491,7 +491,7 @@ open class BigJuJuMapViewController: UIViewController {
     /**
      This is used to denote a single annotation item
      */
-    open class LocationAnnotation: NSObject, MKAnnotation {
+    public class LocationAnnotation: NSObject, MKAnnotation {
         /* ########################################################## */
         /**
          The coordinate of this annotation

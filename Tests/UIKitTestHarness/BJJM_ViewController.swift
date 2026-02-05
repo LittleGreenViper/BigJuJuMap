@@ -27,24 +27,26 @@ import RVS_Generic_Swift_Toolbox
 // MARK: - Main View Controller Class -
 /* ################################################################################################################################## */
 /**
- 
+ This displays a view, with the map filling the screen, behind  two segmented switches for selecting the marker and the dataset.
  */
 class BJJM_ViewController: UIViewController {
     /* ################################################################## */
     /**
+     This is the instance of the BigJuJuMap, from the package.
      */
     private weak var _myMapController: BigJuJuMapViewController?
     
     /* ################################################################## */
     /**
+     The switch that selects the marker type.
+     */
+    @IBOutlet weak var markerSelectorSwitch: UISegmentedControl?
+
+    /* ################################################################## */
+    /**
      The switch that selects our map data.
      */
     @IBOutlet weak var dataSelectorSwitch: UISegmentedControl?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var markerSelectorSwitch: UISegmentedControl?
 }
 
 /* ################################################################################################################################## */
@@ -53,6 +55,7 @@ class BJJM_ViewController: UIViewController {
 extension BJJM_ViewController {
     /* ################################################################## */
     /**
+     This is the selected dataset, in a dataframe.
      */
     private var _locationData: DataFrame? {
         let selectedIndex = self.dataSelectorSwitch?.selectedSegmentIndex ?? 0
@@ -67,6 +70,7 @@ extension BJJM_ViewController {
 extension BJJM_ViewController {
     /* ################################################################## */
     /**
+     This forces the map controller to change its markers to the selected type.
      */
     private func _updateMarkers() {
         guard let myController = self._myMapController else { return }
@@ -76,12 +80,12 @@ extension BJJM_ViewController {
             myController.singleMarkerImage = UIImage(named: "CustomGeneric")
             myController.multiMarkerImage = UIImage(named: "CustomGeneric")
             myController.displayNumbers = true
-
+            
         case BJJM_MarkerType.customNonEnumerated.rawValue:
             myController.singleMarkerImage = UIImage(named: "CustomSingle")
             myController.multiMarkerImage = UIImage(named: "CustomMulti")
             myController.displayNumbers = false
-
+            
         default:
             myController.singleMarkerImage = nil
             myController.multiMarkerImage = nil
@@ -91,6 +95,7 @@ extension BJJM_ViewController {
     
     /* ################################################################## */
     /**
+     This forces the map controller to use the selected dataset.
      */
     private func _updateLocations() {
         guard let dataFrame = self._locationData,
@@ -103,17 +108,15 @@ extension BJJM_ViewController {
                   let latitude = inRow.double("latitude"),
                   let longitude = inRow.double("longitude")
             else { return nil }
-
+            
+            // NOTE: We use a console print, so we maintain solidarity with our SwiftUI brother.
             return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
                 print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
             }
         }
-
-        #if DEBUG
-            print("Loaded \(locations.count) map locations.")
-        #endif
-
+        
         myController.mapData = locations
+        // We change the map region to show the data points.
         myController.visibleRect = locations.containingMapRectDatelineAware
     }
 }
@@ -124,7 +127,7 @@ extension BJJM_ViewController {
 extension BJJM_ViewController {
     /* ################################################################## */
     /**
-     The switch that selects our map data was changed.
+     The switch that selects our map markers was changed.
      */
     @IBAction func locationSelectorSwitchHit() {
         self._updateLocations()
@@ -145,37 +148,29 @@ extension BJJM_ViewController {
 extension BJJM_ViewController {
     /* ################################################################## */
     /**
+     Called when the view has loaded.
      */
     override func viewDidLoad() {
-        /* ############################################################## */
-        /**
-         */
-        func _recursiveImageTweaker(root inView: UIView) {
-            if let imageView = inView as? UIImageView {
-                imageView.contentMode = .scaleAspectFit
-            }
-            
-            inView.subviews.forEach { _recursiveImageTweaker(root: $0) }
-        }
-        
         super.viewDidLoad()
         
         guard let dataSelectorSwitch,
               let markerSelectorSwitch
         else { return }
 
+        for index in 0..<markerSelectorSwitch.numberOfSegments {
+            markerSelectorSwitch.setTitle(markerSelectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+        }
+
         for index in 0..<dataSelectorSwitch.numberOfSegments {
             dataSelectorSwitch.setTitle(dataSelectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
         }
-        
-        _recursiveImageTweaker(root: markerSelectorSwitch)
 
         self._updateLocations()
     }
     
     /* ################################################################## */
     /**
-     This just allows us to access the BigJuJuMap instance, so we can directly initialize it.
+     This just allows us to access the BigJuJuMap instance, so we can directly affect it.
      
      - parameter inSegue: The segue being executed.
      - parameter sender: Ignored.

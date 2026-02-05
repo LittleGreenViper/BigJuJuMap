@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Classes  Reference</title>
+    <title>Protocols  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset="utf-8">
@@ -14,14 +14,14 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Section/Classes" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Section/Protocols" class="dashAnchor"></a>
 
-    <a title="Classes  Reference"></a>
+    <a title="Protocols  Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          BigJuJuMap Doumentation
+          BigJuJuMap Documentation
         </a>
          (100% documented)
       </p>
@@ -42,9 +42,9 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="index.html">Index</a>
+      <a class="breadcrumb" href="index.html">BigJuJuMap</a>
       <img class="carat" src="img/carat.png" alt=""/>
-      Classes  Reference
+      Protocols  Reference
     </p>
 
     <div class="content-wrapper">
@@ -86,8 +86,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Classes</h1>
-            <p>The following classes are available globally.</p>
+            <h1>Protocols</h1>
+            <p>The following protocols are available globally.</p>
 
           </div>
         </section>
@@ -96,11 +96,11 @@
           <div class="section-content">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Big%20Map%20View%20Controller%20Class"></a>
-                <a name="//apple_ref/swift/Section/Big Map View Controller Class" class="dashAnchor"></a>
+                <a name="/Map%20Location%20Template%20Protocol"></a>
+                <a name="//apple_ref/swift/Section/Map Location Template Protocol" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Big%20Map%20View%20Controller%20Class"></a>
-                  <h3 class="section-name"><span>Big Map View Controller Class</span>
+                  <a class="section-name-link" href="#/Map%20Location%20Template%20Protocol"></a>
+                  <h3 class="section-name"><span>Map Location Template Protocol</span>
 </h3>
                 </div>
               </div>
@@ -108,9 +108,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController"></a>
-                    <a name="//apple_ref/swift/Class/BigJuJuMapViewController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController">BigJuJuMapViewController</a>
+                    <a name="/s:05BigJuB3Map0abbC16LocationProtocolP"></a>
+                    <a name="//apple_ref/swift/Protocol/BigJuJuMapLocationProtocol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC16LocationProtocolP">BigJuJuMapLocationProtocol</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -118,25 +118,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the heart of this package.</p>
+                        <p>This is used to designate a location, with an attached data entity, and a handler callback.</p>
 
-<p>It is a UIViewController, with a single, full-fill MKMapView. That view will have markers, designating the data provided.</p>
-
-<p>Selecting a marker, will pop up a callout, with the data item name. If it is an aggregate annotation, then the callout will contain a list.</p>
-
-<p>Selecting an item in the list, will trigger the <code>callHandler()</code> function, associated with that annotation.</p>
-
-                        <a href="Classes/BigJuJuMapViewController.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/BigJuJuMapLocationProtocol.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@IBDesignable</span>
-<span class="kd">@MainActor</span>
-<span class="kd">open</span> <span class="kd">class</span> <span class="kt">BigJuJuMapViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BigJuJuMapViewController</span><span class="p">:</span> <span class="kt">MKMapViewDelegate</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BigJuJuMapViewController</span><span class="p">:</span> <span class="kt">UIGestureRecognizerDelegate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">BigJuJuMapLocationProtocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt">Identifiable</span><span class="p">,</span> <span class="kt">Sendable</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">ID</span> <span class="p">:</span> <span class="kt">Sendable</span></code></pre>
 
                         </div>
                       </div>
@@ -151,7 +141,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-04)</p>
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

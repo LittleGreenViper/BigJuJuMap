@@ -26,9 +26,9 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Zc-kt-Hbi">
                                 <rect key="frame" x="16" y="716" width="361" height="32"/>
                                 <segments>
-                                    <segment title="" image="TemplateBuiltIn"/>
-                                    <segment title="" image="TemplateEnum"/>
-                                    <segment title="" image="TemplateCustom"/>
+                                    <segment title="SLUG-DM"/>
+                                    <segment title="SLUG-C1"/>
+                                    <segment title="SLUG-C2"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" name="AccentColor"/>
                                 <connections>
@@ -89,9 +89,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TemplateBuiltIn" width="425" height="612"/>
-        <image name="TemplateCustom" width="640" height="993"/>
-        <image name="TemplateEnum" width="640" height="993"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

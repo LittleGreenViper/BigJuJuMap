@@ -20,3 +20,6 @@
 "SLUG-USA"              =   "USA";
 "SLUG-NC"               =   "North Carolina";
 "SLUG-VI"               =   "Virgin Islands";
+"SLUG-DM"               =   "Default Marker";
+"SLUG-C1"               =   "Custom 1";
+"SLUG-C2"               =   "Custom 2";
