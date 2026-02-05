@@ -63,16 +63,18 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
     func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
         guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName) else { return }
         
-        let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.compactMap { inRow in
+        let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.flatMap { inRow -> [any BigJuJuMapLocationProtocol] in
             guard let id = inRow.int("id"),
                   let name = inRow.string("name"),
                   let latitude = inRow.double("latitude"),
                   let longitude = inRow.double("longitude")
-            else { return nil }
+            else { return [] }
 
-            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
-                print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
-            }
+            return [
+                BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in
+                    print("Tapped: \(inItem.name) @ \(inItem.location.coordinate.latitude), \(inItem.location.coordinate.longitude)")
+                }
+                ]
         }
 
         #if DEBUG

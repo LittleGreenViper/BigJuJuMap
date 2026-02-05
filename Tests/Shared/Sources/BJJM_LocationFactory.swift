@@ -112,9 +112,15 @@ enum BJJM_MarkerType: Int {
 final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
     /* ################################################################## */
     /**
+     Makes the sendable/hashable explicitly an Int.
+     */
+    typealias ID = Int
+
+    /* ################################################################## */
+    /**
      Makes it identifiable.
      */
-    var id: AnyHashable
+    let id: ID
     
     /* ################################################################## */
     /**
@@ -132,7 +138,7 @@ final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
     /**
      This is called when the location is chosen on the map.
      */
-    let handler: ((_ item: any BigJuJuMapLocationProtocol) -> Void)
+    let handler: @Sendable (any BigJuJuMapLocationProtocol) -> Void
     
     /* ################################################################## */
     /**
@@ -143,11 +149,12 @@ final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
      - parameter inLng: The longitude
      - parameter handler: The handler closure.
      */
-    init(id inID: AnyHashable,
+    init(id inID: ID,
          name inName: String,
          latitude inLat: CLLocationDegrees,
          longitude inLng: CLLocationDegrees,
-         handler inHandler: @escaping ((_ inItem: any BigJuJuMapLocationProtocol) -> Void) = { _ in }) {
+         handler inHandler: @escaping @Sendable (any BigJuJuMapLocationProtocol) -> Void = { _ in }
+    ) {
         self.id = inID
         self.name = inName
         self.location = CLLocation(latitude: inLat, longitude: inLng)

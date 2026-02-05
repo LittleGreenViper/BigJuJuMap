@@ -29,14 +29,23 @@ import MapKit
 private final class _BJJMBundleToken: NSObject { }
 
 /* ################################################################################################################################## */
-// MARK: - Private Bundle Extension, to Get the Framework Bundle -
+// MARK: - Private Bundle Extension, to Get the Framework/Package Bundle -
 /* ################################################################################################################################## */
 private extension Bundle {
     /* ################################################################## */
     /**
-     The bundle that contains BigJuJuMap.framework resources (Media.xcassets, etc.)
+     The bundle that contains BigJuJuMap resources (Media.xcassets, etc.)
+     
+     - If built as a Swift Package: uses SwiftPM’s resource bundle (`Bundle.module`)
+     - Otherwise (directly included in an app/framework target): uses the containing binary bundle
      */
-    static let _bigJuJuMap: Bundle = Bundle(for: _BJJMBundleToken.self)
+    static var _bigJuJuMap: Bundle {
+        #if SWIFT_PACKAGE
+        return .module
+        #else
+        return Bundle(for: _BJJMBundleToken.self)
+        #endif
+    }
 }
 
 /* ################################################################################################################################## */
@@ -72,13 +81,7 @@ private extension UIImage {
 /**
  This is used to designate a location, with an attached data entity, and a handler callback.
  */
-public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable {
-    /* ################################################################## */
-    /**
-     A unique, hashable value, identifying the instance.
-     */
-    var id: AnyHashable { get }
-    
+public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable, Sendable where ID: Hashable & Sendable {
     /* ################################################################## */
     /**
      The location, associated with this data point.
@@ -97,7 +100,7 @@ public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable {
      
      - parameter inItem: The instance of this protocol, associated with the handler.
      */
-    var handler: ((_ inItem: any BigJuJuMapLocationProtocol) -> Void) { get }
+    var handler: @Sendable (_ inItem: any BigJuJuMapLocationProtocol) -> Void { get }
     
     /* ################################################################## */
     /**
@@ -115,7 +118,7 @@ public extension BigJuJuMapLocationProtocol {
     /**
      This just calls the handler in the main thread, with this instance as its parameter.
      */
-    func callHandler() { DispatchQueue.main.async { self.handler(self) } }
+    func callHandler() { Task { @MainActor in self.handler(self) } }
 }
 
 /* ################################################################################################################################## */

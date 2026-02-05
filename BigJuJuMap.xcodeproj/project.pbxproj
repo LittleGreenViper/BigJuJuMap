@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D41D83382F2EB7F800880103 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41D83372F2EB7F800880103 /* Media.xcassets */; };
 		D41F44EF2F33B5CC002E8191 /* North Carolina.csv in Resources */ = {isa = PBXBuildFile; fileRef = D41F44EE2F33B5CC002E8191 /* North Carolina.csv */; };
 		D41F44F02F33B5CC002E8191 /* North Carolina.csv in Resources */ = {isa = PBXBuildFile; fileRef = D41F44EE2F33B5CC002E8191 /* North Carolina.csv */; };
 		D41F44F22F33B720002E8191 /* Virgin Islands.csv in Resources */ = {isa = PBXBuildFile; fileRef = D41F44F12F33B720002E8191 /* Virgin Islands.csv */; };
@@ -15,9 +14,6 @@
 		D42456232F32B57200148264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB42F2D0FAA00116B91 /* Assets.xcassets */; };
 		D42456242F32B57800148264 /* USA.csv in Resources */ = {isa = PBXBuildFile; fileRef = D42A111B2F2D5465000C9277 /* USA.csv */; };
 		D42456272F32B58800148264 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D44840EF2F3157E20015A2AB /* Localizable.strings */; };
-		D42456292F32B5AB00148264 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */; };
-		D424562A2F32B5AB00148264 /* BigJuJuMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; };
-		D424562B2F32B5AB00148264 /* BigJuJuMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D42456322F32B5C900148264 /* BJJM_SwiftUIMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D424562F2F32B5C900148264 /* BJJM_SwiftUIMainView.swift */; };
 		D42456332F32B5C900148264 /* BJJM_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42456302F32B5C900148264 /* BJJM_SwiftUIApp.swift */; };
 		D42A111C2F2D5465000C9277 /* USA.csv in Resources */ = {isa = PBXBuildFile; fileRef = D42A111B2F2D5465000C9277 /* USA.csv */; };
@@ -29,30 +25,14 @@
 		D451ABC02F2D0FAA00116B91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB42F2D0FAA00116B91 /* Assets.xcassets */; };
 		D451ABC22F2D0FAA00116B91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB72F2D0FAA00116B91 /* LaunchScreen.storyboard */; };
 		D451ABC32F2D0FAA00116B91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D451ABB92F2D0FAA00116B91 /* Main.storyboard */; };
-		D451ABEB2F2D118A00116B91 /* BigJuJuMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; };
-		D451ABEC2F2D118A00116B91 /* BigJuJuMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D451ABF02F2D119600116B91 /* BigJuJuMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */; };
-		D451ABF12F2D119E00116B91 /* BigJuJuMap.docc in Sources */ = {isa = PBXBuildFile; fileRef = D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */; };
+		D45323512F342FEB00FAF835 /* BigJuJuMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451AB942F2D0F4400116B91 /* BigJuJuMap.swift */; };
+		D45323522F342FF100FAF835 /* BigJuJuMap.docc in Sources */ = {isa = PBXBuildFile; fileRef = D451AB932F2D0F4400116B91 /* BigJuJuMap.docc */; };
+		D45323552F3433F400FAF835 /* BigJuJuMap in Frameworks */ = {isa = PBXBuildFile; productRef = D45323542F3433F400FAF835 /* BigJuJuMap */; };
+		D45323582F34341800FAF835 /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D45323572F34341800FAF835 /* RVS_Generic_Swift_Toolbox */; };
+		D453235A2F343BEE00FAF835 /* BigJuJuMap in Frameworks */ = {isa = PBXBuildFile; productRef = D45323592F343BEE00FAF835 /* BigJuJuMap */; };
 		D4B46C0A2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */; };
 		D4B46C0B2F339C1700B45E44 /* BJJM_LocationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D424562C2F32B5AB00148264 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D43A138C2F2A3F35001FD7C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D451ABE42F2D118A00116B91;
-			remoteInfo = BigJuJuMap;
-		};
-		D451ABE92F2D118A00116B91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D43A138C2F2A3F35001FD7C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D451ABE42F2D118A00116B91;
-			remoteInfo = BigJuJuMap;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D424562E2F32B5AB00148264 /* Embed Frameworks */ = {
@@ -61,7 +41,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D424562B2F32B5AB00148264 /* BigJuJuMap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,9 +51,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D451ABEC2F2D118A00116B91 /* BigJuJuMap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45323482F342FD000FAF835 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -98,7 +85,7 @@
 		D451ABB82F2D0FAA00116B91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D451ABBA2F2D0FAA00116B91 /* BJJM_SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_SceneDelegate.swift; sourceTree = "<group>"; };
 		D451ABBB2F2D0FAA00116B91 /* BJJM_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_ViewController.swift; sourceTree = "<group>"; };
-		D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigJuJuMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D453234A2F342FD000FAF835 /* libBigJuJuMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBigJuJuMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B46C072F339B5200B45E44 /* BJJM_LocationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BJJM_LocationFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,8 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D424562A2F32B5AB00148264 /* BigJuJuMap.framework in Frameworks */,
-				D42456292F32B5AB00148264 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D45323582F34341800FAF835 /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D45323552F3433F400FAF835 /* BigJuJuMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,12 +103,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D453235A2F343BEE00FAF835 /* BigJuJuMap in Frameworks */,
 				D44840F42F315BC20015A2AB /* RVS_Generic_Swift_Toolbox in Frameworks */,
-				D451ABEB2F2D118A00116B91 /* BigJuJuMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D451ABE22F2D118A00116B91 /* Frameworks */ = {
+		D45323472F342FD000FAF835 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -153,6 +140,7 @@
 			children = (
 				D451AB982F2D0F5800116B91 /* Tests */,
 				D43A13A12F2A3F52001FD7C6 /* Sources */,
+				D45323562F34341800FAF835 /* Frameworks */,
 				D43A13962F2A3F35001FD7C6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				D451AB9E2F2D0FA100116B91 /* UIKitTestHarness.app */,
-				D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */,
 				D42456182F32B55000148264 /* SwiftUITestHarness.app */,
+				D453234A2F342FD000FAF835 /* libBigJuJuMap.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,6 +212,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		D45323562F34341800FAF835 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D45E714A2F3237300018A6E9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,16 +250,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D451ABE02F2D118A00116B91 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		D42456172F32B55000148264 /* SwiftUITestHarness */ = {
 			isa = PBXNativeTarget;
@@ -278,11 +263,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				D424562D2F32B5AB00148264 /* PBXTargetDependency */,
 			);
 			name = SwiftUITestHarness;
 			packageProductDependencies = (
-				D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */,
+				D45323542F3433F400FAF835 /* BigJuJuMap */,
+				D45323572F34341800FAF835 /* RVS_Generic_Swift_Toolbox */,
 			);
 			productName = SwiftUITestHarness;
 			productReference = D42456182F32B55000148264 /* SwiftUITestHarness.app */;
@@ -300,24 +285,23 @@
 			buildRules = (
 			);
 			dependencies = (
-				D451ABEA2F2D118A00116B91 /* PBXTargetDependency */,
 			);
 			name = UIKitTestHarness;
 			packageProductDependencies = (
 				D44840F32F315BC20015A2AB /* RVS_Generic_Swift_Toolbox */,
+				D45323592F343BEE00FAF835 /* BigJuJuMap */,
 			);
 			productName = BigJujuMapTestHarness;
 			productReference = D451AB9E2F2D0FA100116B91 /* UIKitTestHarness.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D451ABE42F2D118A00116B91 /* BigJuJuMap */ = {
+		D45323492F342FD000FAF835 /* BigJuJuMap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D451ABED2F2D118A00116B91 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */;
+			buildConfigurationList = D453234E2F342FD000FAF835 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */;
 			buildPhases = (
-				D451ABE02F2D118A00116B91 /* Headers */,
-				D451ABE12F2D118A00116B91 /* Sources */,
-				D451ABE22F2D118A00116B91 /* Frameworks */,
-				D451ABE32F2D118A00116B91 /* Resources */,
+				D45323462F342FD000FAF835 /* Sources */,
+				D45323472F342FD000FAF835 /* Frameworks */,
+				D45323482F342FD000FAF835 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -327,8 +311,8 @@
 			packageProductDependencies = (
 			);
 			productName = BigJuJuMap;
-			productReference = D451ABE52F2D118A00116B91 /* BigJuJuMap.framework */;
-			productType = "com.apple.product-type.framework";
+			productReference = D453234A2F342FD000FAF835 /* libBigJuJuMap.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -346,7 +330,7 @@
 					D451AB9D2F2D0FA100116B91 = {
 						CreatedOnToolsVersion = 26.2;
 					};
-					D451ABE42F2D118A00116B91 = {
+					D45323492F342FD000FAF835 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -362,6 +346,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D45323532F3433F400FAF835 /* XCLocalSwiftPackageReference "../BigJuJuMap" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D43A13962F2A3F35001FD7C6 /* Products */;
@@ -370,7 +355,7 @@
 			targets = (
 				D42456172F32B55000148264 /* SwiftUITestHarness */,
 				D451AB9D2F2D0FA100116B91 /* UIKitTestHarness */,
-				D451ABE42F2D118A00116B91 /* BigJuJuMap */,
+				D45323492F342FD000FAF835 /* BigJuJuMap */,
 			);
 		};
 /* End PBXProject section */
@@ -402,14 +387,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D451ABE32F2D118A00116B91 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D41D83382F2EB7F800880103 /* Media.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -434,29 +411,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D451ABE12F2D118A00116B91 /* Sources */ = {
+		D45323462F342FD000FAF835 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D451ABF12F2D119E00116B91 /* BigJuJuMap.docc in Sources */,
-				D451ABF02F2D119600116B91 /* BigJuJuMap.swift in Sources */,
+				D45323522F342FF100FAF835 /* BigJuJuMap.docc in Sources */,
+				D45323512F342FEB00FAF835 /* BigJuJuMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D424562D2F32B5AB00148264 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D451ABE42F2D118A00116B91 /* BigJuJuMap */;
-			targetProxy = D424562C2F32B5AB00148264 /* PBXContainerItemProxy */;
-		};
-		D451ABEA2F2D118A00116B91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D451ABE42F2D118A00116B91 /* BigJuJuMap */;
-			targetProxy = D451ABE92F2D118A00116B91 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D44840EF2F3157E20015A2AB /* Localizable.strings */ = {
@@ -503,6 +467,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,6 +502,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -699,7 +665,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -735,7 +701,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -753,82 +719,32 @@
 			};
 			name = Release;
 		};
-		D451ABEE2F2D118A00116B91 /* Debug */ = {
+		D453234F2F342FD000FAF835 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.litlegreenviper.BigJuJuMap;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_INSTALL_MODULE = YES;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		D451ABEF2F2D118A00116B91 /* Release */ = {
+		D45323502F342FD000FAF835 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.litlegreenviper.BigJuJuMap;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_INSTALL_MODULE = YES;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -865,16 +781,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D451ABED2F2D118A00116B91 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */ = {
+		D453234E2F342FD000FAF835 /* Build configuration list for PBXNativeTarget "BigJuJuMap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D451ABEE2F2D118A00116B91 /* Debug */,
-				D451ABEF2F2D118A00116B91 /* Release */,
+				D453234F2F342FD000FAF835 /* Debug */,
+				D45323502F342FD000FAF835 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D45323532F3433F400FAF835 /* XCLocalSwiftPackageReference "../BigJuJuMap" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../BigJuJuMap;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
@@ -888,15 +811,24 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D42456282F32B5AB00148264 /* RVS_Generic_Swift_Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
-			productName = RVS_Generic_Swift_Toolbox;
-		};
 		D44840F32F315BC20015A2AB /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D45323542F3433F400FAF835 /* BigJuJuMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BigJuJuMap;
+		};
+		D45323572F34341800FAF835 /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44840F22F315BC20015A2AB /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D45323592F343BEE00FAF835 /* BigJuJuMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D45323532F3433F400FAF835 /* XCLocalSwiftPackageReference "../BigJuJuMap" */;
+			productName = BigJuJuMap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

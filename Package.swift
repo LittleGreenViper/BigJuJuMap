@@ -31,6 +31,9 @@ let package = Package(
             targets: ["BigJuJuMap"]
         )],
     targets: [
-        .target(name: "BigJuJuMap")
+        .target(
+            name: "BigJuJuMap",
+            resources: [.process("Resources")]
+        )
     ]
 )

@@ -15,8 +15,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D451ABE42F2D118A00116B91"
-               BuildableName = "BigJuJuMap.framework"
+               BlueprintIdentifier = "D45323492F342FD000FAF835"
+               BuildableName = "libBigJuJuMap.a"
                BlueprintName = "BigJuJuMap"
                ReferencedContainer = "container:BigJuJuMap.xcodeproj">
             </BuildableReference>
@@ -50,8 +50,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D451ABE42F2D118A00116B91"
-            BuildableName = "BigJuJuMap.framework"
+            BlueprintIdentifier = "D45323492F342FD000FAF835"
+            BuildableName = "libBigJuJuMap.a"
             BlueprintName = "BigJuJuMap"
             ReferencedContainer = "container:BigJuJuMap.xcodeproj">
          </BuildableReference>

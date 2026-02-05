@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BigJuJuMapViewController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/BigJuJuMapViewController" class="dashAnchor"></a>
+
+    <a title="BigJuJuMapViewController Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          BigJuJuMap Doumentation
+        </a>
+         (100% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/LittleGreenViper/BigJuJuMap">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">Index</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Classes.html">Classes</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      BigJuJuMap.BigJuJuMapViewController Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BigJuJuMapViewController/LocationAnnotation.html">– LocationAnnotation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BigJuJuMapViewController/AnnotationView.html">– AnnotationView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Collection.html">Collection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>BigJuJuMapViewController</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@IBDesignable</span>
+<span class="kd">@MainActor</span>
+<span class="kd">open</span> <span class="kd">class</span> <span class="kt">BigJuJuMapViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BigJuJuMapViewController</span><span class="p">:</span> <span class="kt">MKMapViewDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BigJuJuMapViewController</span><span class="p">:</span> <span class="kt">UIGestureRecognizerDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>This is the heart of this package.</p>
+
+<p>It is a UIViewController, with a single, full-fill MKMapView. That view will have markers, designating the data provided.</p>
+
+<p>Selecting a marker, will pop up a callout, with the data item name. If it is an aggregate annotation, then the callout will contain a list.</p>
+
+<p>Selecting an item in the list, will trigger the <code>callHandler()</code> function, associated with that annotation.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Custom%20Annotation%20Class"></a>
+                <a name="//apple_ref/swift/Section/Custom Annotation Class" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Custom%20Annotation%20Class"></a>
+                  <h3 class="section-name"><span>Custom Annotation Class</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC18LocationAnnotationC"></a>
+                    <a name="//apple_ref/swift/Class/LocationAnnotation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC18LocationAnnotationC">LocationAnnotation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is used to denote a single annotation item</p>
+
+                        <a href="../Classes/BigJuJuMapViewController/LocationAnnotation.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">LocationAnnotation</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">MKAnnotation</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Custom%20Annotation%20View%20Class"></a>
+                <a name="//apple_ref/swift/Section/Custom Annotation View Class" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Custom%20Annotation%20View%20Class"></a>
+                  <h3 class="section-name"><span>Custom Annotation View Class</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC010AnnotationD0C"></a>
+                    <a name="//apple_ref/swift/Class/AnnotationView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC010AnnotationD0C">AnnotationView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is used to display a map marker.</p>
+
+                        <a href="../Classes/BigJuJuMapViewController/AnnotationView.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">open</span> <span class="kd">class</span> <span class="kt">AnnotationView</span> <span class="p">:</span> <span class="kt">MKAnnotationView</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/PUBLIC%20PROPERTIES"></a>
+                <a name="//apple_ref/swift/Section/PUBLIC PROPERTIES" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/PUBLIC%20PROPERTIES"></a>
+                  <h3 class="section-name"><span>PUBLIC PROPERTIES</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC7mapDataSayAA0abbC16LocationProtocol_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/mapData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC7mapDataSayAA0abbC16LocationProtocol_pGvp">mapData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The data for the map to display.</p>
+
+<p>Each item will be displayed in a marker. Markers may be aggregated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">mapData</span><span class="p">:</span> <span class="p">[</span><span class="n">any</span> <span class="kt"><a href="../Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)singleMarkerImage"></a>
+                    <a name="//apple_ref/swift/Property/singleMarkerImage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)singleMarkerImage">singleMarkerImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The image to be used for markers, representing single locations. Default is the generic map marker (both single and aggregate)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBInspectable</span>
+<span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">singleMarkerImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)multiMarkerImage"></a>
+                    <a name="//apple_ref/swift/Property/multiMarkerImage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)multiMarkerImage">multiMarkerImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The image to be used for markers, representing aggregated locations. Default is the generic map marker (both single and aggregate)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBInspectable</span>
+<span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">multiMarkerImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)displayNumbers"></a>
+                    <a name="//apple_ref/swift/Property/displayNumbers" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)displayNumbers">displayNumbers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBInspectable</span>
+<span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">displayNumbers</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Computed%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Public Computed Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20Computed%20Properties"></a>
+                  <h3 class="section-name"><span>Public Computed Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC03mapD0So05MKMapD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/mapView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC03mapD0So05MKMapD0Cvp">mapView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The main view of this controller is a map. This simply casts that.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This does an implicit unwrap, because we are in deep poo, if it fails.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">mapView</span><span class="p">:</span> <span class="kt">MKMapView</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC6regionSo18MKCoordinateRegionavp"></a>
+                    <a name="//apple_ref/swift/Property/region" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC6regionSo18MKCoordinateRegionavp">region</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This allows direct access to the displayed map region.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">region</span><span class="p">:</span> <span class="kt">MKCoordinateRegion</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:05BigJuB3Map0abbC14ViewControllerC11visibleRectSo05MKMapG0avp"></a>
+                    <a name="//apple_ref/swift/Property/visibleRect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:05BigJuB3Map0abbC14ViewControllerC11visibleRectSo05MKMapG0avp">visibleRect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This allows direct access to the displayed map rect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="k">var</span> <span class="nv">visibleRect</span><span class="p">:</span> <span class="kt">MKMapRect</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Instance%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Public Instance Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20Instance%20Methods"></a>
+                  <h3 class="section-name"><span>Public Instance Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)viewDidLoad"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)viewDidLoad">viewDidLoad()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the view hierarchy has completed loading, but before it is laid out and displayed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/MKMapViewDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/MKMapViewDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/MKMapViewDelegate%20Conformance"></a>
+                  <h3 class="section-name"><span>MKMapViewDelegate Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:viewForAnnotation:"></a>
+                    <a name="//apple_ref/swift/Method/mapView(_:viewFor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:viewForAnnotation:">mapView(_:<wbr>viewFor:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the appropriate marker view for an annotation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="n">viewFor</span> <span class="nv">inAnnotation</span><span class="p">:</span> <span class="n">any</span> <span class="kt">MKAnnotation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">MKAnnotationView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMapView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The map view the annotation is attached to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inAnnotation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The annotation for the marker.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new annotation view instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapViewDidFinishRenderingMap:fullyRendered:"></a>
+                    <a name="//apple_ref/swift/Method/mapViewDidFinishRenderingMap(_:fullyRendered:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapViewDidFinishRenderingMap:fullyRendered:">mapViewDidFinishRenderingMap(_:<wbr>fullyRendered:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the map has finished rendering all its tiles. We use it to force the annotations to be recalculated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapViewDidFinishRenderingMap</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="nv">fullyRendered</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMapView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The map view being rendered (ignored).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fullyRendered</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Ignored.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:regionDidChangeAnimated:"></a>
+                    <a name="//apple_ref/swift/Method/mapView(_:regionDidChangeAnimated:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:regionDidChangeAnimated:">mapView(_:<wbr>regionDidChangeAnimated:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the map has changed its region. We use it to force the annotations to be recalculated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="nv">regionDidChangeAnimated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMapView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The map view being rendered (ignored).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>regionDidChangeAnimated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Ignored.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:didSelectAnnotationView:"></a>
+                    <a name="//apple_ref/swift/Method/mapView(_:didSelect:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:didSelectAnnotationView:">mapView(_:<wbr>didSelect:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called when a marker is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="n">didSelect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMapView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The map view</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The marker we&rsquo;re selecting.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:didDeselectAnnotationView:"></a>
+                    <a name="//apple_ref/swift/Method/mapView(_:didDeselect:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)mapView:didDeselectAnnotationView:">mapView(_:<wbr>didDeselect:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is called when a marker is deselected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="n">didDeselect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMapView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The map view</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The marker we&rsquo;re deselecting.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UIGestureRecognizerDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/UIGestureRecognizerDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/UIGestureRecognizerDelegate%20Conformance"></a>
+                  <h3 class="section-name"><span>UIGestureRecognizerDelegate Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)gestureRecognizer:shouldReceiveTouch:"></a>
+                    <a name="//apple_ref/swift/Method/gestureRecognizer(_:shouldReceive:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@BigJuJuMap@objc(cs)BigJuJuMapViewController(im)gestureRecognizer:shouldReceiveTouch:">gestureRecognizer(_:<wbr>shouldReceive:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called to determine whether or not to consume a touch event.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">gestureRecognizer</span><span class="p">(</span><span class="n">_</span> <span class="nv">inGestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">,</span> <span class="n">shouldReceive</span> <span class="nv">inTouch</span><span class="p">:</span> <span class="kt">UITouch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inGestureRecognizer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The gesture recognizer(ignored)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inTouch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The touch event</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the touch event is valid.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>
