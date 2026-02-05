@@ -94,7 +94,27 @@
 <p>It also allows a &ldquo;drop in&rdquo; high-functionality map for UIKit projects.</p>
 <h2 id='how-does-it-work' class='heading'>How Does It Work?</h2>
 
-<p>The implementation is provided as a dynamic-linked <a href="">framework</a>, that instantiates a single <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> instance.</p>
+<p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code>).</p>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>The library is designed to be installed as a <a href="https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/">Swift Package Manager (SPM)</a> package. The package is available from <a href="https://github.com/LittleGreenViper/BigJuJuMap">GitHub</a>. A direct SPM URI is <code>git@github.com:LittleGreenViper/BigJuJuMap.git</code>.</p>
+
+<p>Add the package to your project, and include it into your target.</p>
+
+<p>Whenever you use it, you will need to import it, thusly:</p>
+<pre class="highlight plaintext"><code>import BigJuJuMap
+</code></pre>
+
+<p>You use it by instantiating <code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code>, and providing it with a dataset (the dataset must conform to the <code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code> protocol, and must be a class; not a struct).</p>
+
+<p>You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).</p>
+
+<p>Additionally, you can choose to have the number of aggregated data points displayed in aggregate (multi) markers.</p>
+<h3 id='examples' class='heading'>Examples</h3>
+
+<p>There are two test harness targets provided with the library: A UIKit target, and a SwiftUI target. They show simple implementations of BigJuJuMap, in practice.</p>
+
+<p>They are visually identical, presenting a single screen, filled with a map, and displaying a number of markers. At the bottom of the screen, are two segmented switches. The top switch selects which type of marker to display (default, custom simple, or custom complex).</p>
 
           </div>
         </section>

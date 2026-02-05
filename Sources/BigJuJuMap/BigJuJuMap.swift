@@ -898,7 +898,7 @@ open class BigJuJuMapViewController: UIViewController {
     /**
      This is used to display a map marker.
      */
-    open class AnnotationView: MKAnnotationView {
+    public class AnnotationView: MKAnnotationView {
         /* ############################################################## */
         /**
          The reuse ID for these annotations.

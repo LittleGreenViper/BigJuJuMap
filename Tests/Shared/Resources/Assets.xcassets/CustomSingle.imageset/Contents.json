@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "LightMode-Single-Custom.pdf",
+      "filename" : "LightMode-Single.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "DarkMode-Single-Custom.pdf",
+      "filename" : "DarkMode-Single.pdf",
       "idiom" : "universal"
     }
   ],
