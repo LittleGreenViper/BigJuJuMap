@@ -10,6 +10,8 @@ This package was specifically designed to offer [`SwiftUI`](https://developer.ap
 
 It also allows a "drop in" high-functionality map for [`UIKit`](https://developer.apple.com/documentation/uikit/) projects.
 
+[This is the Online Documentation for the Project](https://littlegreenviper.github.io/BigJuJuMap/)
+
 ## How Does It Work?
 
 The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347)).
