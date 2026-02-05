@@ -89,9 +89,9 @@
 <p>A Self-Contained Map With Multiple, Aggregated, Custom Markers</p>
 <h2 id='overview' class='heading'>Overview</h2>
 
-<p>This package was specifically designed to offer SwiftUI apps the opportunity to have a much more involved map experience than that provided by default.</p>
+<p>This package was specifically designed to offer <a href="https://developer.apple.com/swiftui/"><code>SwiftUI</code></a> apps the opportunity to have a much more involved map experience than that provided by default.</p>
 
-<p>It also allows a &ldquo;drop in&rdquo; high-functionality map for UIKit projects.</p>
+<p>It also allows a &ldquo;drop in&rdquo; high-functionality map for <a href="https://developer.apple.com/documentation/uikit/"><code>UIKit</code></a> projects.</p>
 <h2 id='how-does-it-work' class='heading'>How Does It Work?</h2>
 
 <p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code>).</p>
@@ -110,12 +110,16 @@
 <p>You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).</p>
 
 <p>Additionally, you can choose to have the number of aggregated data points displayed in aggregate (multi) markers.</p>
-<h3 id='examples' class='heading'>Examples</h3>
+<h3 id='examples-the-test-harness-apps' class='heading'>Examples (The Test Harness Apps)</h3>
 
 <p>There are two test harness targets provided with the library: A UIKit target, and a SwiftUI target. They show simple implementations of BigJuJuMap, in practice.</p>
 
 <p>They are visually identical, presenting a single screen, filled with a map, and displaying a number of markers. At the bottom of the screen, are two segmented switches. The top switch selects which type of marker to display (default, custom simple, or custom complex).</p>
 <h4 id='markers' class='heading'>Markers</h4>
+
+<p>The following images show the types of markers that can be selected by the app.</p>
+
+<p>The marker selection is made by changing the top segmented switch. Changing the marker does not affect the displayed region.</p>
 <h5 id='figure-1-default-markers' class='heading'>Figure 1: Default Markers</h5>
 
 <table><thead>
@@ -156,6 +160,10 @@
 </tr>
 </tbody></table>
 <h4 id='datasets' class='heading'>Datasets</h4>
+
+<p>The following images show the test datasets we use.</p>
+
+<p>The dataset selection is made by selecting one of the values in the bottom segmented switch. The map is changed to display the new dataset.</p>
 <h5 id='figure-4-state-parks-in-north-carolina' class='heading'>Figure 4: State Parks in North Carolina</h5>
 
 <table><thead>
@@ -169,6 +177,11 @@
 <td style="text-align: center"><em>Dark Mode</em></td>
 </tr>
 </tbody></table>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Because the total area for this dataset is so large, Apple Maps limits the size of the region. If you scroll West, a bit, you&rsquo;ll see American Samoa.</p>
+
+</div>
 <h5 id='figure-5-national-parks' class='heading'>Figure 5: National Parks</h5>
 
 <table><thead>
@@ -196,6 +209,10 @@
 </tr>
 </tbody></table>
 <h4 id='popovers' class='heading'>Popovers</h4>
+
+<p>When we select a marker, a popover appears, above or below the marker.</p>
+
+<p>In the case of aggregate markers, a scrolling table of values is shown.</p>
 <h5 id='figure-7-example-of-a-large-aggregate-marker' class='heading'>Figure 7: Example of A Large Aggregate Marker</h5>
 
 <table><thead>
@@ -209,6 +226,8 @@
 <td style="text-align: center"><em>Dark Mode</em></td>
 </tr>
 </tbody></table>
+
+<p>For a single marker, only one value is shown.</p>
 <h5 id='figure-8-example-of-a-single-marker' class='heading'>Figure 8: Example of A Single Marker</h5>
 
 <table><thead>
@@ -223,6 +242,8 @@
 </tr>
 </tbody></table>
 <h4 id='reaction-alerts' class='heading'>Reaction Alerts</h4>
+
+<p>When we select one of the values in a popover, the popover is dismissed, and this alert is shown:</p>
 <h5 id='figure-9-alert-displayed-when-selecting-a-row-in-a-popover' class='heading'>Figure 9: Alert Displayed When Selecting A Row in A Popover</h5>
 
 <table><thead>
@@ -236,6 +257,40 @@
 <td style="text-align: center"><em>Dark Mode</em></td>
 </tr>
 </tbody></table>
+<h3 id='the-api' class='heading'>The API</h3>
+<h4 id='the-view-controller' class='heading'>The View Controller</h4>
+
+<p>Once we have included the package into our source file, then we can simply use the Storyboard Editor to create the instance:</p>
+
+<p><img src="img/Fig-10-Storyboard-Editor.png" alt=""></p>
+
+<p>Or just instantiate it directly:</p>
+<pre class="highlight plaintext"><code>self.bigJuJuMap = BigJuJuMapViewController()
+self.navigationController?.pushViewController(self.bigJuJuMap, animated: true)
+</code></pre>
+<h4 id='the-map-data' class='heading'>The Map Data</h4>
+
+<p>Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to <code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code>. The test harnesses demonstrate this with simple datasets of US national and state parks.</p>
+
+<p>This is demonstrated in the <code>BJJM_LocationFactory</code> struct, shared between the UIKit and SwiftUI test harness apps.</p>
+
+<p>Simply set the <code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC7mapDataSayAA0abbC16LocationProtocol_pGvp">BigJuJuMapViewController.mapData</a></code> property to the array, and you&rsquo;re good to go. You may also want to set the map&rsquo;s region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.</p>
+
+<p>You can directly access the <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a> instance, by referencing the <code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC03mapD0So05MKMapD0Cvp">BigJuJuMapViewController.mapView</a></code> computed property. The view controller&rsquo;s main <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/view"><code>view</code></a> property is also the mapView, but referenced as a top-level <a href="https://developer.apple.com/documentation/UIKit/UIView">UIView</a>, not <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a>.</p>
+<h4 id='the-markers' class='heading'>The Markers</h4>
+
+<p>You provide your own custom markers, by giving the <code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code> instance <a href="https://developer.apple.com/documentation/uikit/uiimage/"><code>UIImage</code></a>s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have <code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)displayNumbers">BigJuJuMapViewController.displayNumbers</a></code> as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the <a href="https://developer.apple.com/documentation/uikit/uicolor/label"><code>UIColor.label</code></a> color.</p>
+
+<p>You provide the images by setting the <code>BigJuJuMapViewController.singleImageColor</code> and <code>BigJuJuMapViewController.multiImageColor</code> properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If you want the same image to be used for both (&ldquo;Custom 1,&rdquo; in the test harness apps), then you need to provide the same image to <strong>BOTH</strong> of the properties.</p>
+
+</div>
+<h2 id='usage-in-swiftui' class='heading'>Usage in SwiftUI</h2>
+
+<p>SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a <a href="https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/"><code>UIViewControllerRepresentable</code></a> instance. This is demonstrated in the SwiftUI test harness, in the 
+<code>BJJM_BigJuJuMapViewController</code> struct.</p>
 
           </div>
         </section>
