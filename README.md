@@ -152,7 +152,7 @@ You provide the images by setting the [`BigJuJuMapViewController.singleMarkerIma
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 
-``BJJM_BigJuJuMapViewController`` struct.
+[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L34) struct.
 
 ## License
 
