@@ -12,6 +12,8 @@ jazzy \
   --xcodebuild-arguments -project,BigJuJuMap.xcodeproj,-scheme,BigJuJuMap,-destination,generic/platform=iOS,CODE_SIGNING_ALLOWED=NO,CODE_SIGNING_REQUIRED=NO,CODE_SIGN_IDENTITY= \
   --github_url https://github.com/LittleGreenViper/BigJuJuMap \
   --title "BigJuJuMap Documentation" \
-  --min_acl public
+  --min_acl public\
+  --theme fullwidth
+  
 cp ./icon.png docs/
 cp ./img/* docs/img
