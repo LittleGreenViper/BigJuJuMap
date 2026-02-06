@@ -36,7 +36,7 @@ Additionally, you can choose to have the number of aggregated data points displa
 
 There are two test harness targets provided with the library: A [UIKit target](https://github.com/LittleGreenViper/BigJuJuMap/tree/master/Tests/UIKitTestHarness), and a [SwiftUI target](https://github.com/LittleGreenViper/BigJuJuMap/tree/master/Tests/SwiftUITestHarness). They show simple implementations of BigJuJuMap, in practice.
 
-They are visually identical, presenting a single screen, filled with a map, and displaying a number of markers. At the bottom of the screen, are two segmented switches. The top switch selects which type of marker to display (default, custom simple, or custom complex).
+They are visually identical, presenting a single screen, filled with a map, and displaying a number of markers. At the bottom of the screen, are two segmented switches. The top switch selects which type of marker to display (default, custom simple, or custom complex), and the bottom switch selects between three different location datasets.
 
 #### Markers
 
@@ -143,7 +143,7 @@ You can directly access the [`MKMapView`](https://developer.apple.com/documentat
 
 #### The Markers
 
-You provide your own custom markers, by giving the [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347) instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have [`BigJuJuMapViewController.displayNumbers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1152) as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.label`](https://developer.apple.com/documentation/uikit/uicolor/label) color.
+You provide your own custom markers, by giving the [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347) instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have [`BigJuJuMapViewController.displayNumbers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1152) as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.systembackground`]([https://developer.apple.com/documentation/uikit/uicolor/label](https://developer.apple.com/documentation/uikit/uicolor/systembackground)) color (inverse label color).
 
 You provide the images by setting the [`BigJuJuMapViewController.singleMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1138) and [`BigJuJuMapViewController.multiMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1145) properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
 
