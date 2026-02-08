@@ -153,7 +153,7 @@ You can specify a font and color to be used, in data items. If these are present
 
 You can set `BigJuJuMapViewController/displayNumbers`` to false, and the numbers for aggregate markers will not display (for example, if you have intricate custom markers, the numbers will interfere).
 
-You can set ``BigJuJuMapViewController/stickyPopovers`` to true, and the popovers will not dismiss, when an item is selected.
+You can set ``BigJuJuMapViewController/stickyPopups`` to true, and the popovers will not dismiss, when an item is selected.
 
 ## Usage in SwiftUI
 

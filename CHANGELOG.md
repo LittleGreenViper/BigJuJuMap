@@ -1,3 +1,7 @@
+ **1.1.3** *February 8, 2026*
+ 
+ - Fixed a couple of code doc bugs.
+ 
  **1.1.2** *February 8, 2026*
  
  - Tiny change in the SwiftUI test harness. I moved a line up, in the example wrapper. No functional change. Just being anal.

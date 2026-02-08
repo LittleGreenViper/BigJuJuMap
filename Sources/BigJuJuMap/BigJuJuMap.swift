@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 1.1.2
+ Version: 1.1.3
  */
 
 import UIKit
@@ -1428,23 +1428,23 @@ extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
      - parameter inTouch: The touch event
      - returns: True, if the touch event is valid.
      */
-    public func gestureRecognizer(_ gr: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer, shouldReceive inTouch: UITouch) -> Bool {
         // Don’t dismiss if the tap is inside the popover.
         if let popover = self._activePopover,
-           touch.view?.isDescendant(of: popover) == true {
+           inTouch.view?.isDescendant(of: popover) == true {
             return false
         }
 
         // If we tapped the currently-selected marker view, dismiss AND swallow the touch
         // so MKMapView doesn’t immediately re-select it.
         if let activeView = self._activeAnnotationView,
-           touch.view?.isDescendant(of: activeView) == true {
-            gr.cancelsTouchesInView = true
+           inTouch.view?.isDescendant(of: activeView) == true {
+            inGestureRecognizer.cancelsTouchesInView = true
             return true
         }
 
         // Otherwise, dismiss but allow the map to also handle the tap (so other markers can select).
-        gr.cancelsTouchesInView = false
+        inGestureRecognizer.cancelsTouchesInView = false
         return true
     }
 }
