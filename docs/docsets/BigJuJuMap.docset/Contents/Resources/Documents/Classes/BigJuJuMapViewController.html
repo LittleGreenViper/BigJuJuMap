@@ -106,7 +106,15 @@
 
 <p>Selecting a marker, will pop up a callout, with the data item name. If it is an aggregate annotation, then the callout will contain a list.</p>
 
-<p>Selecting an item in the list, will trigger the <code>callHandler()</code> function, associated with that annotation.</p>
+<p>Selecting an item in the list, will trigger the <code>callHandler()</code> function, associated with that annotation, and the handler will be called (should be in the main thread, but that can be changed, by giving a threaded handler).</p>
+
+<p>The map can display different markers, if ones are provided. Otherwise, it will use the default (simple &ldquo;upside-down teardrop&rdquo;) markers.</p>
+
+<p>In the case of aggregate (multi) markers, the map can draw the number of contained data items, over the marker. This can be disabled.</p>
+
+<p>Selecting a marker will display a simple &ldquo;popover&rdquo; over (or under) the selected marker. This will have a list of the data items associated with that marker.</p>
+
+<p>Selecting an item will call a handler, with that item as its input argument.</p>
 
           </div>
         </section>
@@ -318,6 +326,35 @@
                           <pre class="highlight swift"><code><span class="kd">@IBInspectable</span>
 <span class="kd">@MainActor</span>
 <span class="kd">public</span> <span class="k">var</span> <span class="nv">displayNumbers</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)stickyPopups"></a>
+                    <a name="//apple_ref/swift/Property/stickyPopups" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)stickyPopups">stickyPopups</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If true (default is false), then popovers will not dismiss, when an item is selected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@IBInspectable</span>
+<span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">stickyPopups</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -682,7 +719,9 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="n">didSelect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span>
+                    <span class="n">didSelect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -741,7 +780,9 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span> <span class="n">didDeselect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span><span class="p">)</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapView</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMapView</span><span class="p">:</span> <span class="kt">MKMapView</span><span class="p">,</span>
+                    <span class="n">didDeselect</span> <span class="nv">inView</span><span class="p">:</span> <span class="kt">MKAnnotationView</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -813,7 +854,9 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">gestureRecognizer</span><span class="p">(</span><span class="n">_</span> <span class="nv">inGestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">,</span> <span class="n">shouldReceive</span> <span class="nv">inTouch</span><span class="p">:</span> <span class="kt">UITouch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">gestureRecognizer</span><span class="p">(</span><span class="n">_</span> <span class="nv">inGestureRecognizer</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">,</span>
+                              <span class="n">shouldReceive</span> <span class="nv">inTouch</span><span class="p">:</span> <span class="kt">UITouch</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -863,7 +906,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-06)</p>
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

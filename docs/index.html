@@ -93,9 +93,11 @@
 <p>This package was specifically designed to offer <a href="https://developer.apple.com/swiftui/"><code>SwiftUI</code></a> apps the opportunity to have a much more involved map experience than that provided by default.</p>
 
 <p>It also allows a &ldquo;drop in&rdquo; high-functionality map for <a href="https://developer.apple.com/documentation/uikit/"><code>UIKit</code></a> projects.</p>
+
+<p><a href="https://littlegreenviper.github.io/BigJuJuMap/">This is the online documentation for the library</a></p>
 <h2 id='how-does-it-work' class='heading'>How Does It Work?</h2>
 
-<p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>).</p>
+<p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>).</p>
 <h2 id='usage' class='heading'>Usage</h2>
 
 <p>The library is designed to be installed as a <a href="https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/">Swift Package Manager (SPM)</a> package. The package is available from <a href="https://github.com/LittleGreenViper/BigJuJuMap">GitHub</a>. A direct SPM URI is <code>git@github.com:LittleGreenViper/BigJuJuMap.git</code>.</p>
@@ -106,7 +108,7 @@
 <pre class="highlight plaintext"><code>import BigJuJuMap
 </code></pre>
 
-<p>You use it by instantiating <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>, and providing it with a dataset (the dataset must conform to the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L84"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a> protocol, and must be a class; not a struct).</p>
+<p>You use it by instantiating <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>, and providing it with a dataset (the dataset must conform to the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1402"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a> protocol, and must be a class; not a struct).</p>
 
 <p>You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).</p>
 
@@ -271,23 +273,30 @@ self.navigationController?.pushViewController(self.bigJuJuMap, animated: true)
 </code></pre>
 <h4 id='the-map-data' class='heading'>The Map Data</h4>
 
-<p>Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L84"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a>. The test harnesses demonstrate this with simple datasets of US national and state parks.</p>
+<p>Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1402"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a>. The test harnesses demonstrate this with simple datasets of US national and state parks.</p>
 
-<p>This is demonstrated in the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L31"><code>BJJM_LocationFactory</code></a> struct, shared between the UIKit and SwiftUI test harness apps.</p>
+<p>This is demonstrated in the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L26"><code>BJJM_LocationFactory</code></a> struct, shared between the UIKit and SwiftUI test harness apps.</p>
 
-<p>Simply set the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1131"><code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC7mapDataSayAA0abbC16LocationProtocol_pGvp">BigJuJuMapViewController.mapData</a></code></a> property to the array, and you&rsquo;re good to go. You may also want to set the map&rsquo;s region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.</p>
+<p>Simply set the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L889"><code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC7mapDataSayAA0abbC16LocationProtocol_pGvp">BigJuJuMapViewController.mapData</a></code></a> property to the array, and you&rsquo;re good to go. You may also want to set the map&rsquo;s region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.</p>
 
-<p>You can directly access the <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a> instance, by referencing the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1178"><code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC03mapD0So05MKMapD0Cvp">BigJuJuMapViewController.mapView</a></code></a> computed property. The view controller&rsquo;s main <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/view"><code>view</code></a> property is also the mapView, but referenced as a top-level <a href="https://developer.apple.com/documentation/UIKit/UIView">UIView</a>, not <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a>.</p>
+<p>You can directly access the <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a> instance, by referencing the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L952"><code><a href="Classes/BigJuJuMapViewController.html#/s:05BigJuB3Map0abbC14ViewControllerC03mapD0So05MKMapD0Cvp">BigJuJuMapViewController.mapView</a></code></a> computed property. The view controller&rsquo;s main <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/view"><code>view</code></a> property is also the mapView, but referenced as a top-level <a href="https://developer.apple.com/documentation/UIKit/UIView">UIView</a>, not <a href="https://developer.apple.com/documentation/mapkit/mkmapview"><code>MKMapView</code></a>.</p>
 <h4 id='the-markers' class='heading'>The Markers</h4>
 
-<p>You provide your own custom markers, by giving the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a> instance <a href="https://developer.apple.com/documentation/uikit/uiimage/"><code>UIImage</code></a>s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1152"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)displayNumbers">BigJuJuMapViewController.displayNumbers</a></code></a> as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the <a href="%5Bhttps://developer.apple.com/documentation/uikit/uicolor/label%5D(https://developer.apple.com/documentation/uikit/uicolor/systembackground)"><code>UIColor.systembackground</code></a> color (inverse label color).</p>
+<p>You provide your own custom markers, by giving the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a> instance <a href="https://developer.apple.com/documentation/uikit/uiimage/"><code>UIImage</code></a>s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L917"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)displayNumbers">BigJuJuMapViewController.displayNumbers</a></code></a> as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the <a href="%5Bhttps://developer.apple.com/documentation/uikit/uicolor/label%5D(https://developer.apple.com/documentation/uikit/uicolor/systembackground)"><code>UIColor.systembackground</code></a> color (inverse label color).</p>
 
-<p>You provide the images by setting the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1138"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)singleMarkerImage">BigJuJuMapViewController.singleMarkerImage</a></code></a> and <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1145"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)multiMarkerImage">BigJuJuMapViewController.multiMarkerImage</a></code></a> properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.</p>
+<p>You provide the images by setting the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L897"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)singleMarkerImage">BigJuJuMapViewController.singleMarkerImage</a></code></a> and <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L907"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)multiMarkerImage">BigJuJuMapViewController.multiMarkerImage</a></code></a> properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>If you want the same image to be used for both (&ldquo;Custom 1,&rdquo; in the test harness apps), then you need to provide the same image to <strong>BOTH</strong> of the properties.</p>
 
 </div>
+<h4 id='additional-settings' class='heading'>Additional Settings</h4>
+
+<p>You can specify a font and color to be used, in data items. If these are present, the text in the popover for that item will be displayed with the color and font provided. Otherwise, the standard button font and color will be used.</p>
+
+<p>You can set <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L917"><code>displayNumbers</code></a> to false, and the numbers for aggregate markers will not display (for example, if you have intricate custom markers, the numbers will interfere).</p>
+
+<p>You can set <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L927"><code>stickyPopovers</code></a> to true, and the popovers will not dismiss, when an item is selected.</p>
 <h2 id='usage-in-swiftui' class='heading'>Usage in SwiftUI</h2>
 
 <p>SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a <a href="https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/"><code>UIViewControllerRepresentable</code></a> instance. This is demonstrated in the SwiftUI test harness, in the 
@@ -321,7 +330,7 @@ SOFTWARE.
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-06)</p>
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
