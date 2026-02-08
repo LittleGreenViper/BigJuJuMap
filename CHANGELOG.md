@@ -1,3 +1,8 @@
+ **1.1.2** *February 8, 2026*
+ 
+ - Tiny change in the SwiftUI test harness. I moved a line up, in the example wrapper. No functional change. Just being anal.
+ - Added the current version to the main source file header.
+ 
  **1.1.1** *February 8, 2026*
  
  - Fixed a bug, where tapping on a marker that was currently selected, left the marker in a "selected" state.
