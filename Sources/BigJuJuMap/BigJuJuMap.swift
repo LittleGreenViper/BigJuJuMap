@@ -883,7 +883,13 @@ open class BigJuJuMapViewController: UIViewController {
      A gesture reconzier that is used to dismiss the popover.
      */
     private var _dismissTapGR: UITapGestureRecognizer?
-
+    
+    /* ############################################################## */
+    /**
+     This prevents the marker from rectivating, when tapped while active.
+     */
+    private var _ignoreNextSelectAnnotation: LocationAnnotation?
+    
     // MARK: PUBLIC PROPERTIES
     
     /* ################################################################## */
@@ -986,10 +992,20 @@ extension BigJuJuMapViewController {
      */
     @MainActor
     private func _dismissPopover() {
-        self._activePopover?.removeFromSuperview()
-        self._activePopover = nil
-        self._activeAnnotation = nil
-        self._activeAnnotationView = nil
+        if let popover = self._activePopover {
+            self._activePopover = nil
+            popover.removeFromSuperview()
+        }
+        
+        if let activeAnnotationView = self._activeAnnotationView {
+            self._activeAnnotationView = nil
+            self._applyMarkerAppearance(to: activeAnnotationView, reversed: false)
+        }
+
+        if let activeAnnotation = self._activeAnnotation {
+            self._activeAnnotation = nil
+            self.mapView.deselectAnnotation(activeAnnotation, animated: true)
+        }
     }
 
     /* ############################################################## */
@@ -1013,9 +1029,21 @@ extension BigJuJuMapViewController {
      */
     @objc @MainActor
     private func _didTapMapToDismiss() {
+        // If this dismiss tap happened on the currently active marker, ignore the very next didSelect for it.
+        if let tap = self._dismissTapGR,
+           let activeView = self._activeAnnotationView,
+           let activeAnnotation = self._activeAnnotation {
+            let p = tap.location(in: self.mapView)
+
+            // A small inset helps if the marker view has transparent padding.
+            if activeView.frame.insetBy(dx: -8, dy: -8).contains(p) {
+                self._ignoreNextSelectAnnotation = activeAnnotation
+            }
+        }
+
         self._dismissPopover()
     }
-
+    
     /* ############################################################## */
     /**
      This makes sure the popover is positioned near the selected marker.
@@ -1327,7 +1355,17 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     public func mapView(_ inMapView: MKMapView,
                         didSelect inView: MKAnnotationView
     ) {
-        guard let annotation = inView.annotation as? LocationAnnotation else { return }
+        if let annotation = inView.annotation as? LocationAnnotation,
+           let ignore = self._ignoreNextSelectAnnotation,
+           annotation === ignore {
+            self._ignoreNextSelectAnnotation = nil
+            inMapView.deselectAnnotation(annotation, animated: false)
+            return
+        }
+
+        guard nil == self._activeAnnotation,
+              let annotation = inView.annotation as? LocationAnnotation
+        else { return }
         
         self._applyMarkerAppearance(to: inView, reversed: true)
         
@@ -1388,14 +1426,24 @@ extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
      - parameter inTouch: The touch event
      - returns: True, if the touch event is valid.
      */
-    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer,
-                                  shouldReceive inTouch: UITouch
-    ) -> Bool {
-        guard let popover = self._activePopover,
-              inTouch.view?.isDescendant(of: popover) == true
-        else { return true }
-        
-        return false
+    public func gestureRecognizer(_ gr: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Don’t dismiss if the tap is inside the popover.
+        if let popover = self._activePopover,
+           touch.view?.isDescendant(of: popover) == true {
+            return false
+        }
+
+        // If we tapped the currently-selected marker view, dismiss AND swallow the touch
+        // so MKMapView doesn’t immediately re-select it.
+        if let activeView = self._activeAnnotationView,
+           touch.view?.isDescendant(of: activeView) == true {
+            gr.cancelsTouchesInView = true
+            return true
+        }
+
+        // Otherwise, dismiss but allow the map to also handle the tap (so other markers can select).
+        gr.cancelsTouchesInView = false
+        return true
     }
 }
 
