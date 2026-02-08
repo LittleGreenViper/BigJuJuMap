@@ -161,11 +161,11 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
         inUIViewController.singleMarkerImage = singleImage
         inUIViewController.multiMarkerImage = multiImage
         inUIViewController.displayNumbers = (singleName == multiName) ? true : self.displayNumbers
+        inUIViewController.stickyPopups = stickyPopups
 
         // Gate the expensive operations. We don't want to zoom away/out the map, unless we are changing the data, itself.
         guard inContext.coordinator.lastSignature != signature else { return }
         inContext.coordinator.lastSignature = signature
-        inUIViewController.stickyPopups = stickyPopups
         inUIViewController.mapData = locations
         inUIViewController.visibleRect = locations.containingMapRectDatelineAware
     }
