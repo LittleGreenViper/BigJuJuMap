@@ -147,6 +147,14 @@ You provide the images by setting the ``BigJuJuMapViewController/singleMarkerIma
 
 > NOTE: If you want the same image to be used for both ("Custom 1," in the test harness apps), then you need to provide the same image to **BOTH** of the properties.
 
+#### Additional Settings
+
+You can specify a font and color to be used, in data items. If these are present, the text in the popover for that item will be displayed with the color and font provided. Otherwise, the standard button font and color will be used.
+
+You can set `BigJuJuMapViewController/displayNumbers`` to false, and the numbers for aggregate markers will not display (for example, if you have intricate custom markers, the numbers will interfere).
+
+You can set ``BigJuJuMapViewController/stickyPopovers`` to true, and the popovers will not dismiss, when an item is selected.
+
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 

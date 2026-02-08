@@ -12,7 +12,7 @@ It also allows a "drop in" high-functionality map for [`UIKit`](https://develope
 
 ## How Does It Work?
 
-The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347)).
+The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81)).
 
 ## Usage
 
@@ -24,7 +24,7 @@ Whenever you use it, you will need to import it, thusly:
 
     import BigJuJuMap
     
-You use it by instantiating [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347), and providing it with a dataset (the dataset must conform to the [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L84) protocol, and must be a class; not a struct).
+You use it by instantiating [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81), and providing it with a dataset (the dataset must conform to the [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1402) protocol, and must be a class; not a struct).
 
 You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).
 
@@ -131,21 +131,29 @@ Or just instantiate it directly:
 
 #### The Map Data
 
-Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L84). The test harnesses demonstrate this with simple datasets of US national and state parks.
+Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1402). The test harnesses demonstrate this with simple datasets of US national and state parks.
 
-This is demonstrated in the [`BJJM_LocationFactory`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L31) struct, shared between the UIKit and SwiftUI test harness apps.
+This is demonstrated in the [`BJJM_LocationFactory`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L26) struct, shared between the UIKit and SwiftUI test harness apps.
 
-Simply set the [`BigJuJuMapViewController.mapData`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1131) property to the array, and you're good to go. You may also want to set the map's region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.
+Simply set the [`BigJuJuMapViewController.mapData`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L889) property to the array, and you're good to go. You may also want to set the map's region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.
 
-You can directly access the [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) instance, by referencing the [`BigJuJuMapViewController.mapView`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1178) computed property. The view controller's main [`view`](https://developer.apple.com/documentation/uikit/uiviewcontroller/view) property is also the mapView, but referenced as a top-level [UIView](https://developer.apple.com/documentation/UIKit/UIView), not [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview).
+You can directly access the [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) instance, by referencing the [`BigJuJuMapViewController.mapView`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L952) computed property. The view controller's main [`view`](https://developer.apple.com/documentation/uikit/uiviewcontroller/view) property is also the mapView, but referenced as a top-level [UIView](https://developer.apple.com/documentation/UIKit/UIView), not [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview).
 
 #### The Markers
 
-You provide your own custom markers, by giving the [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L347) instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have [`BigJuJuMapViewController.displayNumbers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1152) as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.systembackground`]([https://developer.apple.com/documentation/uikit/uicolor/label](https://developer.apple.com/documentation/uikit/uicolor/systembackground)) color (inverse label color).
+You provide your own custom markers, by giving the [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L81) instance [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage/)s. These will be resized, in the map, but they should have a roughly 1:2 aspect ratio. If you will choose to have [`BigJuJuMapViewController.displayNumbers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L917) as true (the default), then the marker images should have a large blank area in the upper portion, that will not obscure labels displayed with the [`UIColor.systembackground`]([https://developer.apple.com/documentation/uikit/uicolor/label](https://developer.apple.com/documentation/uikit/uicolor/systembackground)) color (inverse label color).
 
-You provide the images by setting the [`BigJuJuMapViewController.singleMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1138) and [`BigJuJuMapViewController.multiMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L1145) properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
+You provide the images by setting the [`BigJuJuMapViewController.singleMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L897) and [`BigJuJuMapViewController.multiMarkerImage`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L907) properties. Leaving them as nil, will cause the built-in (upside-down teardrop) marker to be used.
 
 > NOTE: If you want the same image to be used for both ("Custom 1," in the test harness apps), then you need to provide the same image to **BOTH** of the properties.
+
+#### Additional Settings
+
+You can specify a font and color to be used, in data items. If these are present, the text in the popover for that item will be displayed with the color and font provided. Otherwise, the standard button font and color will be used.
+
+You can set [`displayNumbers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L917) to false, and the numbers for aggregate markers will not display (for example, if you have intricate custom markers, the numbers will interfere).
+
+You can set [`stickyPopovers`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift#L927) to true, and the popovers will not dismiss, when an item is selected.
 
 ## Usage in SwiftUI
 
