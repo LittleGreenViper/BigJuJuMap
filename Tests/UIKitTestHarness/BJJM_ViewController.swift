@@ -102,6 +102,27 @@ extension BJJM_ViewController {
               let myController = self._myMapController
         else { return }
         
+        var stickyPopups = false
+        var textColor: UIColor?
+        var textFont: UIFont?
+        
+        let selectedIndex = self.dataSelectorSwitch?.selectedSegmentIndex ?? 0
+        let fileName = self.dataSelectorSwitch?.titleForSegment(at: selectedIndex) ?? "SLUG-USA".localizedVariant
+
+        switch fileName {
+        case "SLUG-USA".localizedVariant:
+            textColor = .red
+            textFont = UIFont.preferredFont(forTextStyle: .caption1)
+            stickyPopups = true
+            
+        case "SLUG-VI".localizedVariant:
+            textColor = .green
+            textFont = UIFont.preferredFont(forTextStyle: .largeTitle)
+
+        default:
+            break
+        }
+
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.compactMap { inRow in
             guard let id = inRow.int("id"),
                   let name = inRow.string("name"),
@@ -109,7 +130,14 @@ extension BJJM_ViewController {
                   let longitude = inRow.double("longitude")
             else { return nil }
             
-            return BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { [weak self] inItem in
+
+            return BJJM_MapLocation(id: id,
+                                    name: name,
+                                    latitude: latitude,
+                                    longitude: longitude,
+                                    textColor: textColor,
+                                    textFont: textFont
+            ) { [weak self] inItem in
                 guard let self else { return }
                 let alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant, inItem.name)
 
@@ -121,6 +149,7 @@ extension BJJM_ViewController {
             }
         }
         
+        myController.stickyPopups = stickyPopups
         myController.mapData = locations
         // We change the map region to show the data points.
         myController.visibleRect = locations.containingMapRectDatelineAware

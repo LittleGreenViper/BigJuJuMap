@@ -34,16 +34,16 @@ private final class _BJJMBundleToken: NSObject { }
 private extension Bundle {
     /* ################################################################## */
     /**
-     The bundle that contains BigJuJuMap resources (Media.xcassets, etc.)
+     Find the bundle that contains BigJuJuMap resources (Media.xcassets, etc.)
      
      - If built as a Swift Package: uses SwiftPM’s resource bundle (`Bundle.module`)
      - Otherwise (directly included in an app/framework target): uses the containing binary bundle
      */
     static var _bigJuJuMap: Bundle {
         #if SWIFT_PACKAGE
-        return .module
+            return .module
         #else
-        return Bundle(for: _BJJMBundleToken.self)
+            return Bundle(for: _BJJMBundleToken.self)
         #endif
     }
 }
@@ -55,6 +55,9 @@ private extension UIImage {
     /* ################################################################## */
     /**
      This rescales a UIImage, to fit a given width, preserving the aspect.
+     
+     - parameter inTargetWidth: The width we want the resulting image to be, in display units.
+     - returns: A new, rescaled, UIImage, made from this UIImage
      */
     func _scaledToWidth(_ inTargetWidth: CGFloat) -> UIImage {
         guard inTargetWidth > 0,
@@ -76,262 +79,6 @@ private extension UIImage {
 }
 
 /* ################################################################################################################################## */
-// MARK: Map Location Template Protocol
-/* ################################################################################################################################## */
-/**
- This is used to designate a location, with an attached data entity, and a handler callback.
- */
-public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable, Sendable where ID: Hashable & Sendable {
-    /* ################################################################## */
-    /**
-     The location, associated with this data point.
-     */
-    var location: CLLocation { get }
-    
-    /* ################################################################## */
-    /**
-     A string, identifying this item, for use in displayed popovers.
-     */
-    var name: String { get }
-    
-    /* ################################################################## */
-    /**
-     This is a handler that is provided by the implementation.
-     
-     - parameter inItem: The instance of this protocol, associated with the handler.
-     */
-    var handler: @Sendable (_ inItem: any BigJuJuMapLocationProtocol) -> Void { get }
-    
-    /* ################################################################## */
-    /**
-     This simply calls the handler, in whatever way is implemented.
-     OPTIONAL: Default calls the handler in the main thread, with this instance as its parameter.
-     */
-    func callHandler()
-}
-
-/* ################################################################################################################################## */
-// MARK: Defaults
-/* ################################################################################################################################## */
-public extension BigJuJuMapLocationProtocol {
-    /* ################################################################## */
-    /**
-     This just calls the handler in the main thread, with this instance as its parameter.
-     */
-    func callHandler() { Task { @MainActor in self.handler(self) } }
-}
-
-/* ################################################################################################################################## */
-// MARK: Special Collection Extension, for aggregated data.
-/* ################################################################################################################################## */
-public extension Collection where Element == any BigJuJuMapLocationProtocol {
-    /* ################################################################## */
-    /**
-     This is just a way of saying "Bogus, dude."
-     */
-    static var invalidContainingRegion: MKCoordinateRegion {
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: .nan, longitude: .nan),
-            span: MKCoordinateSpan(latitudeDelta: .nan, longitudeDelta: .nan)
-        )
-    }
-    
-    /* ################################################################## */
-    /**
-     This is just a way of saying "Bogus, dude."
-     */
-    static var invalidContainingMapRect: MKMapRect { .null }
-    
-    /* ################################################################## */
-    /**
-     Returns an MKCoordinateRegion that contains all points in the collection (with padding).
-     If the collection is empty, returns `invalidContainingRegion`.
-     */
-    var containingCoordinateRegion: MKCoordinateRegion {
-        let coords: [CLLocationCoordinate2D] = self.compactMap {
-            let c = $0.location.coordinate
-            return CLLocationCoordinate2DIsValid(c) ? c : nil
-        }
-
-        guard !coords.isEmpty else { return Self.invalidContainingRegion }
-
-        // Latitude is linear (no wrap)
-        var minLat =  90.0
-        var maxLat = -90.0
-
-        // Longitude is circular; keep in [-180, 180)
-        var lons: [Double] = []
-        lons.reserveCapacity(coords.count)
-
-        for c in coords {
-            minLat = Swift.min(minLat, c.latitude)
-            maxLat = Swift.max(maxLat, c.latitude)
-
-            var lon = c.longitude
-            // Normalize to [-180, 180)
-            lon = (lon + 180.0).truncatingRemainder(dividingBy: 360.0)
-            if lon < 0 { lon += 360.0 }
-            lon -= 180.0
-
-            lons.append(lon)
-        }
-
-        // Find the smallest arc that contains all longitudes.
-        // Classic "minimum window on a circle" by duplicating +360.
-        let n = lons.count
-        let sorted = lons.sorted()
-        var extended = sorted
-        extended.reserveCapacity(2 * n)
-        extended.append(contentsOf: sorted.map { $0 + 360.0 })
-
-        var bestStartIndex = 0
-        var bestSpan = Double.greatestFiniteMagnitude
-
-        if n == 1 {
-            bestSpan = 0
-            bestStartIndex = 0
-        } else {
-            for i in 0..<n {
-                let start = extended[i]
-                let end = extended[i + n - 1]
-                let span = end - start
-                if span < bestSpan {
-                    bestSpan = span
-                    bestStartIndex = i
-                }
-            }
-        }
-
-        let lonStart = extended[bestStartIndex]
-        let lonCenterRaw = lonStart + (bestSpan * 0.5)
-
-        // Wrap center back to [-180, 180)
-        var lonCenter = (lonCenterRaw + 180.0).truncatingRemainder(dividingBy: 360.0)
-        if lonCenter < 0 { lonCenter += 360.0 }
-        lonCenter -= 180.0
-
-        let latCenter = (minLat + maxLat) * 0.5
-
-        // Padding + minimum deltas
-        let latDelta = Swift.max(0.002, (maxLat - minLat) * 1.20)
-        let lonSpan = bestSpan // already the *minimal* span (could be 0)
-        let lonDelta = Swift.max(0.002, lonSpan * 1.20)
-
-        return MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: latCenter, longitude: lonCenter),
-            span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
-        )
-    }
-
-    /* ################################################################## */
-    /**
-     Returns an MKMapRect that contains all points, choosing the shortest wrap across the dateline.
-     */
-    var containingMapRectDatelineAware: MKMapRect {
-        let coords: [CLLocationCoordinate2D] = self.compactMap {
-            let c = $0.location.coordinate
-            return CLLocationCoordinate2DIsValid(c) ? c : nil
-        }
-
-        guard !coords.isEmpty else { return Self.invalidContainingMapRect }
-
-        let worldW = MKMapSize.world.width
-
-        // Convert to MKMapPoints
-        let points = coords.map { MKMapPoint($0) }
-
-        // Y is linear (no wrap)
-        var minY = Double.greatestFiniteMagnitude
-        var maxY = -Double.greatestFiniteMagnitude
-
-        // X wraps (0 ... worldW)
-        var xs: [Double] = []
-        xs.reserveCapacity(points.count)
-
-        for p in points {
-            minY = Swift.min(minY, p.y)
-            maxY = Swift.max(maxY, p.y)
-
-            // MKMapPoint.x is already in [0, worldW) for valid coordinates
-            xs.append(p.x)
-        }
-
-        // Find smallest window on a circle in X-space (like longitude, but in map points)
-        let n = xs.count
-        let sorted = xs.sorted()
-        var extended = sorted
-        extended.reserveCapacity(2 * n)
-        extended.append(contentsOf: sorted.map { $0 + worldW })
-
-        var bestStartIndex = 0
-        var bestSpan = Double.greatestFiniteMagnitude
-
-        if n == 1 {
-            bestSpan = 0
-            bestStartIndex = 0
-        } else {
-            for i in 0..<n {
-                let start = extended[i]
-                let end = extended[i + n - 1]
-                let span = end - start
-                if span < bestSpan {
-                    bestSpan = span
-                    bestStartIndex = i
-                }
-            }
-        }
-
-        var minX = extended[bestStartIndex]
-        let height = maxY - minY
-
-        // Normalize origin back into [0, worldW)
-        // (Rect may still extend beyond worldW; MapKit can handle that for wrapping.)
-        if minX >= worldW { minX -= worldW }
-        if minX < 0 { minX += worldW }
-
-        var rect = MKMapRect(x: minX, y: minY, width: bestSpan, height: height)
-
-        // Add padding (10% each side, with a minimum)
-        let padX = Swift.max(rect.size.width * 0.10, 5_000)
-        let padY = Swift.max(rect.size.height * 0.10, 5_000)
-        rect = rect.insetBy(dx: -padX, dy: -padY)
-
-        // Ensure not degenerate
-        let minSize: Double = 10_000
-        if rect.size.width < minSize || rect.size.height < minSize {
-            let cx = rect.midX
-            let cy = rect.midY
-            rect = MKMapRect(x: cx - minSize * 0.5, y: cy - minSize * 0.5, width: minSize, height: minSize)
-        }
-
-        return rect
-    }
-    
-    /* ################################################################## */
-    /**
-     Returns the arithmetic mean (center) of the coordinates.
-     */
-    var coordinate: CLLocationCoordinate2D {
-        guard !self.isEmpty else { return kCLLocationCoordinate2DInvalid }
-
-        var latSum = 0.0
-        var lonSum = 0.0
-
-        self.forEach {
-            latSum += $0.location.coordinate.latitude
-            lonSum += $0.location.coordinate.longitude
-        }
-
-        let count = Double(self.count)
-
-        return CLLocationCoordinate2D(
-            latitude: latSum / count,
-            longitude: lonSum / count
-        )
-    }
-}
-
-/* ################################################################################################################################## */
 // MARK: Big Map View Controller Class
 /* ################################################################################################################################## */
 /**
@@ -341,7 +88,15 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
  
  Selecting a marker, will pop up a callout, with the data item name. If it is an aggregate annotation, then the callout will contain a list.
  
- Selecting an item in the list, will trigger the `callHandler()` function, associated with that annotation.
+ Selecting an item in the list, will trigger the `callHandler()` function, associated with that annotation, and the handler will be called (should be in the main thread, but that can be changed, by giving a threaded handler).
+ 
+ The map can display different markers, if ones are provided. Otherwise, it will use the default (simple "upside-down teardrop") markers.
+ 
+ In the case of aggregate (multi) markers, the map can draw the number of contained data items, over the marker. This can be disabled.
+ 
+ Selecting a marker will display a simple "popover" over (or under) the selected marker. This will have a list of the data items associated with that marker.
+ 
+ Selecting an item will call a handler, with that item as its input argument.
  */
 @IBDesignable
 open class BigJuJuMapViewController: UIViewController {
@@ -585,7 +340,7 @@ open class BigJuJuMapViewController: UIViewController {
             /**
              Each row is actually an inoperative button, selecting the handler for the data entity attached to the row.
              */
-            private let button: UIButton = {
+            let button: UIButton = {
                 let button = UIButton(type: .system)
                 button.contentHorizontalAlignment = .leading
                 button.titleLabel?.numberOfLines = 1
@@ -672,14 +427,6 @@ open class BigJuJuMapViewController: UIViewController {
          Full “chrome” height added outside the table rows (top + bottom padding).
          */
         private static var _verticalChrome: CGFloat { Self._outerPadding * 2 }
-
-        /* ################################################################## */
-        /**
-         The ideal full height of the popover, including chrome.
-         */
-        var idealHeight: CGFloat {
-            (CGFloat(self.items.count) * _Cell.rowHeight) + Self._verticalChrome
-        }
 
         /* ################################################################## */
         /**
@@ -803,10 +550,14 @@ open class BigJuJuMapViewController: UIViewController {
          The desired width of the popover, adjusted for content.
          
          - parameter inMaxWidth: The maximum width, in display units, of the popover.
+         - parameter inFont: If provided (optional, default is nil), a font to use for calculations.
+         - returns: The width, in display units, that we want our popover to be.
          */
-        func desiredWidth(maxWidth inMaxWidth: CGFloat) -> CGFloat {
+        func desiredWidth(maxWidth inMaxWidth: CGFloat,
+                          withFont inFont: UIFont? = nil
+        ) -> CGFloat {
             // Best effort width: measure longest name
-            let font = UIFont.preferredFont(forTextStyle: .callout)
+            let font = inFont ?? UIFont.preferredFont(forTextStyle: .callout)
             let padding: CGFloat = Self._paddingInDisplayUnits // content insets inside the cell button
             let extra: CGFloat = Self._paddingInDisplayUnits   // popover breathing room
 
@@ -823,14 +574,17 @@ open class BigJuJuMapViewController: UIViewController {
         /**
          The desired height of the popover, adjusted for content.
          
-         - parameter inMaxHeight: The maximum width, in display units, of the popover.
+         - parameter inMaxHeight: The maximum width, in display units, of the popover. (Optional, default is max float).
+         - parameter inFont: If provided (optional, default is nil), a font to use for calculations.
+         - returns: The height, in display units, that we want our popover to be.
          */
-        func desiredHeight(maxHeight inMaxHeight: CGFloat) -> CGFloat {
-            let full = self.idealHeight
-
-            // Ensure a sane minimum so a single row is never clipped.
-            let minimum = _Cell.rowHeight + Self._verticalChrome
-
+        @MainActor
+        func desiredHeight(maxHeight inMaxHeight: CGFloat = .greatestFiniteMagnitude,
+                           withFont inFont: UIFont? = nil
+        ) -> CGFloat {
+            let rowHeight = ceil(inFont?.lineHeight ?? _Cell.rowHeight)
+            let full = ceil(CGFloat(items.count) * rowHeight + (Self._verticalChrome * 1.2))
+            let minimum = ceil(rowHeight + Self._verticalChrome)
             return min(inMaxHeight, max(minimum, full))
         }
 
@@ -841,7 +595,9 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter inItems: The data associated with the annotation calling the popover.
          - parameter inOnSelect: The selection closure.
          */
-        func configure(items inItems: [any BigJuJuMapLocationProtocol], onSelect inOnSelect: @escaping (any BigJuJuMapLocationProtocol) -> Void) {
+        func configure(items inItems: [any BigJuJuMapLocationProtocol],
+                       onSelect inOnSelect: @escaping (any BigJuJuMapLocationProtocol) -> Void
+        ) {
             self.items = inItems
             self.onSelectItem = inOnSelect
             self.tableView.reloadData()
@@ -888,6 +644,14 @@ open class BigJuJuMapViewController: UIViewController {
             let item = self.items[inIndexPath.row]
             cell.locationData = item
             cell.selectionStyle = .none
+            
+            if let textColor = item.textColor {
+                cell.button.setTitleColor(textColor, for: .normal)
+            }
+            
+            if let textFont = item.textFont {
+                cell.button.titleLabel?.font = textFont
+            }
             return cell
         }
     }
@@ -1135,21 +899,37 @@ open class BigJuJuMapViewController: UIViewController {
      The image to be used for markers, representing single locations. Default is the generic map marker (both single and aggregate)
      */
     @IBInspectable
-    public var singleMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
+    public var singleMarkerImage: UIImage? { didSet {
+        if oldValue == self.singleMarkerImage { return }
+        DispatchQueue.main.async { self._recalculateAnnotations() } }
+    }
 
     /* ################################################################## */
     /**
      The image to be used for markers, representing aggregated locations. Default is the generic map marker (both single and aggregate)
      */
     @IBInspectable
-    public var multiMarkerImage: UIImage? { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
+    public var multiMarkerImage: UIImage? { didSet {
+        if oldValue == self.multiMarkerImage { return }
+        DispatchQueue.main.async { self._recalculateAnnotations() } }
+    }
 
     /* ################################################################## */
     /**
      If true, multiple (aggregate) markers will display the number of elements aggregated. Default is true.
      */
     @IBInspectable
-    public var displayNumbers = true { didSet { DispatchQueue.main.async { self._recalculateAnnotations() } } }
+    public var displayNumbers = true { didSet {
+        if oldValue == self.displayNumbers { return }
+        DispatchQueue.main.async { self._recalculateAnnotations() } }
+    }
+
+    /* ################################################################## */
+    /**
+     If true (default is false), then popovers will not dismiss, when an item is selected.
+     */
+    @IBInspectable
+    public var stickyPopups = false
 }
 
 /* ################################################################################################################################## */
@@ -1244,13 +1024,16 @@ extension BigJuJuMapViewController {
      - parameter inView: The annotation view we're being displayed near.
      */
     @MainActor
-    private func _positionPopover(_ inPopover: _BJJMMarkerPopoverView, for inView: MKAnnotationView) {
+    private func _positionPopover(_ inPopover: _BJJMMarkerPopoverView,
+                                  for inView: MKAnnotationView
+    ) {
+        let font = (inView as? AnnotationView)?.myAnnotation?.data.first?.textFont
         let safe = self.mapView.safeAreaInsets
         let padding: CGFloat = 10
 
         // Available width
         let maxWidth = self.mapView.bounds.width - (safe.left + safe.right) - 2 * padding
-        let width = inPopover.desiredWidth(maxWidth: maxWidth)
+        let width = inPopover.desiredWidth(maxWidth: maxWidth, withFont: font)
 
         // Available height (prefer above the marker if possible)
         let markerFrame = inView.frame
@@ -1259,7 +1042,7 @@ extension BigJuJuMapViewController {
         let availableBelow = self.mapView.bounds.height - safe.bottom - markerFrame.maxY - padding
 
         // How tall would the whole list be?
-        let idealListHeight = inPopover.idealHeight
+        let idealListHeight = inPopover.desiredHeight(withFont: font)
         
         // Choose above if it fits better; else below.
         let showAbove = availableAbove >= min(idealListHeight, 200) || availableAbove >= availableBelow
@@ -1541,7 +1324,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - parameter inView: The marker we're selecting.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, didSelect inView: MKAnnotationView) {
+    public func mapView(_ inMapView: MKMapView,
+                        didSelect inView: MKAnnotationView
+    ) {
         guard let annotation = inView.annotation as? LocationAnnotation else { return }
         
         self._applyMarkerAppearance(to: inView, reversed: true)
@@ -1557,8 +1342,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
         
         popover.configure(items: annotation.data) { [weak self] item in
             guard let self else { return }
-            self._dismissPopover()
-            inMapView.deselectAnnotation(annotation, animated: true)
+            if !self.stickyPopups {
+                inMapView.deselectAnnotation(annotation, animated: true)
+            }
             item.callHandler()
         }
         
@@ -1579,7 +1365,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - parameter inView: The marker we're deselecting.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, didDeselect inView: MKAnnotationView) {
+    public func mapView(_ inMapView: MKMapView,
+                        didDeselect inView: MKAnnotationView
+    ) {
         if inView === self._activeAnnotationView {
             self._dismissPopover()
         }
@@ -1600,11 +1388,328 @@ extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
      - parameter inTouch: The touch event
      - returns: True, if the touch event is valid.
      */
-    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer, shouldReceive inTouch: UITouch) -> Bool {
+    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer,
+                                  shouldReceive inTouch: UITouch
+    ) -> Bool {
         guard let popover = self._activePopover,
               inTouch.view?.isDescendant(of: popover) == true
         else { return true }
         
         return false
+    }
+}
+
+/* ################################################################################################################################## */
+// MARK: Map Location Data Item Template Protocol
+/* ################################################################################################################################## */
+/**
+ This is used to designate a location, with an attached data entity, and a handler callback.
+ */
+public protocol BigJuJuMapLocationProtocol: AnyObject, Identifiable, Sendable where ID: Hashable & Sendable {
+    /* ################################################################## */
+    /**
+     The location, associated with this data point.
+     */
+    var location: CLLocation { get }
+    
+    /* ################################################################## */
+    /**
+     A string, identifying this item, for use in displayed popovers.
+     */
+    var name: String { get }
+    
+    /* ################################################################## */
+    /**
+     This is a handler that is provided by the implementation.
+     
+     - parameter inItem: The instance of this protocol, associated with the handler.
+     */
+    var handler: @Sendable (_ inItem: any BigJuJuMapLocationProtocol) -> Void { get }
+    
+    /* ################################################################## */
+    /**
+     If provided (OPTIONAL, with default being nil), the text in the popover will be displayed in this color.
+     */
+    var textColor: UIColor? { get }
+    
+    /* ################################################################## */
+    /**
+     If provided (OPTIONAL, with default being nil), the text in the popover will be displayed in this font.
+     */
+    var textFont: UIFont? { get }
+
+    /* ################################################################## */
+    /**
+     This simply calls the handler, in whatever way is implemented.
+     OPTIONAL: Default calls the handler in the main thread, with this instance as its parameter.
+     */
+    func callHandler()
+}
+
+/* ################################################################################################################################## */
+// MARK: Defaults
+/* ################################################################################################################################## */
+public extension BigJuJuMapLocationProtocol {
+    /* ################################################################## */
+    /**
+     Default is nil (whatever the system decides -since it's a button, it's going to be the accent color)
+     */
+    var textColor: UIColor? { nil }
+    
+    /* ################################################################## */
+    /**
+     Default is nil (whatever the system decides)
+     */
+    var textFont: UIFont? { nil }
+
+    /* ################################################################## */
+    /**
+     This just calls the handler in the main thread, with this instance as its parameter.
+     */
+    func callHandler() { Task { @MainActor in self.handler(self) } }
+}
+
+/* ################################################################################################################################## */
+// MARK: Special Collection Extension, for aggregated data.
+/* ################################################################################################################################## */
+public extension Collection where Element == any BigJuJuMapLocationProtocol {
+    /* ################################################################## */
+    /**
+     This is just a way of saying "Bogus, dude."
+     */
+    static var invalidContainingRegion: MKCoordinateRegion {
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: .nan,
+                                           longitude: .nan
+                                          ),
+            span: MKCoordinateSpan(latitudeDelta: .nan,
+                                   longitudeDelta: .nan
+                                  )
+        )
+    }
+    
+    /* ################################################################## */
+    /**
+     This is just a way of saying "Bogus, dude."
+     */
+    static var invalidContainingMapRect: MKMapRect { .null }
+    
+    /* ################################################################## */
+    /**
+     Returns an MKCoordinateRegion that contains all points in the collection (with padding).
+     If the collection is empty, returns `invalidContainingRegion`.
+     */
+    var containingCoordinateRegion: MKCoordinateRegion {
+        let coords: [CLLocationCoordinate2D] = self.compactMap {
+            let coord = $0.location.coordinate
+            return CLLocationCoordinate2DIsValid(coord) ? coord : nil
+        }
+
+        guard !coords.isEmpty else { return Self.invalidContainingRegion }
+
+        // Latitude is linear (no wrap)
+        var minLat =  90.0
+        var maxLat = -90.0
+
+        // Longitude is circular; keep in [-180, 180)
+        var lons: [Double] = []
+        lons.reserveCapacity(coords.count)
+
+        for coord in coords {
+            minLat = Swift.min(minLat,
+                               coord.latitude
+            )
+            
+            maxLat = Swift.max(maxLat,
+                               coord.latitude
+            )
+
+            var lon = coord.longitude
+            // Normalize to [-180, 180)
+            lon = (lon + 180.0).truncatingRemainder(dividingBy: 360.0)
+            if lon < 0 { lon += 360.0 }
+            lon -= 180.0
+
+            lons.append(lon)
+        }
+
+        // Find the smallest arc that contains all longitudes.
+        // Classic "minimum window on a circle" by duplicating +360.
+        let num = lons.count
+        let sorted = lons.sorted()
+        var extended = sorted
+        extended.reserveCapacity(2 * num)
+        extended.append(contentsOf: sorted.map { $0 + 360.0 })
+
+        var bestStartIndex = 0
+        var bestSpan = Double.greatestFiniteMagnitude
+
+        if num == 1 {
+            bestSpan = 0
+            bestStartIndex = 0
+        } else {
+            for i in 0..<num {
+                let start = extended[i]
+                let end = extended[i + num - 1]
+                let span = end - start
+                if span < bestSpan {
+                    bestSpan = span
+                    bestStartIndex = i
+                }
+            }
+        }
+
+        let lonStart = extended[bestStartIndex]
+        let lonCenterRaw = lonStart + (bestSpan * 0.5)
+
+        // Wrap center back to [-180, 180)
+        var lonCenter = (lonCenterRaw + 180.0).truncatingRemainder(dividingBy: 360.0)
+        if lonCenter < 0 { lonCenter += 360.0 }
+        lonCenter -= 180.0
+
+        let latCenter = (minLat + maxLat) * 0.5
+
+        // Padding + minimum deltas
+        let latDelta = Swift.max(0.002,
+                                 (maxLat - minLat) * 1.20
+        )
+        let lonSpan = bestSpan // already the *minimal* span (could be 0)
+        let lonDelta = Swift.max(0.002,
+                                 lonSpan * 1.20
+        )
+
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: latCenter,
+                                           longitude: lonCenter
+                                          ),
+            span: MKCoordinateSpan(latitudeDelta: latDelta,
+                                   longitudeDelta: lonDelta
+                                  )
+        )
+    }
+
+    /* ################################################################## */
+    /**
+     Returns an MKMapRect that contains all points, choosing the shortest wrap across the dateline.
+     */
+    var containingMapRectDatelineAware: MKMapRect {
+        let coords: [CLLocationCoordinate2D] = self.compactMap {
+            let c = $0.location.coordinate
+            return CLLocationCoordinate2DIsValid(c) ? c : nil
+        }
+
+        guard !coords.isEmpty else { return Self.invalidContainingMapRect }
+
+        let worldW = MKMapSize.world.width
+
+        // Convert to MKMapPoints
+        let points = coords.map { MKMapPoint($0) }
+
+        // Y is linear (no wrap)
+        var minY = Double.greatestFiniteMagnitude
+        var maxY = -Double.greatestFiniteMagnitude
+
+        // X wraps (0 ... worldW)
+        var xs: [Double] = []
+        xs.reserveCapacity(points.count)
+
+        for point in points {
+            minY = Swift.min(minY,
+                             point.y
+            )
+            
+            maxY = Swift.max(maxY,
+                             point.y
+            )
+
+            // MKMapPoint.x is already in [0, worldW) for valid coordinates
+            xs.append(point.x)
+        }
+
+        // Find smallest window on a circle in X-space (like longitude, but in map points)
+        let num = xs.count
+        let sorted = xs.sorted()
+        var extended = sorted
+        extended.reserveCapacity(2 * num)
+        extended.append(contentsOf: sorted.map { $0 + worldW })
+
+        var bestStartIndex = 0
+        var bestSpan = Double.greatestFiniteMagnitude
+
+        if num == 1 {
+            bestSpan = 0
+            bestStartIndex = 0
+        } else {
+            for i in 0..<num {
+                let start = extended[i]
+                let end = extended[i + num - 1]
+                let span = end - start
+                if span < bestSpan {
+                    bestSpan = span
+                    bestStartIndex = i
+                }
+            }
+        }
+
+        var minX = extended[bestStartIndex]
+        let height = maxY - minY
+
+        // Normalize origin back into [0, worldW)
+        // (Rect may still extend beyond worldW; MapKit can handle that for wrapping.)
+        if minX >= worldW { minX -= worldW }
+        if minX < 0 { minX += worldW }
+
+        var rect = MKMapRect(x: minX,
+                             y: minY,
+                             width: bestSpan,
+                             height: height
+        )
+
+        // Add padding (10% each side, with a minimum)
+        let padX = Swift.max(rect.size.width * 0.10,
+                             5_000
+        )
+        let padY = Swift.max(rect.size.height * 0.10,
+                             5_000
+        )
+        rect = rect.insetBy(dx: -padX,
+                            dy: -padY
+        )
+
+        // Ensure not degenerate
+        let minSize: Double = 10_000
+        if rect.size.width < minSize || rect.size.height < minSize {
+            let cx = rect.midX
+            let cy = rect.midY
+            rect = MKMapRect(x: cx - minSize * 0.5,
+                             y: cy - minSize * 0.5,
+                             width: minSize,
+                             height: minSize
+            )
+        }
+
+        return rect
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns the arithmetic mean (center) of the coordinates.
+     */
+    var coordinate: CLLocationCoordinate2D {
+        guard !self.isEmpty else { return kCLLocationCoordinate2DInvalid }
+
+        var latSum = 0.0
+        var lonSum = 0.0
+
+        self.forEach {
+            latSum += $0.location.coordinate.latitude
+            lonSum += $0.location.coordinate.longitude
+        }
+
+        let count = Double(self.count)
+
+        return CLLocationCoordinate2D(latitude: latSum / count,
+                                      longitude: lonSum / count
+        )
     }
 }

@@ -21,6 +21,7 @@ import Foundation
 import TabularData
 import CoreLocation
 import BigJuJuMap
+import UIKit
 
 /* ################################################################################################################################## */
 // MARK: - Location Data "Factory" Struct -
@@ -32,6 +33,9 @@ struct BJJM_LocationFactory {
     /* ################################################################## */
     /**
      Returns a DataFrame for the given filename.
+     
+     - parameter inFileName: The filename of the CSV file we're using.
+     - returns: A new DataFrame instance, filled with the contents of that file.
      */
     static func locationData(from inFileName: String) -> DataFrame? {
         let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
@@ -159,22 +163,41 @@ final class BJJM_MapLocation: BigJuJuMapLocationProtocol {
     
     /* ################################################################## */
     /**
+     If supplied, an alternat color to use for the text display in the popover.
+     */
+    let textColor: UIColor?
+    
+    /* ################################################################## */
+    /**
+     If supplied, an alternat font to use for the text display in the popover.
+     */
+    let textFont: UIFont?
+
+    /* ################################################################## */
+    /**
      Basic initializer
+     
      - parameter inID: The hashable identifier
      - parameter inName: The string to be applied.
      - parameter inLat: The latitude
      - parameter inLng: The longitude
+     - parameter inTextColor: If supplied, an alternat color to use for the text display in the popover. Optional. Default is nil.
+     - parameter inTextFont: If supplied, an alternat font to use for the text display in the popover. Optional. Default is nil.
      - parameter inHandler: The handler closure. Optional. Default does nothing.
      */
     init(id inID: ID,
          name inName: String,
          latitude inLat: CLLocationDegrees,
          longitude inLng: CLLocationDegrees,
+         textColor inTextColor: UIColor? = nil,
+         textFont inTextFont: UIFont? = nil,
          handler inHandler: @escaping @Sendable (any BigJuJuMapLocationProtocol) -> Void = { _ in }
     ) {
         self.id = inID
         self.name = inName
         self.location = CLLocation(latitude: inLat, longitude: inLng)
+        self.textColor = inTextColor
+        self.textFont = inTextFont
         self.handler = inHandler
     }
 }

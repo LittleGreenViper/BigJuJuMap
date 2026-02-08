@@ -105,6 +105,7 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
         var hasher = Hasher()
         hasher.combine(self.dataSetName)
         hasher.combine(dataFrame.rows.count)
+        var stickyPopups = false
 
         // We prepare the location data for the map. We also set the state hasher.
         let locations: [any BigJuJuMapLocationProtocol] = dataFrame.rows.flatMap { inRow -> [any BigJuJuMapLocationProtocol] in
@@ -119,8 +120,31 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
             hasher.combine(name)
             hasher.combine(Int((latitude  * 1_000_000).rounded()))
             hasher.combine(Int((longitude * 1_000_000).rounded()))
+            
+            var textColor: UIColor?
+            var textFont: UIFont?
+            
+            switch self.dataSetName {
+            case "SLUG-USA".localizedVariant:
+                textColor = .red
+                textFont = UIFont.preferredFont(forTextStyle: .caption1)
+                stickyPopups = true
+                
+            case "SLUG-VI".localizedVariant:
+                textColor = .green
+                textFont = UIFont.preferredFont(forTextStyle: .largeTitle)
 
-            return [BJJM_MapLocation(id: id, name: name, latitude: latitude, longitude: longitude) { inItem in Task { @MainActor in onTap(inItem) } }]
+            default:
+                break
+            }
+
+            return [BJJM_MapLocation(id: id,
+                                     name: name,
+                                     latitude: latitude,
+                                     longitude: longitude,
+                                     textColor: textColor,
+                                     textFont: textFont
+                                    ) { inItem in Task { @MainActor in onTap(inItem) } }]
         }
 
         // Convert Hasher's Int to a stable-ish UInt64 for storage.
@@ -141,7 +165,7 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
         // Gate the expensive operations. We don't want to zoom away/out the map, unless we are changing the data, itself.
         guard inContext.coordinator.lastSignature != signature else { return }
         inContext.coordinator.lastSignature = signature
-
+        inUIViewController.stickyPopups = stickyPopups
         inUIViewController.mapData = locations
         inUIViewController.visibleRect = locations.containingMapRectDatelineAware
     }
