@@ -133,7 +133,7 @@ Or just instantiate it directly:
 
 Once we have the view controller ready to go, we need to give it its dataset, which is simply an array of data items that conform to ``BigJuJuMapLocationProtocol``. The test harnesses demonstrate this with simple datasets of US national and state parks.
 
-This is demonstrated in the [`BJJM_LocationFactory`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift#L31) struct, shared between the UIKit and SwiftUI test harness apps.
+This is demonstrated in the [`BJJM_LocationFactory`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/Shared/Sources/BJJM_LocationFactory.swift) struct, shared between the UIKit and SwiftUI test harness apps.
 
 Simply set the ``BigJuJuMapViewController/mapData`` property to the array, and you're good to go. You may also want to set the map's region. The BigJuJuMap package exports some helpers, to make it easy to calculate from the data array.
 
@@ -158,4 +158,4 @@ You can set ``BigJuJuMapViewController/stickyPopups`` to true, and the popovers 
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 
-[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L27) struct.
+[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L27) struct.
