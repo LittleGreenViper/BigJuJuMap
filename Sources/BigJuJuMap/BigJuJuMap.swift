@@ -283,8 +283,8 @@ open class BigJuJuMapViewController: UIViewController {
             self.data.append(contentsOf: inToBeMerged.data)
             self._latSum += inToBeMerged._latSum
             self._lonSum += inToBeMerged._lonSum
-            let c = Double(max(1, self.data.count))
-            self.coordinate = CLLocationCoordinate2D(latitude: _latSum / c, longitude: _lonSum / c)
+            let count = Double(max(1, self.data.count))
+            self.coordinate = CLLocationCoordinate2D(latitude: _latSum / count, longitude: _lonSum / count)
         }
 
         /* ########################################################## */
