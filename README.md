@@ -74,13 +74,13 @@ The dataset selection is made by selecting one of the values in the bottom segme
 |:-:|:-:|
 | *Light Mode* | *Dark Mode* |
 
-> NOTE: Because the total area for this dataset is so large, Apple Maps limits the size of the region. If you scroll West, a bit, you'll see American Samoa.
-
 ##### Figure 5: National Parks
 
 | ![](img/Fig-05-USA-Light.png) | ![](img/Fig-05-USA-Dark.png) |
 |:-:|:-:|
 | *Light Mode* | *Dark Mode* |
+
+> NOTE: Because the total area for this dataset is so large, Apple Maps limits the size of the region. If you scroll West, a bit, you'll see American Samoa.
 
 ##### Figure 6: Territorial Parks in the US Virgin Islands
 
