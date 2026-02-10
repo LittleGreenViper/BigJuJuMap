@@ -1,3 +1,7 @@
+ **1.1.5** *February 10, 2026*
+ 
+ - Just updated a dependency for improved documentation..
+ 
  **1.1.4** *February 10, 2026*
  
  - Fixed an issue, where the popover remained up, while dragging. We now dismiss, as soon as the drag/zoom begins.
