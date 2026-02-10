@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 1.1.3
+ Version: 1.1.4
  */
 
 import UIKit
@@ -1344,6 +1344,18 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
         if self._activePopover == nil {
             self._recalculateAnnotations()
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the map is going to change its region.
+     
+     - parameter inMapView: The map view being rendered (ignored).
+     - parameter regionWillChangeAnimated: Ignored.
+     */
+    @MainActor
+    public func mapView(_ inMapView: MKMapView, regionWillChangeAnimated: Bool) {
+        self._dismissPopover()
     }
     
     /* ################################################################## */

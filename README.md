@@ -108,6 +108,8 @@ For a single marker, only one value is shown.
 |:-:|:-:|
 | *Light Mode* | *Dark Mode* |
 
+Note the custom font and color.
+
 #### Reaction Alerts
 
 When we select one of the values in a popover, the popover is dismissed, and this alert is shown:
@@ -117,6 +119,8 @@ When we select one of the values in a popover, the popover is dismissed, and thi
 | ![](img/Fig-09-Alert-Light.png) | ![](img/Fig-09-Alert-Dark.png) |
 |:-:|:-:|
 | *Light Mode* | *Dark Mode* |
+
+> NOTE: In the test harness app, we display an alert, but anything can happen, when a marker is selected.
 
 ### The API
 
