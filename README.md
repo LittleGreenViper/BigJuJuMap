@@ -26,7 +26,7 @@ Even though [MapKit's](https://developer.apple.com/documentation/mapkit/) functi
 
 The main reason to use it, however, is that, as a native framework, it is unencumbered by licensing and support issues. It will not prevent you from updating to the latest operating systems, and there will never be questions about intellectual property or third-party interference.
 
-BigJuJuMap is a very "lightweight" wrapper for Apple Maps. Internally, it works exactly like any native app, and is easy to understand and modify, with excellent documentation support: both [online](https://littlegreenviper.github.io/BigJuJuMap/), and as embedded [DocC](https://www.swift.org/documentation/docc/). It should be easy to fork and modify.
+BigJuJuMap is a very "lightweight" wrapper for Apple Maps. Its entire functionality is contained in [just one source file](https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift). Internally, it works exactly like any native app, and is easy to understand and modify, with excellent documentation support: both [online](https://littlegreenviper.github.io/BigJuJuMap/), and as embedded [DocC](https://www.swift.org/documentation/docc/). It should be easy to fork and modify.
 
 ## How Does It Work?
 
