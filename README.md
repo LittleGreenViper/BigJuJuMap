@@ -14,15 +14,15 @@ It also allows a "drop in" high-functionality map for [`UIKit`](https://develope
 
 ## What Problem Does This Solve?
 
-[`SwiftUI`](https://developer.apple.com/swiftui/) has a very weak implementation of Apple's [MapKit](https://developer.apple.com/documentation/mapkit/) mapping framework. It really only supports display of simple maps, with sigular, low-interactivity overlays. BigJuJuMap implements a map view with multiple, highly-interactive markers.
+[`SwiftUI`](https://developer.apple.com/swiftui/) has a very weak implementation of Apple's [`MapKit`](https://developer.apple.com/documentation/mapkit/) mapping framework. It really only supports display of simple maps, with sigular, low-interactivity overlays. BigJuJuMap implements a map view with multiple, highly-interactive markers.
 
 Additionally, Apple's [clustering algorithm](https://developer.apple.com/documentation/mapkitjs/clustering-annotations) leaves a bit to be desired, so BigJuJuMap implements a simpler, faster one.
 
 This also provides a "turnkey" solution to [`UIKit`](https://developer.apple.com/documentation/uikit/) implementations, for a very common mapping workflow.
 
-## Why [MapKit](https://developer.apple.com/documentation/mapkit/)?
+## Why [`MapKit`](https://developer.apple.com/documentation/mapkit/)?
 
-Even though [MapKit's](https://developer.apple.com/documentation/mapkit/) functionality is more limited than some commercial offerings, it works fine (Apple Maps has come a long way, since [its rather chaotic genesis](https://en.wikipedia.org/wiki/Apple_Maps#Early_inaccuracy_\(2012\))). For the most part, it's an excellent, natively-implemented mapping package.
+Even though [`MapKit`'s](https://developer.apple.com/documentation/mapkit/) functionality is more limited than some commercial offerings, it works fine (Apple Maps has come a long way, since [its rather chaotic genesis](https://en.wikipedia.org/wiki/Apple_Maps#Early_inaccuracy_\(2012\))). For the most part, it's an excellent, natively-implemented mapping package.
 
 The main reason to use it, however, is that, as a native framework, it is unencumbered by licensing and support issues. It will not prevent you from updating to the latest operating systems, and there will never be questions about intellectual property or third-party interference.
 
