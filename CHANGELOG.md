@@ -1,3 +1,7 @@
+ **1.1.6** *February 12, 2026*
+ 
+ - Just documentation improvements.
+ 
  **1.1.5** *February 10, 2026*
  
  - Just updated a dependency for improved documentation..

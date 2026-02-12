@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 1.1.4
+ Version: 1.1.6
  */
 
 import UIKit
@@ -157,7 +157,8 @@ open class BigJuJuMapViewController: UIViewController {
         /* ############################################################## */
         /**
          Overrides hit-testing so that, when multiple annotation views overlap,
-         we deterministically pick the annotation whose *tip* (bottom-center) is closest to the tap.
+         we deterministically pick the annotation whose tip (bottom-center) is closest to the tap.
+         > NOTE: All markers are assumed to have their tip at the bottom, center of the image.
          
          - parameter inPoint: The point being tested.
          - parameter inEvent: The event providing the hit.
@@ -237,7 +238,7 @@ open class BigJuJuMapViewController: UIViewController {
 
         /* ############################################################## */
         /**
-         Returns the *unresolved* asset image (keeps imageAsset variants).
+         Returns the unresolved asset image (keeps imageAsset variants).
          */
         static var _genericMarkerBase: UIImage { UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil) ?? UIImage() }
     }
@@ -486,7 +487,7 @@ open class BigJuJuMapViewController: UIViewController {
 
         /* ################################################################## */
         /**
-         The content size that we ant for our popover.
+         The content size that we want for our popover.
          */
         override var intrinsicContentSize: CGSize {
             let height = self.tableView.contentSize.height + Self._insetsInDisplayUnits
@@ -748,6 +749,7 @@ open class BigJuJuMapViewController: UIViewController {
         /* ############################################################## */
         /**
          This tests whether or not the given point fits inside the annotation.
+         
          - parameter inPoint: The point to test
          - parameter with: ignored.
          - returns: True, if the point is within the annotation.
@@ -760,6 +762,7 @@ open class BigJuJuMapViewController: UIViewController {
         /* ############################################################## */
         /**
          Basic initializer.
+         
          - parameter inAnnotation: The annotation attached to this view.
          - parameter inReuseIdentifier: The reuse ID (optional,. default is nil).
          - parameter inController: The controller that "owns" the map.
@@ -1552,14 +1555,14 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
     
     /* ################################################################## */
     /**
-     This is just a way of saying "Bogus, dude."
+     This is just another way of saying "Bogus, dude."
      */
     static var invalidContainingMapRect: MKMapRect { .null }
     
     /* ################################################################## */
     /**
      Returns an MKCoordinateRegion that contains all points in the collection (with padding).
-     If the collection is empty, returns `invalidContainingRegion`.
+     If the collection is empty, returns  ``invalidContainingRegion``.
      */
     var containingCoordinateRegion: MKCoordinateRegion {
         let coords: [CLLocationCoordinate2D] = self.compactMap {
@@ -1653,6 +1656,7 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
     /* ################################################################## */
     /**
      Returns an MKMapRect that contains all points, choosing the shortest wrap across the dateline.
+     If the collection is empty, returns  ``invalidContainingMapRect``.
      */
     var containingMapRectDatelineAware: MKMapRect {
         let coords: [CLLocationCoordinate2D] = self.compactMap {

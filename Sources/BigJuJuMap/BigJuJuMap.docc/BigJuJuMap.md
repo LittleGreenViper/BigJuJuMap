@@ -151,6 +151,8 @@ You provide the images by setting the ``BigJuJuMapViewController/singleMarkerIma
 
 > NOTE: If you want the same image to be used for both ("Custom 1," in the test harness apps), then you need to provide the same image to **BOTH** of the properties.
 
+> NOTE: Markers are assumed to have their "point" at the bottom, center of the image.
+
 #### Additional Settings
 
 You can specify a font and color to be used, in data items. If these are present, the text in the popover for that item will be displayed with the color and font provided. Otherwise, the standard button font and color will be used.
