@@ -12,6 +12,22 @@ It also allows a "drop in" high-functionality map for [`UIKit`](https://develope
 
 [This is the online documentation for the library](https://littlegreenviper.github.io/BigJuJuMap/)
 
+## What Problem Does This Solve?
+
+[`SwiftUI`](https://developer.apple.com/swiftui/) has a very weak implementation of Apple's [MapKit](https://developer.apple.com/documentation/mapkit/) mapping framework. It really only supports display of simple maps, with sigular, low-interactivity overlays. BigJuJuMap implements a map view with multiple, highly-interactive markers.
+
+Additionally, Apple's [clustering algorithm](https://developer.apple.com/documentation/mapkitjs/clustering-annotations) leaves a bit to be desired, so BigJuJuMap implements a simpler, faster one.
+
+This also provides a "turnkey" solution to [`UIKit`](https://developer.apple.com/documentation/uikit/) implementations, for a very common mapping workflow.
+
+## Why [MapKit](https://developer.apple.com/documentation/mapkit/)?
+
+Even though [MapKit's](https://developer.apple.com/documentation/mapkit/) functionality is more limited than some commercial offerings, it works fine (Apple Maps has come a long way, since [its rather chaotic genesis](https://en.wikipedia.org/wiki/Apple_Maps#Early_inaccuracy_\(2012\)). For the most part, it's an excellent, natively-implemented mapping package.
+
+The main reason to use it, however, is that, as a native framework, it is unencumbered by licensing and support issues. It will not prevent you from updating to the latest operating systems, and there will never be questions about intellectual property or third-party interference.
+
+BigJuJuMap is a very "lightweight" wrapper for Apple Maps. Internally, it works exactly like any native app, and is easy to understand and modify, with excellent documentation support: both [online](https://littlegreenviper.github.io/BigJuJuMap/), and as embedded [DocC](https://www.swift.org/documentation/docc/). It should be easy to fork and modify.
+
 ## How Does It Work?
 
 The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L83)).
