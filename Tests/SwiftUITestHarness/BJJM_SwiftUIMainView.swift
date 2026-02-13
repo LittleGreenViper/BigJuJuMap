@@ -229,41 +229,65 @@ struct BJJM_SwiftUIMainView: View {
      This returns a view, with the map filling the screen, behind the two segmented switches.
      */
     var body: some View {
-        BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex], dataSetName: Self._bottomOptions[self._bottomIndex]) { inItem in
-            self._alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant, inItem.name)
+        BJJM_BigJuJuMapViewController(markerNames: Self._topOptions[self._topIndex],
+                                      dataSetName: Self._bottomOptions[self._bottomIndex]
+        ) { inItem in
+            self._alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant,
+                                        inItem.name
+            )
             self._showingAlert = true
         }
             .ignoresSafeArea(.all)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
-                    Picker("", selection: self.$_topIndex) {
-                        ForEach(Self._topStrings.indices, id: \.self) { index in
-                            Text(Self._topStrings[index]).tag(index)
+                    Picker("",
+                           selection: self.$_topIndex
+                    ) {
+                        ForEach(Self._topStrings.indices,
+                                id: \.self
+                        ) { index in
+                            Text(Self._topStrings[index])
+                                .tag(index)
                         }
                     }
                     .pickerStyle(.segmented)
                     
                     Picker("", selection: self.$_bottomIndex) {
-                        ForEach(Self._bottomOptions.indices, id: \.self) { index in
-                            Text(Self._bottomOptions[index]).tag(index)
+                        ForEach(Self._bottomOptions.indices,
+                                id: \.self
+                        ) { index in
+                            Text(Self._bottomOptions[index])
+                                .tag(index)
                         }
                     }
                     .pickerStyle(.segmented)
-                    .padding(.top, 6)
+                    .padding(.top,
+                             6
+                    )
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal,
+                         16
+                )
                 .background(.clear)
                 .tint(.accentColor)
             }
-            .alert("SLUG-ALERT-HEADER".localizedVariant, isPresented: self.$_showingAlert) {
-                Button("SLUG-OK".localizedVariant, role: .cancel) { }
+            .alert("SLUG-ALERT-HEADER".localizedVariant,
+                   isPresented: self.$_showingAlert
+            ) {
+                Button("SLUG-OK".localizedVariant,
+                       role: .cancel
+                ) { }
             } message: {
                 Text(self._alertMessage)
             }
             .onAppear {
                 UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
-                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white],
+                                                                       for: .selected
+                )
+                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label],
+                                                                       for: .normal
+                )
             }
     }
 }

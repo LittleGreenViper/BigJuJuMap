@@ -1,3 +1,5 @@
+ **1.1.7** *TBD*
+ 
  **1.1.6** *February 12, 2026*
  
  - Just documentation improvements.

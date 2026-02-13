@@ -68,14 +68,21 @@ private extension UIImage {
         else { return self }
 
         let scaleFactor = inTargetWidth / self.size.width
-        let targetSize = CGSize(width: inTargetWidth, height: self.size.height * scaleFactor)
+        let targetSize = CGSize(width: inTargetWidth,
+                                height: self.size.height * scaleFactor
+        )
 
         let format = UIGraphicsImageRendererFormat()
         format.scale = self.scale   // preserves retina scale
         format.opaque = false
 
-        return UIGraphicsImageRenderer(size: targetSize, format: format).image { _ in
-            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        return UIGraphicsImageRenderer(size: targetSize,
+                                       format: format
+        ).image { _ in
+            self.draw(in: CGRect(origin: .zero,
+                                 size: targetSize
+                                )
+            )
         }
     }
 }
@@ -138,16 +145,22 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter inPointInRoot: The point, in the root view coordinate system, to test.
          - returns: Any UIControl under that point.
          */
-        private func _deepestControl(in inRootView: UIView, at inPointInRoot: CGPoint) -> UIControl? {
+        private func _deepestControl(in inRootView: UIView,
+                                     at inPointInRoot: CGPoint
+        ) -> UIControl? {
             for subView in inRootView.subviews.reversed() where !subView.isHidden && subView.alpha > 0.01 && subView.isUserInteractionEnabled {
-                let point = subView.convert(inPointInRoot, from: inRootView)
+                let point = subView.convert(inPointInRoot,
+                                            from: inRootView
+                )
                 guard subView.bounds.contains(point) else { continue }
 
                 if let control = subView as? UIControl {
                     return control
                 }
                 
-                if let found = self._deepestControl(in: subView, at: point) {
+                if let found = self._deepestControl(in: subView,
+                                                    at: point
+                ) {
                     return found
                 }
             }
@@ -164,51 +177,76 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter inEvent: The event providing the hit.
          - returns: The view that is being selected.
          */
-        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-            func ancestor<T: UIView>(of view: UIView, as type: T.Type) -> T? {
-                var v: UIView? = view
-                while let current = v {
-                    if let match = current as? T { return match }
-                    v = current.superview
+        override func hitTest(_ inPoint: CGPoint,
+                              with inEvent: UIEvent?
+        ) -> UIView? {
+            func ancestor<T: UIView>(of view: UIView,
+                                     as type: T.Type
+            ) -> T? {
+                var viewTemp: UIView? = view
+                while let current = viewTemp {
+                    if let match = current as? T {
+                        return match
+                    }
+                    viewTemp = current.superview
                 }
                 return nil
             }
 
-            let systemHit = super.hitTest(point, with: event)
+            let systemHit = super.hitTest(inPoint,
+                                          with: inEvent
+            )
 
             if let hit = systemHit {
                 // If the tap is anywhere inside a table/callout subtree, try to pull out the actual UIControl.
                 // (UITableViewCellContentView often gets returned even when the button is visually there.)
-                let local = hit.convert(point, from: self)
-                if let control = _deepestControl(in: hit, at: local) {
+                let local = hit.convert(inPoint,
+                                        from: self
+                )
+                if let control = _deepestControl(in: hit,
+                                                 at: local
+                ) {
                     return control
                 }
 
                 // If it’s inside a UITableView, at least honor that subtree.
-                if ancestor(of: hit, as: UITableView.self) != nil { return hit }
+                if ancestor(of: hit,
+                            as: UITableView.self
+                ) != nil { return hit }
 
                 // If it’s inside an annotation view/callout, return the annotation view (marker taps).
-                if let av = ancestor(of: hit, as: MKAnnotationView.self) { return av }
+                if let daddy = ancestor(of: hit,
+                                        as: MKAnnotationView.self
+                ) { return daddy }
 
                 if hit !== self { return hit }
             }
             
             // If UIKit hit some other subview (not the map itself), honor it.
-            if let hit = systemHit, hit !== self {
+            if let hit = systemHit,
+               hit !== self {
                 return hit
             }
             
             // Otherwise, do our “best marker under finger” selection (for piled markers).
-            let annotationViews = _allAnnotationViews(in: self).filter { !$0.isHidden && $0.alpha > 0.01 && $0.isUserInteractionEnabled }
+            let annotationViews = self._allAnnotationViews(in: self).filter { !$0.isHidden && $0.alpha > 0.01 && $0.isUserInteractionEnabled }
             
             var bestView: MKAnnotationView?
             var bestDistanceSq: CGFloat = .greatestFiniteMagnitude
             
             for annotationView in annotationViews {
-                let local = annotationView.convert(point, from: self)
-                guard annotationView.point(inside: local, with: event) else { continue }
+                let local = annotationView.convert(inPoint,
+                                                   from: self
+                )
                 
-                let markerPoint = CGPoint(x: annotationView.bounds.midX, y: annotationView.bounds.maxY)
+                guard annotationView.point(inside: local,
+                                           with: inEvent
+                )
+                else { continue }
+                
+                let markerPoint = CGPoint(x: annotationView.bounds.midX,
+                                          y: annotationView.bounds.maxY
+                )
                 let deltaX = local.x - markerPoint.x
                 let deltaY = local.y - markerPoint.y
                 let distSq = deltaX * deltaX + deltaY * deltaY
@@ -240,7 +278,11 @@ open class BigJuJuMapViewController: UIViewController {
         /**
          Returns the unresolved asset image (keeps imageAsset variants).
          */
-        static var _genericMarkerBase: UIImage { UIImage(named: "BJJM_Generic_Marker", in: ._bigJuJuMap, compatibleWith: nil) ?? UIImage() }
+        static var _genericMarkerBase: UIImage { UIImage(named: "BJJM_Generic_Marker",
+                                                         in: ._bigJuJuMap,
+                                                         compatibleWith: nil
+        ) ?? UIImage()
+        }
     }
     
     /* ############################################################################################################################## */
@@ -284,8 +326,14 @@ open class BigJuJuMapViewController: UIViewController {
             self.data.append(contentsOf: inToBeMerged.data)
             self._latSum += inToBeMerged._latSum
             self._lonSum += inToBeMerged._lonSum
-            let count = Double(max(1, self.data.count))
-            self.coordinate = CLLocationCoordinate2D(latitude: _latSum / count, longitude: _lonSum / count)
+            let count = Double(max(1,
+                                   self.data.count
+                                  )
+            )
+            
+            self.coordinate = CLLocationCoordinate2D(latitude: _latSum / count,
+                                                     longitude: _lonSum / count
+            )
         }
 
         /* ########################################################## */
@@ -303,11 +351,17 @@ open class BigJuJuMapViewController: UIViewController {
                 lat += item.location.coordinate.latitude
                 lon += item.location.coordinate.longitude
             }
+            
             self._latSum = lat
             self._lonSum = lon
 
-            let c = max(1, inData.count)
-            self.coordinate = CLLocationCoordinate2D(latitude: lat / Double(c), longitude: lon / Double(c))
+            let c = max(1,
+                        inData.count
+            )
+            
+            self.coordinate = CLLocationCoordinate2D(latitude: lat / Double(c),
+                                                     longitude: lon / Double(c)
+            )
         }
 
         /* ########################################################## */
@@ -367,8 +421,12 @@ open class BigJuJuMapViewController: UIViewController {
              - parameter inStyle: The button style.
              - parameter inReuseID: The reuse identifier.
              */
-            override init(style inStyle: UITableViewCell.CellStyle, reuseIdentifier inReuseID: String?) {
-                super.init(style: inStyle, reuseIdentifier: inReuseID)
+            override init(style inStyle: UITableViewCell.CellStyle,
+                          reuseIdentifier inReuseID: String?
+            ) {
+                super.init(style: inStyle,
+                           reuseIdentifier: inReuseID
+                )
 
                 self.backgroundColor = .clear
                 self.contentView.backgroundColor = .clear
@@ -379,10 +437,18 @@ open class BigJuJuMapViewController: UIViewController {
                 self.button.translatesAutoresizingMaskIntoConstraints = false
 
                 NSLayoutConstraint.activate([
-                    self.button.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
-                    self.button.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
-                    self.button.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 4),
-                    self.button.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -4)
+                    self.button.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,
+                                                         constant: 10
+                                                        ),
+                    self.button.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+                                                          constant: -10
+                                                         ),
+                    self.button.topAnchor.constraint(equalTo: self.contentView.topAnchor,
+                                                     constant: 4
+                                                    ),
+                    self.button.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
+                                                        constant: -4
+                                                       )
                 ])
             }
 
@@ -455,7 +521,9 @@ open class BigJuJuMapViewController: UIViewController {
          This is the table view that we use to display the data items.
          */
         private let tableView: UITableView = {
-            let tableView = UITableView(frame: .zero, style: .plain)
+            let tableView = UITableView(frame: .zero,
+                                        style: .plain
+            )
             tableView.backgroundColor = .clear
             tableView.backgroundView = nil
             tableView.isOpaque = false
@@ -492,7 +560,13 @@ open class BigJuJuMapViewController: UIViewController {
         override var intrinsicContentSize: CGSize {
             let height = self.tableView.contentSize.height + Self._insetsInDisplayUnits
             let width  = self.tableView.contentSize.width  + Self._insetsInDisplayUnits
-            return CGSize(width: max(Self._maxItemWidthInDisplayUnits, width), height: max(self.tableView.rowHeight, height))
+            return CGSize(width: max(Self._maxItemWidthInDisplayUnits,
+                                     width
+                                    ),
+                          height: max(self.tableView.rowHeight,
+                                      height
+                                     )
+            )
         }
 
         /* ################################################################## */
@@ -507,7 +581,9 @@ open class BigJuJuMapViewController: UIViewController {
             self.isOpaque = false
 
             addSubview(self.backgroundView)
+            
             self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            
             NSLayoutConstraint.activate([
                 self.backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 self.backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -516,16 +592,28 @@ open class BigJuJuMapViewController: UIViewController {
             ])
 
             self.backgroundView.addSubview(self.contentInsetView)
+            
             self.contentInsetView.translatesAutoresizingMaskIntoConstraints = false
+            
             NSLayoutConstraint.activate([
-                self.contentInsetView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor, constant: Self._outerPadding),
-                self.contentInsetView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: -Self._outerPadding),
-                self.contentInsetView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor, constant: Self._outerPadding),
-                self.contentInsetView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor, constant: -Self._outerPadding)
+                self.contentInsetView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor,
+                                                               constant: Self._outerPadding
+                                                              ),
+                self.contentInsetView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor,
+                                                                constant: -Self._outerPadding
+                                                               ),
+                self.contentInsetView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor,
+                                                           constant: Self._outerPadding
+                                                          ),
+                self.contentInsetView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor,
+                                                              constant: -Self._outerPadding
+                                                             )
             ])
 
             self.contentInsetView.addSubview(self.tableView)
+            
             self.tableView.translatesAutoresizingMaskIntoConstraints = false
+            
             NSLayoutConstraint.activate([
                 self.tableView.leadingAnchor.constraint(equalTo: self.contentInsetView.leadingAnchor),
                 self.tableView.trailingAnchor.constraint(equalTo: self.contentInsetView.trailingAnchor),
@@ -588,7 +676,11 @@ open class BigJuJuMapViewController: UIViewController {
             let rowHeight = ceil(inFont?.lineHeight ?? _Cell.rowHeight)
             let full = ceil(CGFloat(items.count) * rowHeight + (Self._verticalChrome * 1.2))
             let minimum = ceil(rowHeight + Self._verticalChrome)
-            return min(inMaxHeight, max(minimum, full))
+            return min(inMaxHeight,
+                       max(minimum,
+                           full
+                          )
+            )
         }
 
         /* ################################################################## */
@@ -615,7 +707,9 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter inTableView: The table view with the row being selected.
          - parameter inIndexPath: The index path of the row being selected.
          */
-        func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        func tableView(_ inTableView: UITableView,
+                       didSelectRowAt inIndexPath: IndexPath
+        ) {
             inTableView.deselectRow(at: inIndexPath, animated: true)
             guard inIndexPath.row < self.items.count else { return }
             let item = self.items[inIndexPath.row]
@@ -632,7 +726,9 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter numberOfRowsInSection: ignored
          - returns: The number of data items in the associated annotation.
          */
-        func tableView(_ inTableView: UITableView, numberOfRowsInSection: Int) -> Int { self.items.count }
+        func tableView(_ inTableView: UITableView,
+                       numberOfRowsInSection: Int
+        ) -> Int { self.items.count }
 
         /* ################################################################## */
         /**
@@ -642,19 +738,26 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter inIndexPath: The index path of the row being created.
          - returns: A new custom table cell, associated with a data item.
          */
-        func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
-            let cell = _Cell(style: .default, reuseIdentifier: nil)
+        func tableView(_ inTableView: UITableView,
+                       cellForRowAt inIndexPath: IndexPath
+        ) -> UITableViewCell {
+            let cell = _Cell(style: .default,
+                             reuseIdentifier: nil
+            )
             let item = self.items[inIndexPath.row]
             cell.locationData = item
             cell.selectionStyle = .none
             
             if let textColor = item.textColor {
-                cell.button.setTitleColor(textColor, for: .normal)
+                cell.button.setTitleColor(textColor,
+                                          for: .normal
+                )
             }
             
             if let textFont = item.textFont {
                 cell.button.titleLabel?.font = textFont
             }
+            
             return cell
         }
     }
@@ -689,7 +792,9 @@ open class BigJuJuMapViewController: UIViewController {
                                                  minFontSize inMinFontSize: CGFloat,
                                                  weight inWeight: UIFont.Weight
         ) -> CGFloat {
-            guard inRect.width > 1, inRect.height > 1 else { return inMinFontSize }
+            guard inRect.width > 1,
+                  inRect.height > 1
+            else { return inMinFontSize }
 
             /* ########################################################## */
             /**
@@ -698,8 +803,11 @@ open class BigJuJuMapViewController: UIViewController {
              - returns: True, if the size fits the string.
              */
             func _fits(_ inSize: CGFloat) -> Bool {
-                let font = UIFont.systemFont(ofSize: inSize, weight: inWeight)
+                let font = UIFont.systemFont(ofSize: inSize,
+                                             weight: inWeight
+                )
                 let measured = (inText as NSString).size(withAttributes: [.font: font])
+                
                 return measured.width <= inRect.width && measured.height <= inRect.height
             }
 
@@ -754,8 +862,12 @@ open class BigJuJuMapViewController: UIViewController {
          - parameter with: ignored.
          - returns: True, if the point is within the annotation.
          */
-        public override func point(inside inPoint: CGPoint, with: UIEvent?) -> Bool {
-            let expanded = bounds.insetBy(dx: -4, dy: -6)
+        public override func point(inside inPoint: CGPoint,
+                                   with: UIEvent?
+        ) -> Bool {
+            let expanded = self.bounds.insetBy(dx: -4,
+                                               dy: -6
+            )
             return expanded.contains(inPoint)
         }
 
@@ -771,13 +883,17 @@ open class BigJuJuMapViewController: UIViewController {
                     reuseIdentifier inReuseIdentifier: String? = AnnotationView.reuseID,
                     controller inController: BigJuJuMapViewController? = nil
         ) {
-            super.init(annotation: inAnnotation, reuseIdentifier: inReuseIdentifier)
+            super.init(annotation: inAnnotation,
+                       reuseIdentifier: inReuseIdentifier
+            )
             self.myController = inController
             let isSingle = (self.myAnnotation?.data.count ?? 0) == 1
             let base = isSingle ? inController?.singleMarkerImage : inController?.multiMarkerImage
 
             if let controller = inController {
-                self.image = controller._markerImage(from: base, compatibleWith: controller.traitCollection)
+                self.image = controller._markerImage(from: base,
+                                                     compatibleWith: controller.traitCollection
+                )
             } else {
                 self.image = base
             }
@@ -807,9 +923,7 @@ open class BigJuJuMapViewController: UIViewController {
         public override func layoutSubviews() {
             super.layoutSubviews()
 
-            self._countTextLayer.contentsScale =
-                window?.windowScene?.screen.scale
-                ?? traitCollection.displayScale
+            self._countTextLayer.contentsScale = window?.windowScene?.screen.scale ?? traitCollection.displayScale
 
             let count = self.myAnnotation?.data.count ?? 0
             let show = (self.myController?.displayNumbers ?? false) && count > 1
@@ -830,7 +944,9 @@ open class BigJuJuMapViewController: UIViewController {
 
             self._countTextLayer.foregroundColor = UIColor.systemBackground.resolvedColor(with: self.traitCollection).cgColor
             
-            let maxFontSize = max(6, drawBox.height)
+            let maxFontSize = max(6,
+                                  drawBox.height
+            )
 
             let fitted = Self._bestFittingFontSize(
                 for: text,
@@ -840,12 +956,20 @@ open class BigJuJuMapViewController: UIViewController {
                 weight: .bold
             )
 
-            let font = UIFont.systemFont(ofSize: fitted, weight: .bold)
+            let font = UIFont.systemFont(ofSize: fitted,
+                                         weight: .bold
+            )
+            
             self._countTextLayer.font = font
             self._countTextLayer.fontSize = fitted
 
-            let yOffset = max(0, (drawBox.height - font.lineHeight) * 0.5)
-            self._countTextLayer.frame = drawBox.offsetBy(dx: 0, dy: yOffset)
+            let yOffset = max(0,
+                              (drawBox.height - font.lineHeight) * 0.5
+            )
+            
+            self._countTextLayer.frame = drawBox.offsetBy(dx: 0,
+                                                          dy: yOffset
+            )
         }
         
         /* ############################################################## */
@@ -974,7 +1098,9 @@ public extension BigJuJuMapViewController {
      */
     var region: MKCoordinateRegion {
         get { self.mapView.region }
-        set { self.mapView.setRegion(newValue, animated: true) }
+        set { self.mapView.setRegion(newValue,
+                                     animated: true
+        ) }
     }
     
     /* ################################################################## */
@@ -983,7 +1109,10 @@ public extension BigJuJuMapViewController {
      */
     var visibleRect: MKMapRect {
         get { self.mapView.visibleMapRect }
-        set { self.mapView.setVisibleMapRect(newValue, edgePadding: .zero, animated: true) }
+        set { self.mapView.setVisibleMapRect(newValue,
+                                             edgePadding: .zero,
+                                             animated: true
+        ) }
     }
 }
 
@@ -1004,12 +1133,16 @@ extension BigJuJuMapViewController {
         
         if let activeAnnotationView = self._activeAnnotationView {
             self._activeAnnotationView = nil
-            self._applyMarkerAppearance(to: activeAnnotationView, reversed: false)
+            self._applyMarkerAppearance(to: activeAnnotationView,
+                                        reversed: false
+            )
         }
 
         if let activeAnnotation = self._activeAnnotation {
             self._activeAnnotation = nil
-            self.mapView.deselectAnnotation(activeAnnotation, animated: true)
+            self.mapView.deselectAnnotation(activeAnnotation,
+                                            animated: true
+            )
         }
     }
 
@@ -1021,9 +1154,13 @@ extension BigJuJuMapViewController {
     private func _installDismissTapIfNeeded() {
         guard self._dismissTapGR == nil else { return }
 
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(_didTapMapToDismiss))
+        let gestureRecognizer = UITapGestureRecognizer(target: self,
+                                                       action: #selector(_didTapMapToDismiss)
+        )
+        
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
+        
         self.mapView.addGestureRecognizer(gestureRecognizer)
         self._dismissTapGR = gestureRecognizer
     }
@@ -1038,10 +1175,12 @@ extension BigJuJuMapViewController {
         if let tap = self._dismissTapGR,
            let activeView = self._activeAnnotationView,
            let activeAnnotation = self._activeAnnotation {
-            let p = tap.location(in: self.mapView)
+            let point = tap.location(in: self.mapView)
 
             // A small inset helps if the marker view has transparent padding.
-            if activeView.frame.insetBy(dx: -8, dy: -8).contains(p) {
+            if activeView.frame.insetBy(dx: -8,
+                                        dy: -8
+            ).contains(point) {
                 self._ignoreNextSelectAnnotation = activeAnnotation
             }
         }
@@ -1066,7 +1205,9 @@ extension BigJuJuMapViewController {
 
         // Available width
         let maxWidth = self.mapView.bounds.width - (safe.left + safe.right) - 2 * padding
-        let width = inPopover.desiredWidth(maxWidth: maxWidth, withFont: font)
+        let width = inPopover.desiredWidth(maxWidth: maxWidth,
+                                           withFont: font
+        )
 
         // Available height (prefer above the marker if possible)
         let markerFrame = inView.frame
@@ -1080,11 +1221,17 @@ extension BigJuJuMapViewController {
         // Choose above if it fits better; else below.
         let showAbove = availableAbove >= min(idealListHeight, 200) || availableAbove >= availableBelow
         let maxHeight = max(60, showAbove ? availableAbove : availableBelow)
-        let height = inPopover.desiredHeight(maxHeight: min(maxHeight, self.mapView.bounds.height * 0.5))
+        let height = inPopover.desiredHeight(maxHeight: min(maxHeight,
+                                                            self.mapView.bounds.height * 0.5
+                                                           )
+        )
 
         // Center horizontally on marker, clamp to safe bounds
         var x = markerFrame.midX - (width * 0.5)
-        x = max(padding + safe.left, min(x, self.mapView.bounds.width - safe.right - padding - width))
+        x = max(padding + safe.left, min(x,
+                                         self.mapView.bounds.width - safe.right - padding - width
+                                        )
+        )
 
         let y: CGFloat
         if showAbove {
@@ -1093,7 +1240,11 @@ extension BigJuJuMapViewController {
             y = markerFrame.maxY + padding
         }
 
-        inPopover.frame = CGRect(x: x, y: y, width: width, height: height)
+        inPopover.frame = CGRect(x: x,
+                                 y: y,
+                                 width: width,
+                                 height: height
+        )
     }
 
     /* ################################################################## */
@@ -1124,14 +1275,16 @@ extension BigJuJuMapViewController {
      - parameter inReversed: True, if we have selected the marker.
      */
     @MainActor
-    private func _applyMarkerAppearance(to inView: MKAnnotationView, reversed inReversed: Bool) {
+    private func _applyMarkerAppearance(to inView: MKAnnotationView,
+                                        reversed inReversed: Bool
+    ) {
         guard let annotation = inView.annotation as? LocationAnnotation else { return }
 
         let count = annotation.data.count
         let base = (count == 1) ? self.singleMarkerImage : self.multiMarkerImage
 
         if inReversed {
-            let reversedStyle = _reversedStyle(for: self.traitCollection.userInterfaceStyle)
+            let reversedStyle = self._reversedStyle(for: self.traitCollection.userInterfaceStyle)
 
             // Force the view itself to render in reversed style.
             inView.overrideUserInterfaceStyle = reversedStyle
@@ -1139,11 +1292,15 @@ extension BigJuJuMapViewController {
             // Build traits that include the reversed userInterfaceStyle, so the image asset resolves correctly.
             let reversedTraits = self.traitCollection.modifyingTraits { $0.userInterfaceStyle = reversedStyle }
 
-            inView.image = self._markerImage(from: base, compatibleWith: reversedTraits)
+            inView.image = self._markerImage(from: base,
+                                             compatibleWith: reversedTraits
+            )
         } else {
             // Back to normal.
             inView.overrideUserInterfaceStyle = .unspecified
-            inView.image = self._markerImage(from: base, compatibleWith: self.traitCollection)
+            inView.image = self._markerImage(from: base,
+                                             compatibleWith: self.traitCollection
+            )
         }
 
         (inView as? AnnotationView)?.setNeedsLayout()
@@ -1157,7 +1314,9 @@ extension BigJuJuMapViewController {
      - parameter inTraits: The traits style (light or dark) that we want.
      - returns: A scaled, appropriate marker image.
      */
-    private func _markerImage(from inBase: UIImage?, compatibleWith inTraits: UITraitCollection) -> UIImage {
+    private func _markerImage(from inBase: UIImage?,
+                              compatibleWith inTraits: UITraitCollection
+    ) -> UIImage {
         let base = inBase ?? _BJJMAssets._genericMarkerBase
         let resolved = base.imageAsset?.image(with: inTraits) ?? base
         return resolved._scaledToWidth(_BJJMAssets._sMarkerWidthInDisplayUnits)
@@ -1170,7 +1329,9 @@ extension BigJuJuMapViewController {
     private func _recalculateAnnotations() {
         // Negative inset expands the rect (buffer in map points).
         let buffer: Double = 2_000 // tune for your app
-        let visibleRect = self.mapView.visibleMapRect.insetBy(dx: -buffer, dy: -buffer)
+        let visibleRect = self.mapView.visibleMapRect.insetBy(dx: -buffer,
+                                                              dy: -buffer
+        )
 
         let visibleAnnotations = self._myAnnotations.filter {
             visibleRect.contains(MKMapPoint($0.coordinate))
@@ -1213,7 +1374,7 @@ extension BigJuJuMapViewController {
         // MARK: Generate a Cell Key From a Coordinate
         /* ############################################################## */
         /**
-         This generates a cCellKaey for the given position.
+         This generates a CellKey for the given position.
          
          - parameter inPoint: The floating-point coords we'll use.
          - returns: A new CellKey struct, made from the given point.
@@ -1238,7 +1399,9 @@ extension BigJuJuMapViewController {
         var centers: [_CellKey: CGPoint] = [:]
         
         inAnnotations.forEach { inAnnotation in
-            let point = self.mapView.convert(inAnnotation.coordinate, toPointTo: self.mapView)
+            let point = self.mapView.convert(inAnnotation.coordinate,
+                                             toPointTo: self.mapView
+            )
             let baseKey = _cellKey(for: point)
             
             // Try to find an existing cluster in this cell, or adjacent cells, that are within one marker-width on screen.
@@ -1247,9 +1410,13 @@ extension BigJuJuMapViewController {
             // Yeah, that looks like a GOTO... (Makes sure that break takes us all the way out).
             outer: for deltaX in -1...1 {
                 for deltaY in -1...1 {
-                    let key = _CellKey(x: baseKey.x + deltaX, y: baseKey.y + deltaY)
+                    let key = _CellKey(x: baseKey.x + deltaX,
+                                       y: baseKey.y + deltaY
+                    )
                     if let center = centers[key] {
-                        let delta = hypot(center.x - point.x, center.y - point.y)
+                        let delta = hypot(center.x - point.x,
+                                          center.y - point.y
+                        )
                         if delta <= cellSize {
                             matchKey = key
                             break outer
@@ -1266,7 +1433,9 @@ extension BigJuJuMapViewController {
                 
                 // Update stored screen center (simple running average by item-count).
                 let oldCenter = centers[useKey] ?? point
-                let oldCount = max(1, existing.data.count - inAnnotation.data.count)
+                let oldCount = max(1,
+                                   existing.data.count - inAnnotation.data.count
+                )
                 let newCount = existing.data.count
                 let total = CGFloat(oldCount) / CGFloat(newCount)
                 centers[useKey] = CGPoint(
@@ -1293,6 +1462,7 @@ extension BigJuJuMapViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view = _BJJMMapView()
         self.mapView.delegate = self
 
@@ -1313,9 +1483,13 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - returns: A new annotation view instance.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, viewFor inAnnotation: any MKAnnotation) -> MKAnnotationView? {
+    public func mapView(_ inMapView: MKMapView,
+                        viewFor inAnnotation: any MKAnnotation
+    ) -> MKAnnotationView? {
         guard let annotation = inAnnotation as? LocationAnnotation else { return nil }
-        return AnnotationView(annotation: annotation, controller: self)
+        return AnnotationView(annotation: annotation,
+                              controller: self
+        )
     }
     
     /* ################################################################## */
@@ -1326,9 +1500,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - parameter fullyRendered: Ignored.
      */
     @MainActor
-    public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView, fullyRendered: Bool) {
-        self._recalculateAnnotations()
-    }
+    public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView,
+                                             fullyRendered: Bool
+    ) { self._recalculateAnnotations() }
     
     /* ################################################################## */
     /**
@@ -1338,7 +1512,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - parameter regionDidChangeAnimated: Ignored.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, regionDidChangeAnimated: Bool) {
+    public func mapView(_ inMapView: MKMapView,
+                        regionDidChangeAnimated: Bool
+    ) {
         if let popover = self._activePopover,
            let view = self._activeAnnotationView {
             self._positionPopover(popover, for: view)
@@ -1357,9 +1533,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
      - parameter regionWillChangeAnimated: Ignored.
      */
     @MainActor
-    public func mapView(_ inMapView: MKMapView, regionWillChangeAnimated: Bool) {
-        self._dismissPopover()
-    }
+    public func mapView(_ inMapView: MKMapView,
+                        regionWillChangeAnimated: Bool
+    ) { self._dismissPopover() }
     
     /* ################################################################## */
     /**
@@ -1376,7 +1552,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
            let ignore = self._ignoreNextSelectAnnotation,
            annotation === ignore {
             self._ignoreNextSelectAnnotation = nil
-            inMapView.deselectAnnotation(annotation, animated: false)
+            inMapView.deselectAnnotation(annotation,
+                                         animated: false
+            )
             return
         }
 
@@ -1384,7 +1562,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
               let annotation = inView.annotation as? LocationAnnotation
         else { return }
         
-        self._applyMarkerAppearance(to: inView, reversed: true)
+        self._applyMarkerAppearance(to: inView,
+                                    reversed: true
+        )
         
         self._dismissPopover()
         self._installDismissTapIfNeeded()
@@ -1407,9 +1587,7 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
         popover.setNeedsLayout()
         inMapView.addSubview(popover)
         
-        DispatchQueue.main.async { [weak popover] in
-            popover?.layoutIfNeeded()
-        }
+        DispatchQueue.main.async { [weak popover] in popover?.layoutIfNeeded() }
     }
     
     /* ################################################################## */
@@ -1427,7 +1605,9 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
             self._dismissPopover()
         }
         
-        self._applyMarkerAppearance(to: inView, reversed: false)
+        self._applyMarkerAppearance(to: inView,
+                                    reversed: false
+        )
     }
 }
 
@@ -1443,7 +1623,9 @@ extension BigJuJuMapViewController: UIGestureRecognizerDelegate {
      - parameter inTouch: The touch event
      - returns: True, if the touch event is valid.
      */
-    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer, shouldReceive inTouch: UITouch) -> Bool {
+    public func gestureRecognizer(_ inGestureRecognizer: UIGestureRecognizer,
+                                  shouldReceive inTouch: UITouch
+    ) -> Bool {
         // Don’t dismiss if the tap is inside the popover.
         if let popover = self._activePopover,
            inTouch.view?.isDescendant(of: popover) == true {
@@ -1578,6 +1760,7 @@ public extension Collection where Element == any BigJuJuMapLocationProtocol {
 
         // Longitude is circular; keep in [-180, 180)
         var lons: [Double] = []
+        
         lons.reserveCapacity(coords.count)
 
         for coord in coords {
