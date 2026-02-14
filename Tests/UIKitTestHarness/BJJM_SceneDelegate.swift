@@ -38,7 +38,10 @@ class BJJM_SceneDelegate: UIResponder, UIWindowSceneDelegate {
      - parameter willConnectTo: The secene  session (ignored)
      - parameter options: The connection options (also ignored)
      */
-    func scene(_ inScene: UIScene, willConnectTo: UISceneSession, options: UIScene.ConnectionOptions) {
+    func scene(_ inScene: UIScene,
+               willConnectTo: UISceneSession,
+               options: UIScene.ConnectionOptions
+    ) {
         guard let _ = (inScene as? UIWindowScene) else { return }
     }
 }

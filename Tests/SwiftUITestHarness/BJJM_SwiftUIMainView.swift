@@ -95,7 +95,9 @@ struct BJJM_BigJuJuMapViewController: UIViewControllerRepresentable {
     /**
      Called when the view updates.
      */
-    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController, context inContext: Context) {
+    func updateUIViewController(_ inUIViewController: BigJuJuMap.BigJuJuMapViewController,
+                                context inContext: Context
+    ) {
         guard let dataFrame = BJJM_LocationFactory.locationData(from: self.dataSetName),
               let onTap
         else { return }
@@ -281,6 +283,7 @@ struct BJJM_SwiftUIMainView: View {
                 Text(self._alertMessage)
             }
             .onAppear {
+                // Set up the appearance of the two segmented switches.
                 UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.accentColor)
                 UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white],
                                                                        for: .selected

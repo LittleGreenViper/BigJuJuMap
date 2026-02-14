@@ -139,12 +139,24 @@ extension BJJM_ViewController {
                                     textFont: textFont
             ) { [weak self] inItem in
                 guard let self else { return }
-                let alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant, inItem.name)
+                let alertMessage = String(format: "SLUG-ALERT-FORMAT".localizedVariant,
+                                          inItem.name
+                )
 
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "SLUG-ALERT-HEADER".localizedVariant, message: alertMessage, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "SLUG-OK".localizedVariant, style: .default))
-                    self.present(alert, animated: true)
+                    let alert = UIAlertController(title: "SLUG-ALERT-HEADER".localizedVariant,
+                                                  message: alertMessage,
+                                                  preferredStyle: .alert
+                    )
+                    
+                    alert.addAction(UIAlertAction(title: "SLUG-OK".localizedVariant,
+                                                  style: .default
+                                                 )
+                    )
+                    
+                    self.present(alert,
+                                 animated: true
+                    )
                 }
             }
         }
@@ -193,11 +205,15 @@ extension BJJM_ViewController {
         else { return }
 
         for index in 0..<markerSelectorSwitch.numberOfSegments {
-            markerSelectorSwitch.setTitle(markerSelectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+            markerSelectorSwitch.setTitle(markerSelectorSwitch.titleForSegment(at: index)?.localizedVariant,
+                                          forSegmentAt: index
+            )
         }
 
         for index in 0..<dataSelectorSwitch.numberOfSegments {
-            dataSelectorSwitch.setTitle(dataSelectorSwitch.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+            dataSelectorSwitch.setTitle(dataSelectorSwitch.titleForSegment(at: index)?.localizedVariant,
+                                        forSegmentAt: index
+            )
         }
 
         self._updateLocations()
@@ -210,7 +226,9 @@ extension BJJM_ViewController {
      - parameter inSegue: The segue being executed.
      - parameter sender: Ignored.
      */
-    override func prepare(for inSegue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for inSegue: UIStoryboardSegue,
+                          sender: Any?
+    ) {
         self._myMapController = inSegue.destination as? BigJuJuMapViewController
     }
 }

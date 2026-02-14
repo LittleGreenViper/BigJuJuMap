@@ -38,10 +38,16 @@ struct BJJM_LocationFactory {
      - returns: A new DataFrame instance, filled with the contents of that file.
      */
     static func locationData(from inFileName: String) -> DataFrame? {
-        let csvOptions = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
+        let csvOptions = CSVReadingOptions(hasHeaderRow: true,
+                                           delimiter: ","
+        )
 
-        guard let csvDataURL = Bundle.main.url(forResource: inFileName, withExtension: "csv"),
-              let dataFrame = try? DataFrame(contentsOfCSVFile: csvDataURL, options: csvOptions)
+        guard let csvDataURL = Bundle.main.url(forResource: inFileName,
+                                               withExtension: "csv"
+        ),
+              let dataFrame = try? DataFrame(contentsOfCSVFile: csvDataURL,
+                                             options: csvOptions
+              )
         else { return nil }
 
         return dataFrame

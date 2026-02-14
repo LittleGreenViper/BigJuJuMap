@@ -35,10 +35,12 @@ class BJJM_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter didFinishLaunchingWithOptions: The launch options (also ignored).
      - returns: True, always.
      */
-    func application(_ inApplication: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { true }
-
+    func application(_ inApplication: UIApplication,
+                     didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool { true }
+    
     // MARK: UISceneSession Lifecycle
-
+    
     /* ################################################################## */
     /**
      Called to connect the scene to the app.
@@ -48,7 +50,12 @@ class BJJM_AppDelegate: UIResponder, UIApplicationDelegate {
      - parameter options: The connection options (also ignored).
      - returns: A scene configuration for the scene being connected.
      */
-    func application(_ inApplication: UIApplication, configurationForConnecting inConnectingSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: inConnectingSession.role)
+    func application(_ inApplication: UIApplication,
+                     configurationForConnecting inConnectingSession: UISceneSession,
+                     options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration",
+                                    sessionRole: inConnectingSession.role
+        )
     }
 }
