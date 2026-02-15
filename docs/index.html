@@ -111,7 +111,7 @@
 <p>BigJuJuMap is a very &ldquo;lightweight&rdquo; wrapper for Apple Maps. Its entire functionality is contained in <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/master/Sources/BigJuJuMap/BigJuJuMap.swift">just one source file</a>. Internally, it works exactly like any native app, and is easy to understand and modify, with excellent documentation support: both <a href="https://littlegreenviper.github.io/BigJuJuMap/">online</a>, and as embedded <a href="https://www.swift.org/documentation/docc/">DocC</a>. It should be easy to fork and modify.</p>
 <h2 id='how-does-it-work' class='heading'>How Does It Work?</h2>
 
-<p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L83"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>).</p>
+<p>The implementation is provided as a static <a href="https://developer.apple.com/documentation/xcode/creating-a-static-framework">framework</a>, instantiating a custom <a href="https://developer.apple.com/documentation/UIKit/UIViewController">UIViewController</a> subclass (<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L90"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>).</p>
 <h2 id='usage' class='heading'>Usage</h2>
 
 <p>The library is designed to be installed as a <a href="https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/">Swift Package Manager (SPM)</a> package. The package is available from <a href="https://github.com/LittleGreenViper/BigJuJuMap">GitHub</a>. A direct SPM URI is <code>git@github.com:LittleGreenViper/BigJuJuMap.git</code>.</p>
@@ -122,7 +122,7 @@
 <pre class="highlight plaintext"><code>import BigJuJuMap
 </code></pre>
 
-<p>You use it by instantiating <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L83"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>, and providing it with a dataset (the dataset must conform to the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L1452"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a> protocol, and must be a class; not a struct).</p>
+<p>You use it by instantiating <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L90"><code><a href="Classes/BigJuJuMapViewController.html">BigJuJuMapViewController</a></code></a>, and providing it with a dataset (the dataset must conform to the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1655"><code><a href="Protocols/BigJuJuMapLocationProtocol.html">BigJuJuMapLocationProtocol</a></code></a> protocol, and must be a class; not a struct).</p>
 
 <p>You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).</p>
 
@@ -281,12 +281,40 @@
     <p>In the test harness app, we display an alert, but anything can happen, when a marker is selected.</p>
 
 </div>
+<h4 id='customizing-the-appearance' class='heading'>Customizing the Appearance</h4>
+
+<p>You can change the color and font used for the popover display, by providing values for the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1680"><code><a href="Protocols/BigJuJuMapLocationProtocol.html#/s:05BigJuB3Map0abbC16LocationProtocolP9textColorSo7UIColorCSgvp">BigJuJuMapLocationProtocol.textColor</a></code></a>, or the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1686"><code><a href="Protocols/BigJuJuMapLocationProtocol.html#/s:05BigJuB3Map0abbC16LocationProtocolP8textFontSo6UIFontCSgvp">BigJuJuMapLocationProtocol.textFont</a></code></a> properties of each data item.</p>
+
+<p>It is possible to have every item display its own font and color (but that might be a bit much; you&rsquo;re probably better off applying the same font and color to them all).</p>
+<h5 id='figure-10-customized-red-data-values-in-a-popover' class='heading'>Figure 10: Customized Red Data Values in A Popover</h5>
+
+<table><thead>
+<tr>
+<th style="text-align: center"><img src="img/Fig-10-RedPopover-Light.png" alt=""></th>
+<th style="text-align: center"><img src="img/Fig-10-RedPopover-Dark.png" alt=""></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center"><em>Light Mode</em></td>
+<td style="text-align: center"><em>Dark Mode</em></td>
+</tr>
+</tbody></table>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The &ldquo;USA&rdquo; dataset also supports &ldquo;sticky popovers.&rdquo;</p>
+
+</div>
+<h4 id='sticky-popovers' class='heading'>Sticky Popovers</h4>
+
+<p>Usually, when the user selects a value in the popover, the popover closes. It is possible to change this, so the popover stays open, after the user selects the value.</p>
+
+<p>You can set this, by setting a value of true to the <a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1067C16-L1067C28"><code><a href="Classes/BigJuJuMapViewController.html#/c:@M@BigJuJuMap@objc(cs)BigJuJuMapViewController(py)stickyPopups">BigJuJuMapViewController.stickyPopups</a></code></a> property (default is false).</p>
 <h3 id='the-api' class='heading'>The API</h3>
 <h4 id='the-view-controller' class='heading'>The View Controller</h4>
 
 <p>Once we have included the package into our source file, then we can simply use the Storyboard Editor to create the instance:</p>
 
-<p><img src="img/Fig-10-Storyboard-Editor.png" alt=""></p>
+<p><img src="img/Fig-11-Storyboard-Editor.png" alt=""></p>
 
 <p>Or just instantiate it directly:</p>
 <pre class="highlight plaintext"><code>self.bigJuJuMap = BigJuJuMapViewController()
@@ -323,7 +351,7 @@ self.navigationController?.pushViewController(self.bigJuJuMap, animated: true)
 <h2 id='usage-in-swiftui' class='heading'>Usage in SwiftUI</h2>
 
 <p>SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a <a href="https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/"><code>UIViewControllerRepresentable</code></a> instance. This is demonstrated in the SwiftUI test harness, in the 
-<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L27"><code>BJJM_BigJuJuMapViewController</code></a> struct.</p>
+<a href="https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L34"><code>BJJM_BigJuJuMapViewController</code></a> struct.</p>
 <h2 id='license' class='heading'>License</h2>
 <pre class="highlight plaintext"><code>MIT License
 
@@ -353,7 +381,7 @@ SOFTWARE.
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-14)</p>
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-02-15)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

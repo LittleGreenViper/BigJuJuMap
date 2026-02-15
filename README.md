@@ -30,7 +30,7 @@ BigJuJuMap is a very "lightweight" wrapper for Apple Maps. Its entire functional
 
 ## How Does It Work?
 
-The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L83)).
+The implementation is provided as a static [framework](https://developer.apple.com/documentation/xcode/creating-a-static-framework), instantiating a custom [UIViewController](https://developer.apple.com/documentation/UIKit/UIViewController) subclass ([`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L90)).
 
 ## Usage
 
@@ -42,7 +42,7 @@ Whenever you use it, you will need to import it, thusly:
 
     import BigJuJuMap
     
-You use it by instantiating [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L83), and providing it with a dataset (the dataset must conform to the [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Sources/BigJuJuMap/BigJuJuMap.swift#L1452) protocol, and must be a class; not a struct).
+You use it by instantiating [`BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L90), and providing it with a dataset (the dataset must conform to the [`BigJuJuMapLocationProtocol`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1655) protocol, and must be a class; not a struct).
 
 You can also, optionally, provide the view controller with alternate marker graphic assets (the default is a simple map marker).
 
@@ -138,9 +138,25 @@ When we select one of the values in a popover, the popover is dismissed, and thi
 
 > NOTE: In the test harness app, we display an alert, but anything can happen, when a marker is selected.
 
-### Customizing the Appearance
+#### Customizing the Appearance
 
-You can change the color and font used for the popover display, by providing values into the [``]()
+You can change the color and font used for the popover display, by providing values for the [`BigJuJuMapLocationProtocol.textColor`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1680), or the [`BigJuJuMapLocationProtocol.textFont`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1686) properties of each data item.
+
+It is possible to have every item display its own font and color (but that might be a bit much; you're probably better off applying the same font and color to them all).
+
+##### Figure 10: Customized Red Data Values in A Popover
+
+| ![](img/Fig-10-RedPopover-Light.png) | ![](img/Fig-10-RedPopover-Dark.png) |
+|:-:|:-:|
+| *Light Mode* | *Dark Mode* |
+
+> NOTE: The "USA" dataset also supports "sticky popovers."
+
+#### Sticky Popovers
+
+Usually, when the user selects a value in the popover, the popover closes. It is possible to change this, so the popover stays open, after the user selects the value.
+
+You can set this, by setting a value of true to the [`BigJuJuMapViewController.stickyPopups`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Sources/BigJuJuMap/BigJuJuMap.swift#L1067C16-L1067C28) property (default is false).
 
 ### The API
 
@@ -186,7 +202,7 @@ You can set [`stickyPopups`](https://github.com/LittleGreenViper/BigJuJuMap/blob
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 
-[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L27) struct.
+[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L34) struct.
 
 ## License
 

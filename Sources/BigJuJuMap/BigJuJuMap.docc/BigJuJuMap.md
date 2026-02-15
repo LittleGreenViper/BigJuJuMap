@@ -120,6 +120,26 @@ When we select one of the values in a popover, the popover is dismissed, and thi
 
 > NOTE: In the test harness app, we display an alert, but anything can happen, when a marker is selected.
 
+#### Customizing the Appearance
+
+You can change the color and font used for the popover display, by providing values for the ``BigJuJuMapLocationProtocol.textColor``, or the ``BigJuJuMapLocationProtocol.textFont`` properties of each data item.
+
+It is possible to have every item display its own font and color (but that might be a bit much; you're probably better off applying the same font and color to them all).
+
+##### Figure 10: Customized Red Data Values in A Popover
+
+| ![](Fig-10-RedPopover-Light.png) | ![](Fig-10-RedPopover-Dark.png) |
+|:-:|:-:|
+| *Light Mode* | *Dark Mode* |
+
+> NOTE: The "USA" dataset also supports "sticky popovers."
+
+#### Sticky Popovers
+
+Usually, when the user selects a value in the popover, the popover closes. It is possible to change this, so the popover stays open, after the user selects the value.
+
+You can set this, by setting a value of true to the ``BigJuJuMapViewController.stickyPopups`` property (default is false).
+
 ### The API
 
 #### The View Controller
@@ -164,4 +184,4 @@ You can set ``BigJuJuMapViewController/stickyPopups`` to true, and the popovers 
 ## Usage in SwiftUI
 
 SwiftUI has a very limited support for MapKit, which was why this package was written. In order to use it in SwiftUI, you need to wrap it in a [`UIViewControllerRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable/) instance. This is demonstrated in the SwiftUI test harness, in the 
-[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/1547ea2d1e87f9dbb3496230d80b33f21d2747fc/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L27) struct.
+[`BJJM_BigJuJuMapViewController`](https://github.com/LittleGreenViper/BigJuJuMap/blob/28526319fbb7ae34db77d522e29df29a7cbc450f/Tests/SwiftUITestHarness/BJJM_SwiftUIMainView.swift#L34) struct.
