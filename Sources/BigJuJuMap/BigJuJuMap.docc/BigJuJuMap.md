@@ -122,7 +122,7 @@ When we select one of the values in a popover, the popover is dismissed, and thi
 
 #### Customizing the Appearance
 
-You can change the color and font used for the popover display, by providing values for the ``BigJuJuMapLocationProtocol.textColor``, or the ``BigJuJuMapLocationProtocol.textFont`` properties of each data item.
+You can change the color and font used for the popover display, by providing values for the ``BigJuJuMapLocationProtocol/textColor``, or the ``BigJuJuMapLocationProtocol/textFont`` properties of each data item.
 
 It is possible to have every item display its own font and color (but that might be a bit much; you're probably better off applying the same font and color to them all).
 
@@ -138,7 +138,7 @@ It is possible to have every item display its own font and color (but that might
 
 Usually, when the user selects a value in the popover, the popover closes. It is possible to change this, so the popover stays open, after the user selects the value.
 
-You can set this, by setting a value of true to the ``BigJuJuMapViewController.stickyPopups`` property (default is false).
+You can set this, by setting a value of true to the ``BigJuJuMapViewController/stickyPopups`` property (default is false).
 
 ### The API
 

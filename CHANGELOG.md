@@ -1,6 +1,10 @@
+ **1.1.8** *February 15, 2026*
+ 
+- Fixed a reference error in the DocC document.
+ 
  **1.1.7** *February 15, 2026*
  
-  - Just documentation improvements.
+- Just documentation improvements.
  
  **1.1.6** *February 12, 2026*
  
