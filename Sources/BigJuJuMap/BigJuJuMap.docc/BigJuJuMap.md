@@ -126,7 +126,7 @@ When we select one of the values in a popover, the popover is dismissed, and thi
 
 Once we have included the package into our source file, then we can simply use the Storyboard Editor to create the instance:
 
-![](Fig-10-Storyboard-Editor.png)
+![](Fig-11-Storyboard-Editor.png)
 
 Or just instantiate it directly:
 
