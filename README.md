@@ -14,7 +14,7 @@ It also allows a "drop in" high-functionality map for [`UIKit`](https://develope
 
 ## What Problem Does This Solve?
 
-[`SwiftUI`](https://developer.apple.com/swiftui/) has a very weak implementation of Apple's [`MapKit`](https://developer.apple.com/documentation/mapkit/) mapping framework. It really only supports display of simple maps, with sigular, low-interactivity overlays. BigJuJuMap implements a map view with multiple, highly-interactive markers.
+[`SwiftUI`](https://developer.apple.com/swiftui/) has a very weak implementation of Apple's [`MapKit`](https://developer.apple.com/documentation/mapkit/) mapping framework. It really only supports display of simple maps, with singular, low-interactivity overlays. BigJuJuMap implements a map view with multiple, highly-interactive markers.
 
 Additionally, Apple's [clustering algorithm](https://developer.apple.com/documentation/mapkitjs/clustering-annotations) leaves a bit to be desired, so BigJuJuMap implements a simpler, faster one.
 
