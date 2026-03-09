@@ -1,3 +1,7 @@
+ **1.1.9** *March 8, 2026*
+ 
+- Fixed an issue with "bouncing," in some SwiftUI implementations.
+ 
  **1.1.8** *February 15, 2026*
  
 - Fixed a reference error in the DocC document.

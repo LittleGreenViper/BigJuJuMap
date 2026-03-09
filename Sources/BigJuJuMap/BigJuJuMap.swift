@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 1.1.7
+ Version: 1.1.9
  */
 
 import UIKit
@@ -625,7 +625,7 @@ open class BigJuJuMapViewController: UIViewController {
             self.tableView.delegate = self
             self.tableView.allowsSelection = true
         }
-
+        
         /* ################################################################## */
         /**
          Required for coder compliance.
@@ -1019,8 +1019,20 @@ open class BigJuJuMapViewController: UIViewController {
      */
     private var _ignoreNextSelectAnnotation: LocationAnnotation?
     
+    /* ################################################################## */
+    /**
+     Used to debounce visible-rect change notifications.
+     */
+    private var _pendingVisibleRectCallback: DispatchWorkItem?
+
     // MARK: PUBLIC PROPERTIES
     
+    /* ################################################################## */
+    /**
+     Called after the map's visible rect has stabilized.
+     */
+    public var visibleRectDidStabilize: (@MainActor @Sendable (MKMapRect) -> Void)?
+
     /* ################################################################## */
     /**
      The data for the map to display.
@@ -1120,6 +1132,27 @@ public extension BigJuJuMapViewController {
 // MARK: Private Instance Methods
 /* ################################################################################################################################## */
 extension BigJuJuMapViewController {
+    /* ################################################################## */
+    /**
+     Schedules a debounced callback when the visible map rect has stabilized.
+     */
+    @MainActor
+    private func _scheduleVisibleRectDidStabilizeCallback() {
+        self._pendingVisibleRectCallback?.cancel()
+
+        let visibleRect = self.mapView.visibleMapRect
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+
+            Task { @MainActor in
+                self.visibleRectDidStabilize?(visibleRect)
+            }
+        }
+
+        self._pendingVisibleRectCallback = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: workItem)
+    }
+
     /* ############################################################## */
     /**
      Called to close the popover.
@@ -1523,6 +1556,8 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
         if self._activePopover == nil {
             self._recalculateAnnotations()
         }
+
+        self._scheduleVisibleRectDidStabilizeCallback()
     }
     
     /* ################################################################## */
