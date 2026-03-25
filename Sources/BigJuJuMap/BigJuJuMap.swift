@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 1.1.9
+ Version: 1.2.0
  */
 
 import UIKit
@@ -635,6 +635,18 @@ open class BigJuJuMapViewController: UIViewController {
         required init?(coder: NSCoder) { nil }
 
         // MARK: Published API
+        /* ################################################################## */
+        /**
+         Called the first time the map finishes rendering after it has been given
+         its initial visible region.
+         */
+        public var firstRenderDidComplete: (@MainActor @Sendable () -> Void)?
+
+        /* ################################################################## */
+        /**
+         Internal guard to ensure that the first-render callback is only fired once.
+         */
+        private var _hasCompletedFirstRender = false
         
         /* ################################################################## */
         /**
@@ -1025,8 +1037,21 @@ open class BigJuJuMapViewController: UIViewController {
      */
     private var _pendingVisibleRectCallback: DispatchWorkItem?
 
+    /* ################################################################## */
+    /**
+     Internal guard to ensure that the first-render callback is only fired once.
+     */
+    private var _hasCompletedFirstRender = false
+    
     // MARK: PUBLIC PROPERTIES
     
+    /* ################################################################## */
+    /**
+     Called the first time the map finishes rendering after it has been given
+     its initial visible region.
+     */
+    public var firstRenderDidComplete: (@MainActor @Sendable () -> Void)?
+
     /* ################################################################## */
     /**
      Called after the map's visible rect has stabilized.
@@ -1535,7 +1560,16 @@ extension BigJuJuMapViewController: MKMapViewDelegate {
     @MainActor
     public func mapViewDidFinishRenderingMap(_ inMapView: MKMapView,
                                              fullyRendered: Bool
-    ) { self._recalculateAnnotations() }
+    ) {
+        self._recalculateAnnotations()
+
+        guard fullyRendered,
+              !self._hasCompletedFirstRender
+        else { return }
+
+        self._hasCompletedFirstRender = true
+        self.firstRenderDidComplete?()
+    }
     
     /* ################################################################## */
     /**

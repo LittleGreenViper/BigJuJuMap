@@ -1,3 +1,7 @@
+ **1.2.0** *March 25, 2026*
+ 
+ - Added an exposed map callback, so that we can more easily key on region changes.
+ 
  **1.1.9** *March 8, 2026*
  
 - Fixed an issue with "bouncing," in some SwiftUI implementations.
